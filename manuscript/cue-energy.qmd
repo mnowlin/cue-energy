@@ -1,0 +1,152 @@
+---
+title: "Party or Climate? The Polarization of the US Public’s Energy Preferences"
+bibliography: /Users/matthewnowlin/Library/CloudStorage/Dropbox/refs.bib
+csl: /Users/matthewnowlin/Library/CloudStorage/OneDrive-UTArlington/01-RESEARCH/Manuscript-Files/csl/american-political-science-association.csl
+fig-cap-location: top
+fontfamily: ebgaramond
+link-bibliography: false
+format: 
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{setspace}
+        \usepackage{dcolumn}
+        \usepackage{float}
+        \usepackage{amsmath}
+        \addtokomafont{disposition}{\rmfamily}
+  docx:
+    reference-doc: /Users/matthewnowlin/Library/CloudStorage/OneDrive-UTArlington/01-RESEARCH/Manuscript-Files/reference.docx
+---
+
+```{r setup, include=FALSE, message=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath(".."))
+```
+
+```{r load data and recodes}
+#| echo: false
+#| include: false
+#| warning: false
+
+cueEnergyData <- read.csv("data/cueEnergyData.csv")
+
+```
+
+
+# Results 
+
+```{r ols models}
+#| message: false
+#| include: false
+
+names(cueEnergyData)
+table(cueEnergyData$trump.approval)
+
+# cue models 
+summary(cuemodel1 <- lm(renewables.opinion ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
+summary(cuemodel2 <- lm(renewables.opinion ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
+
+
+# models: data subset by condition  
+summary(ffmodelTrump <- lm(alloc.fossil ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
+summary(ffmodelClimate <- lm(alloc.fossil ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
+summary(ffmodelControl <- lm(alloc.fossil ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
+
+summary(WindmodelTrump <- lm(alloc.wind ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
+summary(WindmodelClimate <- lm(alloc.wind ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
+summary(WindmodelControl <- lm(alloc.wind ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
+
+summary(SolarmodelTrump <- lm(alloc.solar ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
+summary(SolarmodelClimate <- lm(alloc.solar ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
+summary(SolarmodelControl <- lm(alloc.solar ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
+
+summary(HydromodelTrump <- lm(alloc.hydro ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
+summary(HydromodelClimate <- lm(alloc.hydro ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
+summary(HydromodelControl <- lm(alloc.hydro ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
+
+summary(NuclearmodelTrump <- lm(alloc.nuclear ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
+summary(NuclearmodelClimate <- lm(alloc.nuclear ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
+summary(NuclearmodelControl <- lm(alloc.nuclear ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
+
+# predictions
+con_data <- data.frame(conRep = 1, libDem = 0, 
+                       trump.approval=mean(cueEnergyData$trump.approval),
+                       male=mean(cueEnergyData$male),
+                       white=mean(cueEnergyData$white),
+                       edu=mean(cueEnergyData$edu),
+                       inc=mean(cueEnergyData$inc))
+lib_data <- data.frame(libDem = 1, conRep = 0, 
+                       trump.approval=mean(cueEnergyData$trump.approval),
+                       male=mean(cueEnergyData$male),
+                       white=mean(cueEnergyData$white),
+                       edu=mean(cueEnergyData$edu),
+                       inc=mean(cueEnergyData$inc))
+
+predictFFtrumpCon <- predict(ffmodelTrump, newdata = con_data, interval = "confidence")
+predictFFtrumpLib <- predict(ffmodelTrump, newdata = lib_data, interval = "confidence")
+
+predictFFclimateCon <- predict(ffmodelClimate, newdata = con_data, interval = "confidence")
+predictFFclimateLib <- predict(ffmodelClimate, newdata = lib_data, interval = "confidence")
+
+predictFFcontrolCon <- predict(ffmodelControl, newdata = con_data, interval = "confidence")
+predictFFcontrolLib <- predict(ffmodelControl, newdata = lib_data, interval = "confidence")
+
+predictWindtrumpCon <- predict(WindmodelTrump, newdata = con_data, interval = "confidence")
+predictWindtrumpLib <- predict(WindmodelTrump, newdata = lib_data, interval = "confidence")
+
+predictWindclimateCon <- predict(WindmodelClimate, newdata = con_data, interval = "confidence")
+predictWindclimateLib <- predict(WindmodelClimate, newdata = lib_data, interval = "confidence")
+
+predictWindcontrolCon <- predict(WindmodelControl, newdata = con_data, interval = "confidence")
+predictWindcontrolLib <- predict(WindmodelControl, newdata = lib_data, interval = "confidence")
+
+predictSolartrumpCon <- predict(SolarmodelTrump, newdata = con_data, interval = "confidence")
+predictSolartrumpLib <- predict(SolarmodelTrump, newdata = lib_data, interval = "confidence")
+
+predictSolarclimateCon <- predict(SolarmodelClimate, newdata = con_data, interval = "confidence")
+predictSolarclimateLib <- predict(SolarmodelClimate, newdata = lib_data, interval = "confidence")
+
+predictSolarcontrolCon <- predict(SolarmodelControl, newdata = con_data, interval = "confidence")
+predictSolarcontrolLib <- predict(SolarmodelControl, newdata = lib_data, interval = "confidence")
+
+predictHydrotrumpCon <- predict(HydromodelTrump, newdata = con_data, interval = "confidence")
+predictHydrotrumpLib <- predict(HydromodelTrump, newdata = lib_data, interval = "confidence")
+
+predictHydroclimateCon <- predict(HydromodelClimate, newdata = con_data, interval = "confidence")
+predictHydroclimateLib <- predict(HydromodelClimate, newdata = lib_data, interval = "confidence")
+
+predictHydrocontrolCon <- predict(HydromodelControl, newdata = con_data, interval = "confidence")
+predictHydrocontrolLib <- predict(HydromodelControl, newdata = lib_data, interval = "confidence")
+
+predictNucleartrumpCon <- predict(NuclearmodelTrump, newdata = con_data, interval = "confidence")
+predictNucleartrumpLib <- predict(NuclearmodelTrump, newdata = lib_data, interval = "confidence")
+
+predictNuclearclimateCon <- predict(NuclearmodelClimate, newdata = con_data, interval = "confidence")
+predictNuclearclimateLib <- predict(NuclearmodelClimate, newdata = lib_data, interval = "confidence")
+
+predictNuclearcontrolCon <- predict(NuclearmodelControl, newdata = con_data, interval = "confidence")
+predictNuclearcontrolLib <- predict(NuclearmodelControl, newdata = lib_data, interval = "confidence")
+
+fossilFitTrump <- c(predictFFtrumpCon[, "fit"], predictFFtrumpLib[, "fit"])
+fossilFitClimate <- c(predictFFclimateCon[, "fit"], predictFFclimateLib[, "fit"])
+fossilFitControl <- c(predictFFcontrolCon[, "fit"], predictFFcontrolLib[, "fit"])
+
+predictFFtrumpCon[, "fit"] + predictWindtrumpCon[, "fit"] + predictSolartrumpCon[, "fit"] + predictHydrotrumpCon[, "fit"] + predictNucleartrumpCon[, "fit"]
+
+```
+
+
+\newpage
+
+# Online Methods 
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+
+\newpage
+
+# References
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{8pt}
+\vspace*{-0.2in}
+\singlespace
+\noindent
