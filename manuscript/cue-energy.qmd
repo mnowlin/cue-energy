@@ -34,17 +34,38 @@ library(dplyr)
 library(purrr)
 library(broom)
 library(patchwork)
-
+library(marginaleffects)
+library(car)
+library(kableExtra)
 
 # data
 cueEnergyData <- read.csv("data/cueEnergyData.csv")
 
 ```
 
+<!-- from Claude: The levels plot answers "what do groups want?" The gap plot answers "how polarized are preferences?" The change-from-existing plot answers "what direction do groups want policy to move?" Each tells a related but distinct story, and the change-from-existing version is often the most policy-relevant — it speaks directly to the question of whether partisans agree on the direction of needed change even when they disagree on absolute levels. (Sometimes you'll find both parties want more solar than the status quo, just by very different amounts — that's a finding the levels plot obscures.) -->
 
-# Results 
+Mitigating the impacts of climate change requires a significant shift away from fossil fuels toward alternative energy sources, such as renewables and nuclear energy. While views on climate change are extremely polarized among the US public, support for expanding renewable energy sources, such as wind and solar, has been generally strong in the last several years, including among conservatives and Republicans [@hawesClimateSciencePolitics2022]. 
 
-```{r ols models}
+However, since the start of his second administration, President Trump has taken several actions to bolster the production and use of fossil fuels while also hindering the development of renewable energy sources. Additionally, Trump has worked to undermine US efforts to address climate change. 
+
+Recent survey data by the Pew Research Center has found support for renewable energy falling among Republicans [].  
+
+Additionally, Republicans and Democrats differ on energy policy questions such as regulating fossil fuels, carbon pricing, and promoting renewable energy [@bergquistEnergyPolicyPublic2020] 
+
+Indeed, polarization on energy issues among elected officials grew as energy policy became more regulatory and less distributive [@lowryDisentanglingEnergyPolicy2008]. But, it was the 2010s when differences on energy issues between the political parties in the US Congress became "pervasive and intense" [@jeongPolarisationEnergyPolicy2019]. 
+
+
+
+Preferred energy mix is the within-subject variable, and cues and political beliefs - a combined measure of ideology and partisan - were the between subject variables 
+
+Hypotheses 
+
+
+
+
+# Examing the impact of partisan and climate change cues
+```{r cue models}
 #| message: false
 #| include: false
 
@@ -57,9 +78,34 @@ coefs <- bind_rows(
   tidy(cuemodel2, conf.int = TRUE) %>% mutate(model = "Climate Cue")
 ) %>%
   filter(term != "(Intercept)") %>%
-  mutate(term = recode(term,
-                       "conRep" = "Conservative\nRepublicans",
+  mutate(term = dplyr::recode(term,
+                      "conRep" = "Conservative\nRepublicans",
                        "libDem" = "Liberal\nDemocrats"))
+```
+
+The data for this study comes from a survey of `r nrow(cueEnergyData)` US residents recruited through Cloud Research. Embedded in the survey was an experiment in which ~1000 respondents received a Trump cue, ~1000 received a climate change cue, and ~1000 received no cue at all. Before the cues, respondents were given the following information about the mix of energy sources used in the generation of electricity: 
+
+> _We currently obtain approximately 58 percent of our electricity from fossil fuels (coal, oil, and natural gas), 22 percent from renewable sources (wind, solar, and hydropower), 18 percent from nuclear energy, and 2 percent from other sources (wood, biofuels, waste products, and geothermal energy)._
+
+Then, respondents randomly received a cue in the form of a question regarding either Trump's actions on energy or the need to increase the use of renewable energy to address climate change:  
+
+> **Trump cue**: _As you may have heard, the Trump administration has taken steps to increase the production of fossil fuels, particularly coal, and reduce the use of renewable energy like solar and wind for electricity generation._ 
+
+> _Using a scale of 1 to 5, where 1 means strongly oppose and 5 means strongly support, how do you feel about the Trump administration’s goal of increasing the use of fossil fuels and decreasing the use of renewable sources in generating electricity?_
+
+> **Climate cue**: _Scientists agree that the use of fossil fuels has contributed to climate change, and to address climate change, we need to increase the use of renewable sources such as wind, solar, and hydropower._
+
+> _Using a scale of 1 to 5, where 1 means strongly disagree and 5 means strongly agree, how do you feel about increasing the use of renewable sources in generating electricity as a way to address climate change?_
+
+
+@fig-cueModels shows the coefficient plots for agreement with the cue questions for liberal Democrats and conservative Republicans. 
+
+```{r coef plot for cue models}
+#| message: false
+#| warning: false
+#| echo: false
+#| label: fig-cueModels
+#| fig-cap: Coefficient Plots of Trump Cue and Climate Cue 
 
 p1 <- ggplot(filter(coefs, model == "Trump Cue"), aes(x = estimate, y = term, color = term)) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "grey50") +
@@ -69,7 +115,7 @@ p1 <- ggplot(filter(coefs, model == "Trump Cue"), aes(x = estimate, y = term, co
                                 "Liberal\nDemocrats" = "blue")) +
   labs(x = "", y = NULL,
        title = "How do you feel about the Trump administration’s goal of increasing the use of\nfossil fuels and decreasing the use of renewable sources in generating electricity?") +
-  theme_minimal() + theme(legend.position = "none", plot.title = element_text(face = "bold", size = 11))
+  theme_minimal() + theme(legend.position = "none", plot.title = element_text(face = "bold", size = 8))
 
 
 p2 <- ggplot(filter(coefs, model == "Climate Cue"), aes(x = estimate, y = term, color = term)) +
@@ -81,44 +127,22 @@ p2 <- ggplot(filter(coefs, model == "Climate Cue"), aes(x = estimate, y = term, 
   labs(x = "Coefficient Estimates", y = NULL,
        title = "How do you feel about increasing the use of renewable sources\nin generating electricity as a way to address climate change?",
        caption = "A 1 to 5 scale was used on both questions") +
-  theme_minimal() + theme(legend.position = "none", plot.title = element_text(face = "bold", size = 11))
+  theme_minimal() + theme(legend.position = "none", plot.title = element_text(face = "bold", size = 8))
 
 p1 / p2
 
-ggplot(coefs, aes(x = estimate, y = term, color = term)) +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "grey50") +
-  geom_point(size = 4) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
-  scale_color_manual(values = c("Conservative\nRepublicans" = "red",
-                                "Liberal\nDemocrats" = "blue")) +
-  facet_wrap(~ model, ncol=1) +
-  labs(x = "Coefficient estimate", y = NULL) +
-  theme_minimal() +
-  theme(legend.position = "none")
 
-# models: data subset by condition  
-summary(ffmodelTrump <- lm(alloc.fossil ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
-summary(ffmodelClimate <- lm(alloc.fossil ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
-summary(ffmodelControl <- lm(alloc.fossil ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
+``` 
 
-summary(WindmodelTrump <- lm(alloc.wind ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
-summary(WindmodelClimate <- lm(alloc.wind ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
-summary(WindmodelControl <- lm(alloc.wind ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
 
-summary(SolarmodelTrump <- lm(alloc.solar ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
-summary(SolarmodelClimate <- lm(alloc.solar ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
-summary(SolarmodelControl <- lm(alloc.solar ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
 
-summary(HydromodelTrump <- lm(alloc.hydro ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
-summary(HydromodelClimate <- lm(alloc.hydro ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
-summary(HydromodelControl <- lm(alloc.hydro ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
+# Preferred energy mix by political beliefs and cue 
 
-summary(NuclearmodelTrump <- lm(alloc.nuclear ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (trump.cue == 1)))
-summary(NuclearmodelClimate <- lm(alloc.nuclear ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (climate.cue == 1)))
-summary(NuclearmodelControl <- lm(alloc.nuclear ~ conRep + libDem+trump.approval+male+white+edu+inc, data = cueEnergyData, subset = (control == 1)))
+```{r preferred energy mix models}
+#| message: false
+#| include: false
 
-# predictions
-## +trump.approval+male+white+edu+inc
+# models and predictions
 models <- list(
  ffmodelTrump <- lm(alloc.fossil ~ conRep + libDem, data = cueEnergyData, subset = (trump.cue == 1)),
  WindmodelTrump <- lm(alloc.wind ~ conRep + libDem, data = cueEnergyData, subset = (trump.cue == 1)),
@@ -140,12 +164,6 @@ models <- list(
 new_data <- data.frame(
   conRep = c(0,1),
   libDem = c(1,0))
-#  trump.approval=mean(cueEnergyData$trump.approval),
-#  male=mean(cueEnergyData$male),
-#  white=mean(cueEnergyData$white),
-#  edu=mean(cueEnergyData$edu),
-#  inc=mean(cueEnergyData$inc)
-#  )
 
 results <- map_dfr(models, ~ as.data.frame(predict(.x, newdata = new_data, interval = "confidence")), .id = "model")
 
@@ -160,6 +178,122 @@ pred_df <- bind_cols(graphData, as_tibble(results))
 pred_df$fit[1]
 pred_df$lwr[1]
 
+gap_df <- pred_df |>
+  select(party, treatment, source, fit) |>
+  pivot_wider(names_from = party, values_from = fit) |>
+  mutate(gap = `Liberal Democrats` - `Conservative Republicans`) |>
+  mutate(
+    treatment = factor(treatment, levels = c("Control", "Climate", "Trump")),
+    source    = factor(source, levels = c("Fossil Fuels", "Nuclear", "Hydro", "Wind", "Solar")),
+    direction = if_else(gap > 0, "Dem", "Rep")
+  )
+
+gap_sorted <- gap_df |>
+  mutate(
+    # Create a combined label for the y-axis
+    label = paste0(source, " — ", treatment),
+    # Sort by absolute gap, smallest to largest (so largest appears at top of plot)
+    label = fct_reorder(label, abs(gap)),
+    direction = if_else(gap > 0, "Dem", "Rep")
+  )
+
+# Build a single treatment factor and a single party factor
+survey_df <- cueEnergyData |>
+  mutate(
+    treatment = case_when(
+      trump.cue   == 1 ~ "Trump Cue",
+      climate.cue == 1 ~ "Climate Cue",
+      control     == 1 ~ "Control"
+    ) |> factor(levels = c("Control", "Climate Cue", "Trump Cue")),
+    
+    party = case_when(
+      libDem == 1 ~ "Liberal Democrats",
+      conRep == 1 ~ "Conservative Republicans"
+    ) |> factor(levels = c("Conservative Republicans", "Liberal Democrats"))
+  )
+
+# Refit each source-specific model with party × treatment
+sources <- c("alloc.fossil", "alloc.wind", "alloc.solar", "alloc.hydro", "alloc.nuclear")
+source_labels <- c("Fossil Fuels", "Wind", "Solar", "Hydro", "Nuclear")
+
+models <- map(sources, function(s) {
+  f <- as.formula(paste(s, "~ party * treatment"))
+  lm(f, data = filter(survey_df, !is.na(party)))   # drop moderates
+}) |>
+  set_names(source_labels)
+
+
+did_estimates <- imap_dfr(models, function(mod, source_name) {
+  cf <- coef(mod)
+  vc <- vcov(mod)
+  
+  # Climate Cue vs Control: just the interaction coefficient
+  est_c <- cf["partyLiberal Democrats:treatmentClimate Cue"]
+  se_c  <- sqrt(vc["partyLiberal Democrats:treatmentClimate Cue",
+                   "partyLiberal Democrats:treatmentClimate Cue"])
+  
+  # Trump Cue vs Control
+  est_t <- cf["partyLiberal Democrats:treatmentTrump Cue"]
+  se_t  <- sqrt(vc["partyLiberal Democrats:treatmentTrump Cue",
+                   "partyLiberal Democrats:treatmentTrump Cue"])
+  
+  # Trump vs Climate (difference of two interaction coefs)
+  est_tc <- cf["partyLiberal Democrats:treatmentTrump Cue"] -
+            cf["partyLiberal Democrats:treatmentClimate Cue"]
+  v_tc   <- vc["partyLiberal Democrats:treatmentTrump Cue",
+               "partyLiberal Democrats:treatmentTrump Cue"] +
+            vc["partyLiberal Democrats:treatmentClimate Cue",
+               "partyLiberal Democrats:treatmentClimate Cue"] -
+            2 * vc["partyLiberal Democrats:treatmentTrump Cue",
+                   "partyLiberal Democrats:treatmentClimate Cue"]
+  se_tc  <- sqrt(v_tc)
+  
+  tibble(
+    source   = source_name,
+    contrast = c("Climate Cue vs Control",
+                 "Trump Cue vs Control",
+                 "Trump Cue vs Climate Cue"),
+    estimate = c(est_c, est_t, est_tc),
+    se       = c(se_c, se_t, se_tc),
+    lwr      = estimate - 1.96 * se,
+    upr      = estimate + 1.96 * se
+  )
+})
+
+did_estimates
+
+did_estimates <- did_estimates |>
+  group_by(contrast) |>
+  mutate(p_value = 2 * pnorm(-abs(estimate / se)),
+         p_adj_bh = p.adjust(p_value, method = "BH")) |>
+  ungroup()
+
+# Replace with the exact values shown to respondents
+existing_mix <- tibble(
+  source = c("Fossil Fuels", "Wind", "Solar", "Hydro", "Nuclear"),
+  existing = c(58, 10, 7, 5, 18)  
+)
+
+change_df <- pred_df |>
+  left_join(existing_mix, by = "source") |>
+  mutate(
+    change_fit = fit - existing,
+    change_lwr = lwr - existing,
+    change_upr = upr - existing,
+    treatment  = factor(treatment, levels = c("Control", "Climate", "Trump")),
+    source     = factor(source, levels = c("Fossil Fuels", "Nuclear", "Hydro", "Wind", "Solar")),
+    party      = factor(party, levels = c("Liberal Democrats", "Conservative Republicans"))
+  )
+
+```
+
+```{r pred energy mix}
+#| message: false
+#| warning: false
+#| echo: false
+#| label: fig-pred
+#| fig-cap: Predicted Energy Mix by Political Beliefs and Cues 
+
 ggplot(pred_df, aes(x = treatment, y = fit, fill = party)) +
   geom_col(position = position_dodge(width = 0.8), width = 0.7) +
   geom_errorbar(
@@ -172,90 +306,70 @@ ggplot(pred_df, aes(x = treatment, y = fit, fill = party)) +
                                "Conservative Republicans" = "#B2182B")) +
   labs(
     x = NULL,
-    y = "Predicted share of energy mix (%)",
+    y = "Percent (%)",
     fill = NULL,
-    title = "Predicted Energy Mix by Political Beliefs and Cues",
+    title = "",
     caption = "Bars show predicted values from OLS; whiskers are 95% confidence intervals."
   ) +
   theme_minimal(base_size = 12) +
   theme(
     legend.position = "bottom",
-    axis.text.x = element_text(size = 8, hjust = 0.5),
+    axis.text.x = element_text(size = 5, hjust = 0.5),
+    axis.title = element_text(size = 10), 
     panel.grid.major.x = element_blank(),
     strip.text = element_text(face = "bold")
   )
 
 
-ggplot(pred_df, aes(x = treatment, y = fit, color = party, group = party)) +
-  geom_line(position = position_dodge(width = 0.3), linewidth = 0.6, alpha = 0.7) +
-  geom_pointrange(
-    aes(ymin = lwr, ymax = upr),
-    position = position_dodge(width = 0.3),
-    size = 0.6
+```
+
+
+```{r pred energy mix diffs}
+#| message: false
+#| warning: false
+#| echo: false
+#| label: fig-predDiffs
+#| fig-cap: Preferred Change from Existing Energy Mix (percentage points) 
+
+ggplot(change_df, aes(x = treatment, y = change_fit, fill = party)) +
+  geom_hline(yintercept = 0, color = "grey30", linewidth = 0.5) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(
+    aes(ymin = change_lwr, ymax = change_upr),
+    position = position_dodge(width = 0.8),
+    width = 0.2
   ) +
   facet_wrap(~ source, nrow = 1) +
-  scale_color_manual(values = c("Liberal Democrats" = "#2166AC",
-                                "Conservative Republicans" = "#B2182B")) +
+  scale_fill_manual(values = c("Liberal Democrats"        = "#2166AC",
+                               "Conservative Republicans" = "#B2182B")) +
   labs(
     x = NULL,
-    y = "Predicted share of energy mix (%)",
-    color = NULL,
-    title = "Predicted Energy Mix by Political Beliefs and Cues",
-    caption = "Points are predicted values from OLS; vertical bars are 95% confidence intervals."
+    y = "Percentage Points",
+    fill = NULL,
+    title = "",
+    caption = paste("Bars show predicted preferred share minus the current share shown to respondents.",
+                    "Whiskers are 95% confidence intervals. Positive values = expand; negative = contract.",
+                    sep = "\n")
   ) +
   theme_minimal(base_size = 12) +
   theme(
     legend.position = "bottom",
-    axis.text.x = element_text(size = 8, hjust = 0.5),
+    axis.text.x = element_text(size = 5, hjust = 0.5),
+    axis.title = element_text(size = 10), 
+    panel.grid.major.x = element_blank(),
     strip.text = element_text(face = "bold")
   )
 
 
-gap_df <- pred_df |>
-  select(party, treatment, source, fit) |>
-  pivot_wider(names_from = party, values_from = fit) |>
-  mutate(gap = `Liberal Democrats` - `Conservative Republicans`) |>
-  mutate(
-    treatment = factor(treatment, levels = c("Control", "Climate", "Trump")),
-    source    = factor(source, levels = c("Fossil Fuels", "Nuclear", "Hydro", "Wind", "Solar")),
-    direction = if_else(gap > 0, "Dem", "Rep")
-  )
 
-ggplot(gap_df, aes(x = treatment, y = gap)) +
-  geom_hline(yintercept = 0, color = "grey40", linewidth = 0.4) +
-  geom_segment(aes(xend = treatment, y = 0, yend = gap),
-               color = "grey60", linewidth = 0.6) +
-  geom_point(aes(color = direction), size = 3) +
-  facet_wrap(~ source, nrow = 1) +
-  scale_color_manual(
-    values = c("Dem" = "#2166AC", "Rep" = "#B2182B"),
-    labels = c("Dem" = "Democrats prefer more",
-               "Rep" = "Republicans prefer more"),
-    name = NULL
-  ) +
-  labs(
-    x = NULL,
-    y = "Predicted partisan gap (percentage points)\nLiberal Democrats − Conservative Republicans",
-    title = "Partisan differences in preferred energy mix, by treatment",
-    caption = "Points are predicted differences from OLS models fit separately by energy source."
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    legend.position = "bottom",
-    axis.text.x = element_text(angle = 30, hjust = 1),
-    strip.text = element_text(face = "bold"),
-    panel.grid.major.x = element_blank()
-  )
+```
 
-
-gap_sorted <- gap_df |>
-  mutate(
-    # Create a combined label for the y-axis
-    label = paste0(source, " — ", treatment),
-    # Sort by absolute gap, smallest to largest (so largest appears at top of plot)
-    label = fct_reorder(label, abs(gap)),
-    direction = if_else(gap > 0, "Dem", "Rep")
-  )
+```{r pred energy mix}
+#| message: false
+#| warning: false
+#| echo: false
+#| label: fig-gap
+#| fig-cap: Largest Partisan Gaps in Preferred Energy Mix  
 
 ggplot(gap_sorted, aes(x = gap, y = label)) +
   geom_vline(xintercept = 0, color = "grey40", linewidth = 0.4) +
@@ -271,7 +385,7 @@ ggplot(gap_sorted, aes(x = gap, y = label)) +
   labs(
     x = "Predicted partisan gap (percentage points)\nLiberal Democrats − Conservative Republicans",
     y = NULL,
-    title = "Where are the largest partisan gaps in preferred energy mix?",
+    title = "",
     caption = "Sorted by absolute size of gap. Predicted values from OLS models fit by energy source."
   ) +
   theme_minimal(base_size = 12) +
@@ -284,9 +398,100 @@ ggplot(gap_sorted, aes(x = gap, y = label)) +
 ```
 
 
+```{r}
+#| label: tbl-did
+#| tbl-cap: "Treatment effects on the partisan gap in preferred energy mix"
+#| echo: false
+#| warning: false
+#| message: false
+
+did_table <- did_estimates |>
+  mutate(
+    stars = case_when(
+      p_adj_bh < 0.001 ~ "***",
+      p_adj_bh < 0.01  ~ "**",
+      p_adj_bh < 0.05  ~ "*",
+      p_adj_bh < 0.10  ~ "†",
+      TRUE             ~ ""
+    ),
+    cell = sprintf("%.2f%s [%.2f, %.2f]", estimate, stars, lwr, upr)
+  ) |>
+  select(source, contrast, cell) |>
+  pivot_wider(names_from = source, values_from = cell)
+
+did_table |>
+  kbl(
+    booktabs  = TRUE,
+    col.names = c("Contrast", "Fossil Fuels", "Wind", "Solar", "Hydro", "Nuclear"),
+    align     = c("l", rep("c", 5)),
+    escape    = FALSE
+  ) |>
+  kable_styling(
+    latex_options    = c("hold_position", "scale_down"),
+    bootstrap_options = c("striped", "hover"),
+    full_width = FALSE
+  ) |>
+  footnote(
+    general = paste(
+      "Cells show the estimated change in the partisan gap",
+      "(Liberal Democrats − Conservative Republicans) when moving from one",
+      "treatment to another, with 95% confidence intervals in brackets.",
+      "Positive values indicate the gap widened. Estimates from OLS models",
+      "fit separately by energy source. P-values adjusted using",
+      "Benjamini-Hochberg across sources within contrast.",
+      "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
+    ),
+    threeparttable    = TRUE,
+    footnote_as_chunk = TRUE,
+    general_title     = "Note:"
+  )
+```
+
+
+```{r treatment shifts}
+#| message: false
+#| warning: false
+#| echo: false
+#| label: fig-shift
+#| fig-cap: How Cue Shift the Partisan Gap in Preferred Energy Mix  
+
+did_estimates |>
+  mutate(
+    contrast = factor(contrast, levels = c("Climate Cue vs Control",
+                                           "Trump Cue vs Control",
+                                           "Trump Cue vs Climate Cue")),
+    source   = factor(source, levels = c("Fossil Fuels", "Nuclear", "Hydro", "Wind", "Solar")),
+    sig      = p_adj_bh < 0.05
+  ) |>
+  ggplot(aes(x = estimate, y = fct_rev(contrast))) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "grey40") +
+  geom_pointrange(aes(xmin = lwr, xmax = upr, color = sig), size = 0.5) +
+  facet_wrap(~ source, nrow = 1) +
+  scale_color_manual(values = c(`TRUE` = "black", `FALSE` = "grey60"),
+                     labels = c(`TRUE` = "p < 0.05 (BH-adjusted)",
+                                `FALSE` = "n.s."),
+                     name = NULL) +
+  labs(
+    x = "Change in partisan gap (percentage points)",
+    y = NULL,
+    title = "",
+    caption = paste("Points are differences-in-differences from OLS models fit by energy source.",
+                    "Bars show 95% confidence intervals. P-values BH-adjusted across sources.",
+                    sep = "\n")
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.y = element_blank()
+  )
+
+
+```
+
 \newpage
 
-# Online Methods 
+# Methods 
 \setcounter{table}{0}
 \renewcommand{\thetable}{A\arabic{table}}
 
