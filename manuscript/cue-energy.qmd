@@ -22,7 +22,7 @@ format:
 knitr::opts_knit$set(root.dir = normalizePath(".."))
 ```
 
-```{r load data and recodes}
+```{r load packages and data}
 #| echo: false
 #| include: false
 #| warning: false
@@ -53,7 +53,7 @@ Recent survey data by the Pew Research Center has found support for renewable en
 
 Additionally, Republicans and Democrats differ on energy policy questions such as regulating fossil fuels, carbon pricing, and promoting renewable energy [@bergquistEnergyPolicyPublic2020] 
 
-Indeed, polarization on energy issues among elected officials grew as energy policy became more regulatory and less distributive [@lowryDisentanglingEnergyPolicy2008]. But, it was the 2010s when differences on energy issues between the political parties in the US Congress became "pervasive and intense" [@jeongPolarisationEnergyPolicy2019]. 
+Indeed, polarization on energy issues among elected officials grew as energy policy became more regulatory and less distributive [@lowryDisentanglingEnergyPolicy2008]. But, it was the 2010s when differences on energy issues between the political parties in the US Congress became "pervasive and intense" [@jeongPolarisationEnergyPolicy2021]. 
 
 
 
@@ -64,7 +64,7 @@ Hypotheses
 
 
 
-# Examing the impact of partisan and climate change cues
+# Research design 
 ```{r cue models}
 #| message: false
 #| include: false
@@ -72,6 +72,8 @@ Hypotheses
 # cue models 
 summary(cuemodel1 <- lm(renewables.opinion ~ conRep + libDem, data = cueEnergyData, subset = (trump.cue == 1)))
 summary(cuemodel2 <- lm(renewables.opinion ~ conRep + libDem, data = cueEnergyData, subset = (climate.cue == 1)))
+
+cuemodel1$coefficients[2]
 
 coefs <- bind_rows(
   tidy(cuemodel1, conf.int = TRUE) %>% mutate(model = "Trump Cue"),
@@ -83,22 +85,11 @@ coefs <- bind_rows(
                        "libDem" = "Liberal\nDemocrats"))
 ```
 
-The data for this study comes from a survey of `r nrow(cueEnergyData)` US residents recruited through Cloud Research. Embedded in the survey was an experiment in which ~1000 respondents received a Trump cue, ~1000 received a climate change cue, and ~1000 received no cue at all. Before the cues, respondents were given the following information about the mix of energy sources used in the generation of electricity: 
+The data for this study comes from a survey of `r nrow(cueEnergyData)` US residents recruited through Cloud Research. The purpose of the study was to examine how partisan or climate change cues could shift the general public's preferred energy mix. Specifically, this study examines the shift of partisans, including liberal Democrats and conservative Republicans. To measure political beliefs, respondents were asked with which political party they most identify and to place themselves on a 1 to 7 scale of political ideology, where 1 is strongly liberal, 4 is middle of the road, and 7 is strongly conservative. Response were combined so that liberal Democrats are those that identify with the Democratic party and are strongly liberal or liberal, and conservative Republicans are those that are Republicans and strongly conservative or conservative. Other political beliefs, including conservative Democrats, liberal Republicans, and moderate independents are the excluded referents. 
 
-> _We currently obtain approximately 58 percent of our electricity from fossil fuels (coal, oil, and natural gas), 22 percent from renewable sources (wind, solar, and hydropower), 18 percent from nuclear energy, and 2 percent from other sources (wood, biofuels, waste products, and geothermal energy)._
+As part of the research design, respondents were first given the current energy mix of the US related to electricity, which is that the US obtains 58 percent of our electricity from fossil fuels (coal, oil, and natural gas), 22 percent from renewable sources (wind, solar, and hydropower), 18 percent from nuclear energy, and 2 percent from other sources (wood, biofuels, waste products, and geothermal energy). Therefore, respondents were anchored to the actual energy mix of the US, as of 2024 the most recent year where data was available. 
 
-Then, respondents randomly received a cue in the form of a question regarding either Trump's actions on energy or the need to increase the use of renewable energy to address climate change:  
-
-> **Trump cue**: _As you may have heard, the Trump administration has taken steps to increase the production of fossil fuels, particularly coal, and reduce the use of renewable energy like solar and wind for electricity generation._ 
-
-> _Using a scale of 1 to 5, where 1 means strongly oppose and 5 means strongly support, how do you feel about the Trump administration’s goal of increasing the use of fossil fuels and decreasing the use of renewable sources in generating electricity?_
-
-> **Climate cue**: _Scientists agree that the use of fossil fuels has contributed to climate change, and to address climate change, we need to increase the use of renewable sources such as wind, solar, and hydropower._
-
-> _Using a scale of 1 to 5, where 1 means strongly disagree and 5 means strongly agree, how do you feel about increasing the use of renewable sources in generating electricity as a way to address climate change?_
-
-
-@fig-cueModels shows the coefficient plots for agreement with the cue questions for liberal Democrats and conservative Republicans. 
+Following the information regarding the current US energy mix, respondents were split into one of three experimental conditions, including a Trump cue, a climate cue, and a control condition with no cues. There were roughly 1000 respondents in each condition. The cues were in the form of questions regarding agreement, on a 1 strongly disagree to 5 strongly agree scale, with Trump's actions on encouraging the development of fossil fuels over renewable energy and agreement with the need to increase the use of renewable sources to address climate change. @fig-cueModels shows the coefficient plots for agreement with the cue questions for liberal Democrats and conservative Republicans. 
 
 ```{r coef plot for cue models}
 #| message: false
@@ -134,10 +125,9 @@ p1 / p2
 
 ``` 
 
-
+As shown, for the Trump cue liberal democrats were significantly less likely, at `r round(cuemodel1$coefficients[3], 3)`, to support Trump's actions on energy, whereas conservative Republicans had an estimated level of support `r round(cuemodel1$coefficients[2], 3)` points higher on the 1 to 5 scale than other political beliefs. For the climate change cue, liberal Democrats were significantly more likely than others to support renewable energy for climate change, with an estimated coefficient of `r round(cuemodel2$coefficients[3], 3)`, and conservative Republicans were significantly less likely with a coefficient of `r round(cuemodel1$coefficients[2], 3)`. These results suggest that respondents were responsive to the cues.      
 
 # Preferred energy mix by political beliefs and cue 
-
 ```{r preferred energy mix models}
 #| message: false
 #| include: false
@@ -174,9 +164,6 @@ graphData <- expand_grid(
 )
 
 pred_df <- bind_cols(graphData, as_tibble(results))
-
-pred_df$fit[1]
-pred_df$lwr[1]
 
 gap_df <- pred_df |>
   select(party, treatment, source, fit) |>
@@ -287,6 +274,8 @@ change_df <- pred_df |>
 
 ```
 
+Next, respondents were asked what percentage of the total US electricity supply should come from various. Respondents were again reminded of the current energy mix. Additionally, respondents were instructed that their percentages for each source must add to one hundred. The results by beliefs and cue are shown in @fig-pred.   
+
 ```{r pred energy mix}
 #| message: false
 #| warning: false
@@ -323,46 +312,7 @@ ggplot(pred_df, aes(x = treatment, y = fit, fill = party)) +
 
 ```
 
-
-```{r pred energy mix diffs}
-#| message: false
-#| warning: false
-#| echo: false
-#| label: fig-predDiffs
-#| fig-cap: Preferred Change from Existing Energy Mix (percentage points) 
-
-ggplot(change_df, aes(x = treatment, y = change_fit, fill = party)) +
-  geom_hline(yintercept = 0, color = "grey30", linewidth = 0.5) +
-  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
-  geom_errorbar(
-    aes(ymin = change_lwr, ymax = change_upr),
-    position = position_dodge(width = 0.8),
-    width = 0.2
-  ) +
-  facet_wrap(~ source, nrow = 1) +
-  scale_fill_manual(values = c("Liberal Democrats"        = "#2166AC",
-                               "Conservative Republicans" = "#B2182B")) +
-  labs(
-    x = NULL,
-    y = "Percentage Points",
-    fill = NULL,
-    title = "",
-    caption = paste("Bars show predicted preferred share minus the current share shown to respondents.",
-                    "Whiskers are 95% confidence intervals. Positive values = expand; negative = contract.",
-                    sep = "\n")
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    legend.position = "bottom",
-    axis.text.x = element_text(size = 5, hjust = 0.5),
-    axis.title = element_text(size = 10), 
-    panel.grid.major.x = element_blank(),
-    strip.text = element_text(face = "bold")
-  )
-
-
-
-```
+As can be seen, conservative Republicans preferred an energy mix with more fossil fuels than did liberal Democrats, particularly Republicans that received the Trump cue. Conservative Republicans in the Trump condition preferred an energy mix that consists of about `r round(pred_df$fit[2],0)`% fossil fuels compared to `r round(pred_df$fit[12],0)`% in the climate condition and `r round(pred_df$fit[22],0)`% in the control. Liberal Democrats preferred an energy mix with more renewables than Republicans, particularly wind and solar, and the percentages of renewable sources seemed consistent for Democrats across the three conditions. Finally, Republicans preferred more nuclear energy than Democrats across all conditions, yet the differences were smallest in the Trump condition. Next, I examine polarization of preferred energy sources. 
 
 ```{r pred energy mix}
 #| message: false
@@ -397,10 +347,13 @@ ggplot(gap_sorted, aes(x = gap, y = label)) +
 
 ```
 
+@fig-gap shows the differences in preferred energy sources across political beliefs and cues. The differences are sorted by the size of the gap and which party prefers more of each energy source. As shown, fossil fuels are the most polarized, particularly in the Trump condition with an average difference of `r round(gap_sorted$gap[1]*-1,0)` percentage points between liberal Democrats and conservative Republicans. Also as shown, Democrats preferred more wind and solar energy overall, with the largest partisan gaps in the Trump condition. Nuclear was most polarized in the climate and control conditions, followed by hydro in the climate and Trump condition, then nuclear in the Trump condition. Finally, the least polarized was hydro in the control condition, with a difference of only about `r round(gap_sorted$gap[14],0)` percentage points. 
 
-```{r}
+To test whether the differences across treatment conditions and political beliefs was significant, I did a Difference-in-Differences (DiD) test using interactions between political beliefs and treatment conditions. Specifically, DiD examines whether there is a significant shift in partisan differences moving from one treatment condition to another. Additionally, I used the Benjamini-Hochberg (BH) procedure to minimize Type I errors when comparing across treatments [@benjaminiControllingFalseDiscovery1995].    
+
+```{r treatment effect table}
 #| label: tbl-did
-#| tbl-cap: "Treatment effects on the partisan gap in preferred energy mix"
+#| tbl-cap: "Treatment Effects on the Partisan Gap in Preferred Energy Mix"
 #| echo: false
 #| warning: false
 #| message: false
@@ -447,7 +400,9 @@ did_table |>
   )
 ```
 
+The results of the DiD estimates are shown in @tbl-did. As shown, the partisan gaps in preferred energy mix shift significantly for fossil fuels in the Trump conditions, with a shift of `r round( did_estimates$estimate[2],2)` between Trump and control condition, and a shift of `r round( did_estimates$estimate[3],2)` between the Trump and climate change condition. 
 
+<!-- 
 ```{r treatment shifts}
 #| message: false
 #| warning: false
@@ -488,12 +443,81 @@ did_estimates |>
 
 
 ```
+-->
+
+
+Finally, I compared the preferred energy mix to the current baseline. Overall, the evidence suggests that Trump may polarize energy preferences by shifting conservative Republicans to be more in favor of fossil fuels than they might be otherwise. However, the shift in the energy mix from the current baseline is important to address climate change. @fig-predDiffs shows the differences in the current vs preferred energy mixes across partisans and treatments.     
+
+```{r pred energy mix diffs}
+#| message: false
+#| warning: false
+#| echo: false
+#| label: fig-predDiffs
+#| fig-cap: Preferred Change from Existing Energy Mix (percentage points) 
+
+ggplot(change_df, aes(x = treatment, y = change_fit, fill = party)) +
+  geom_hline(yintercept = 0, color = "grey30", linewidth = 0.5) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(
+    aes(ymin = change_lwr, ymax = change_upr),
+    position = position_dodge(width = 0.8),
+    width = 0.2
+  ) +
+  facet_wrap(~ source, nrow = 1) +
+  scale_fill_manual(values = c("Liberal Democrats"        = "#2166AC",
+                               "Conservative Republicans" = "#B2182B")) +
+  labs(
+    x = NULL,
+    y = "Percentage Points",
+    fill = NULL,
+    title = "",
+    caption = paste("Bars show predicted preferred share minus the current share shown to respondents.",
+                    "Whiskers are 95% confidence intervals. Positive values = expand; negative = contract.",
+                    sep = "\n")
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(size = 5, hjust = 0.5),
+    axis.title = element_text(size = 10), 
+    panel.grid.major.x = element_blank(),
+    strip.text = element_text(face = "bold")
+  )
+
+
+
+```
+
+As shown, all respondents want an energy mix with fewer fossil fuels and more renewables. 
+
+# Discussion 
+
 
 \newpage
 
 # Methods 
 \setcounter{table}{0}
 \renewcommand{\thetable}{A\arabic{table}}
+
+> **Trump cue**: _As you may have heard, the Trump administration has taken steps to increase the production of fossil fuels, particularly coal, and reduce the use of renewable energy like solar and wind for electricity generation._ 
+
+> _Using a scale of 1 to 5, where 1 means strongly oppose and 5 means strongly support, how do you feel about the Trump administration’s goal of increasing the use of fossil fuels and decreasing the use of renewable sources in generating electricity?_
+
+> **Climate cue**: _Scientists agree that the use of fossil fuels has contributed to climate change, and to address climate change, we need to increase the use of renewable sources such as wind, solar, and hydropower._
+
+> _Using a scale of 1 to 5, where 1 means strongly disagree and 5 means strongly agree, how do you feel about increasing the use of renewable sources in generating electricity as a way to address climate change?_
+
+
+Thinking about the overall supply of electricity. What percentage of the total U.S. electricity supply over the next 20 years would you like to see come from each of the 5 primary sources?
+
+NOTE: The sum of the five boxes below must equal 100
+
+Fossil fuels (coal, oil, natural gas), which produced 58 percent in 2024
+Wind energy, which produced 10 percent in 2024
+Solar energy, which produced 7 percent in 2024
+Hydropower, which produced 5 percent in 2024
+Nuclear energy, which produced 18 percent in 2024
+
 
 \newpage
 
