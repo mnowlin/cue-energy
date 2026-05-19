@@ -37,14 +37,14 @@ library(patchwork)
 library(marginaleffects)
 library(car)
 library(kableExtra)
+library(survey)
 
 # data
-#cueEnergyData <- read.csv("data/cueEnergyData.csv")
-source("scripts/survey_weighting_diagnostic.R")
+cueEnergyData <- read.csv("data/cueEnergyDataWeighted.csv")
+design <- svydesign(ids = ~1, weights = ~weight, data = cueEnergyData)
+#source("scripts/survey_weighting_diagnostic.R")
 
 ```
-
-<!-- from Claude: The levels plot answers "what do groups want?" The gap plot answers "how polarized are preferences?" The change-from-existing plot answers "what direction do groups want policy to move?" Each tells a related but distinct story, and the change-from-existing version is often the most policy-relevant — it speaks directly to the question of whether partisans agree on the direction of needed change even when they disagree on absolute levels. (Sometimes you'll find both parties want more solar than the status quo, just by very different amounts — that's a finding the levels plot obscures.) -->
 
 Mitigating the impacts of climate change requires a significant shift away from fossil fuels toward alternative energy sources, such as renewables and nuclear energy. While views on climate change are extremely polarized among the US public, support for expanding renewable energy sources, such as wind and solar, has been generally strong in the last several years, including among conservatives and Republicans [@hawesClimateSciencePolitics2022]. 
 
@@ -84,7 +84,7 @@ coefs <- bind_rows(
                        "libDem" = "Liberal\nDemocrats"))
 ```
 
-The data for this study comes from a survey of `r nrow(survey)` US residents recruited through Cloud Research. The purpose of the study was to examine how partisan or climate change cues could shift the general public's preferred energy mix. Specifically, this study examines the shift of partisans, including liberal Democrats and conservative Republicans. To measure political beliefs, respondents were asked with which political party they most identify and to place themselves on a 1 to 7 scale of political ideology, where 1 is strongly liberal, 4 is middle of the road, and 7 is strongly conservative. Response were combined so that liberal Democrats are those that identify with the Democratic party and are strongly liberal or liberal, and conservative Republicans are those that are Republicans and strongly conservative or conservative. Other political beliefs, including conservative Democrats, liberal Republicans, and moderate independents are the excluded referents. 
+The data for this study comes from a survey of `r nrow(cueEnergyData)` US residents recruited through Cloud Research. The purpose of the study was to examine how partisan or climate change cues could shift the general public's preferred energy mix. Specifically, this study examines the shift of partisans, including liberal Democrats and conservative Republicans. To measure political beliefs, respondents were asked with which political party they most identify and to place themselves on a 1 to 7 scale of political ideology, where 1 is strongly liberal, 4 is middle of the road, and 7 is strongly conservative. Response were combined so that liberal Democrats are those that identify with the Democratic party and are strongly liberal or liberal, and conservative Republicans are those that are Republicans and strongly conservative or conservative. Other political beliefs, including conservative Democrats, liberal Republicans, and moderate independents are the excluded referents. 
 
 As part of the research design, respondents were first given the current energy mix of the US related to electricity, which is that the US obtains 58 percent of our electricity from fossil fuels (coal, oil, and natural gas), 22 percent from renewable sources (wind, solar, and hydropower), 18 percent from nuclear energy, and 2 percent from other sources (wood, biofuels, waste products, and geothermal energy). Therefore, respondents were anchored to the actual energy mix of the US, as of 2024 the most recent year where data was available. 
 
@@ -151,13 +151,13 @@ As shown, for the Trump cue liberal democrats were significantly less likely, at
 # )
 
 # Start from your raw data frame (the one with weights and design variables)
-survey_df <- survey |>   # replace with whatever your raw data object is called
+survey_df <- cueEnergyData |>   # replace with whatever your raw data object is called
   mutate(
     treatment = case_when(
-      trump.cue   == 1 ~ "Trump Cue",
-      climate.cue == 1 ~ "Climate Cue",
+      trump.cue   == 1 ~ "Trump",
+      climate.cue == 1 ~ "Climate",
       control     == 1 ~ "Control"
-    ) |> factor(levels = c("Control", "Climate Cue", "Trump Cue")),
+    ) |> factor(levels = c("Control", "Climate", "Trump")),
     
     party = case_when(
       libDem == 1 ~ "Liberal Democrats",
@@ -186,12 +186,12 @@ models <- map(sources, function(s) {
 
 newdata <- expand_grid(
   party     = c("Liberal Democrats", "Conservative Republicans"),
-  treatment = c("Control", "Climate Cue", "Trump Cue"),
+  treatment = c("Control", "Climate", "Trump"),
   source    = c("Fossil Fuels", "Wind", "Solar", "Hydro", "Nuclear")
 ) |>
   mutate(
     party     = factor(party, levels = c("Conservative Republicans", "Liberal Democrats")),
-    treatment = factor(treatment, levels = c("Control", "Climate Cue", "Trump Cue"))
+    treatment = factor(treatment, levels = c("Control", "Climate", "Trump"))
   )
 
 pred_df <- imap_dfr(models, function(mod, source_name) {
@@ -224,7 +224,7 @@ pred_df <- imap_dfr(models, function(mod, source_name) {
 # Apply factor ordering for plots
 pred_df <- pred_df |>
   mutate(
-    treatment = factor(treatment, levels = c("Control", "Climate Cue", "Trump Cue")),
+    treatment = factor(treatment, levels = c("Control", "Climate", "Trump")),
     source    = factor(source, levels = c("Fossil Fuels", "Nuclear", "Hydro", "Wind", "Solar")),
     party     = factor(party, levels = c("Liberal Democrats", "Conservative Republicans"))
   )
@@ -267,11 +267,11 @@ get_gap_ci_svy <- function(mod, treatment_levels) {
 }
 
 gap_df <- imap_dfr(models, function(mod, source_name) {
-  get_gap_ci_svy(mod, treatment_levels = c("Control", "Climate Cue", "Trump Cue")) |>
+  get_gap_ci_svy(mod, treatment_levels = c("Control", "Climate", "Trump")) |>
     mutate(source = source_name)
 }) |>
   mutate(
-    treatment = factor(treatment, levels = c("Control", "Climate Cue", "Trump Cue")),
+    treatment = factor(treatment, levels = c("Control", "Climate", "Trump")),
     source    = factor(source, levels = c("Fossil Fuels", "Nuclear", "Hydro", "Wind", "Solar")),
     direction = if_else(gap > 0, "Dem", "Rep")
   )
@@ -292,31 +292,31 @@ did_combined <- imap_dfr(models, function(mod, source_name) {
   contrasts <- list(
     list(
       name = "Climate Cue vs Control",
-      est  = cf["partyLiberal Democrats:treatmentClimate Cue"],
-      se   = sqrt(vc["partyLiberal Democrats:treatmentClimate Cue",
-                     "partyLiberal Democrats:treatmentClimate Cue"]),
-      hyp  = "partyLiberal Democrats:treatmentClimate Cue = 0"
+      est  = cf["partyLiberal Democrats:treatmentClimate"],
+      se   = sqrt(vc["partyLiberal Democrats:treatmentClimate",
+                     "partyLiberal Democrats:treatmentClimate"]),
+      hyp  = "partyLiberal Democrats:treatmentClimate = 0"
     ),
     list(
       name = "Trump Cue vs Control",
-      est  = cf["partyLiberal Democrats:treatmentTrump Cue"],
-      se   = sqrt(vc["partyLiberal Democrats:treatmentTrump Cue",
-                     "partyLiberal Democrats:treatmentTrump Cue"]),
-      hyp  = "partyLiberal Democrats:treatmentTrump Cue = 0"
+      est  = cf["partyLiberal Democrats:treatmentTrump"],
+      se   = sqrt(vc["partyLiberal Democrats:treatmentTrump",
+                     "partyLiberal Democrats:treatmentTrump"]),
+      hyp  = "partyLiberal Democrats:treatmentTrump = 0"
     ),
     list(
-      name = "Trump Cue vs Climate Cue",
-      est  = cf["partyLiberal Democrats:treatmentTrump Cue"] -
-             cf["partyLiberal Democrats:treatmentClimate Cue"],
+      name = "Trump Cue vs Climate",
+      est  = cf["partyLiberal Democrats:treatmentTrump"] -
+             cf["partyLiberal Democrats:treatmentClimate"],
       se   = sqrt(
-        vc["partyLiberal Democrats:treatmentTrump Cue",
-           "partyLiberal Democrats:treatmentTrump Cue"] +
-        vc["partyLiberal Democrats:treatmentClimate Cue",
-           "partyLiberal Democrats:treatmentClimate Cue"] -
-        2 * vc["partyLiberal Democrats:treatmentTrump Cue",
-               "partyLiberal Democrats:treatmentClimate Cue"]
+        vc["partyLiberal Democrats:treatmentTrump",
+           "partyLiberal Democrats:treatmentTrump"] +
+        vc["partyLiberal Democrats:treatmentClimate",
+           "partyLiberal Democrats:treatmentClimate"] -
+        2 * vc["partyLiberal Democrats:treatmentTrump",
+               "partyLiberal Democrats:treatmentClimate"]
       ),
-      hyp  = "partyLiberal Democrats:treatmentTrump Cue - partyLiberal Democrats:treatmentClimate Cue = 0"
+      hyp  = "partyLiberal Democrats:treatmentTrump - partyLiberal Democrats:treatmentClimate = 0"
     )
   )
   
@@ -340,8 +340,8 @@ did_combined
 
 did_omnibus <- imap_dfr(models, function(mod, source_name) {
   omnibus <- linearHypothesis(mod, c(
-    "partyLiberal Democrats:treatmentClimate Cue = 0",
-    "partyLiberal Democrats:treatmentTrump Cue = 0"
+    "partyLiberal Democrats:treatmentClimate = 0",
+    "partyLiberal Democrats:treatmentTrump = 0"
   ), test = "F")
   
   tibble(
@@ -369,7 +369,7 @@ change_df <- pred_df |>
     change_fit = fit - existing,
     change_lwr = lwr - existing,
     change_upr = upr - existing,
-    treatment  = factor(treatment, levels = c("Control", "Climate Cue", "Trump Cue")),
+    treatment  = factor(treatment, levels = c("Control", "Climate", "Trump")),
     source     = factor(source, levels = c("Fossil Fuels", "Nuclear", "Hydro", "Wind", "Solar")),
     party      = factor(party, levels = c("Liberal Democrats", "Conservative Republicans"))
   )
@@ -383,8 +383,8 @@ mix_change_tests <- imap_dfr(models, function(mod, source_name) {
   cells <- expand_grid(
     party     = factor(c("Liberal Democrats", "Conservative Republicans"),
                        levels = c("Conservative Republicans", "Liberal Democrats")),
-    treatment = factor(c("Control", "Climate Cue", "Trump Cue"),
-                       levels = c("Control", "Climate Cue", "Trump Cue"))
+    treatment = factor(c("Control", "Climate", "Trump"),
+                       levels = c("Control", "Climate", "Trump"))
   )
   
   X <- model.matrix(delete.response(terms(mod)), data = cells)
@@ -494,7 +494,7 @@ ggplot(gap_sorted, aes(x = gap, y = label)) +
 
 @fig-gap shows the differences in preferred energy sources across political beliefs and cues. The differences are sorted by the size of the gap and which party prefers more of each energy source. As shown, fossil fuels are the most polarized, particularly in the Trump condition with an average difference of `r round(gap_sorted$gap[1]*-1,0)` percentage points between liberal Democrats and conservative Republicans. Also as shown, Democrats preferred more wind and solar energy overall, with the largest partisan gaps in the Trump condition. Nuclear was most polarized in the climate and control conditions, followed by hydro in the climate and Trump condition, then nuclear in the Trump condition. Finally, the least polarized was hydro in the control condition, with a difference of only about `r round(gap_sorted$gap[14],0)` percentage points. 
 
-To test whether the differences across treatment conditions and political beliefs was significant, I did a Difference-in-Differences (DiD) test using interactions between political beliefs and treatment conditions. Specifically, DiD examines whether there is a significant shift in partisan differences moving from one treatment condition to another. Additionally, I used the Benjamini-Hochberg (BH) procedure to minimize Type I errors when comparing across treatments [@benjaminiControllingFalseDiscovery1995].    
+To test whether the differences across treatment conditions and political beliefs was significant, I did a Difference-in-Differences (DiD) test using interactions between political beliefs and treatment conditions. Specifically, DiD examines whether there is a significant shift in partisan differences moving from one treatment condition to another.     
 
 ```{r treatment effect table}
 #| label: tbl-did
@@ -596,7 +596,7 @@ ggplot(change_df, aes(x = treatment, y = change_fit, fill = party)) +
                                "Conservative Republicans" = "#B2182B")) +
   labs(
     x = NULL,
-    y = "Preferred change from existing mix (percentage points)",
+    y = "Percentage Points",
     fill = NULL,
     title = "",
     caption = paste(
@@ -609,7 +609,8 @@ ggplot(change_df, aes(x = treatment, y = change_fit, fill = party)) +
   theme_minimal(base_size = 12) +
   theme(
     legend.position = "bottom",
-    axis.text.x = element_text(angle = 30, hjust = 1),
+    axis.text.x = element_text(size = 5, hjust = 0.5),
+    axis.title = element_text(size = 10), 
     panel.grid.major.x = element_blank(),
     strip.text = element_text(face = "bold")
   )
@@ -647,7 +648,7 @@ var_labels <- c(
 # Build the comparison table
 comparison <- data.frame(
   Variable   = var_labels[vars_comp],
-  Unweighted = sapply(vars_comp, function(v) mean(survey[[v]], na.rm = TRUE)),
+  Unweighted = sapply(vars_comp, function(v) mean(cueEnergyData[[v]], na.rm = TRUE)),
   Weighted   = sapply(vars_comp, function(v) {
                  as.numeric(svymean(as.formula(paste0("~", v)),
                                     design, na.rm = TRUE))
@@ -691,8 +692,6 @@ comparison |>
 ```
 
 
-
-Overall, the mean for liberal Democrats was `r round(mean(survey$libDem),2)`, or `r round(mean(survey$libDem),2)*100`% of the sample, while conservative Republicans had a mean of `r round(mean(survey$conRep),2)`, or `r round(mean(survey$conRep),2)*100`%. 
 
 
 > **Trump cue**: _As you may have heard, the Trump administration has taken steps to increase the production of fossil fuels, particularly coal, and reduce the use of renewable energy like solar and wind for electricity generation._ 
