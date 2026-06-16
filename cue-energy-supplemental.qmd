@@ -7,15 +7,6 @@ link-bibliography: false
 
 ```{r}
 #| include: false
-# This supplement lives in a subdirectory; when rendered on its own the working
-# directory is manuscript/, so walk up to the project root (the folder holding
-# cue-energy.Rproj) and run the shared setup from there.
-root <- getwd()
-while (!file.exists(file.path(root, "cue-energy.Rproj")) && dirname(root) != root) {
-  root <- dirname(root)
-}
-knitr::opts_knit$set(root.dir = root)
-setwd(root)
 source("scripts/manuscript-setup.R")
 ```
 

@@ -5,7 +5,7 @@ project:
   output-dir: _output
   render:
     - cue-energy.qmd
-    - manuscript/cue-energy-online-methods.qmd
+    - cue-energy-supplemental.qmd
 
 bibliography: references.bib
 csl: american-political-science-association.csl
