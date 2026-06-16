@@ -1,0 +1,164 @@
+---
+title: "Survey Weighting Comparison"
+author: "Your Name"
+date: today
+format:
+  html:
+    toc: true
+    theme: cosmo
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+  docx: default
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r setup}
+library(survey)
+library(dplyr)
+library(gt)         # for HTML tables
+library(kableExtra) # for PDF/Word tables
+
+# Assumes 'survey' data frame and 'design' object are already in your workspace.
+# If running standalone, load them here:
+# survey <- readRDS("survey_with_weights.rds")
+# design <- svydesign(ids = ~1, weights = ~weight, data = survey)
+```
+
+```{r build-comparison}
+# Variables to summarize (must match column names in 'survey')
+vars_comp <- c("age", "male", "white", "college", "democrat", "republican")
+
+# Friendly labels for the table — same length and order as vars_comp
+var_labels <- c(
+  age        = "Age (years)",
+  male       = "Male",
+  white      = "White (non-Hispanic)",
+  college    = "College graduate",
+  democrat   = "Democrat",
+  republican = "Republican"
+)
+
+# Build the comparison table
+comparison <- data.frame(
+  Variable   = var_labels[vars_comp],
+  Unweighted = sapply(vars_comp, function(v) mean(survey[[v]], na.rm = TRUE)),
+  Weighted   = sapply(vars_comp, function(v) {
+                 as.numeric(svymean(as.formula(paste0("~", v)),
+                                    design, na.rm = TRUE))
+               }),
+  row.names = NULL
+) |>
+  mutate(Difference = Weighted - Unweighted)
+```
+
+## Weighted vs. Unweighted Sample Means
+
+The table below compares unweighted sample means to means after raking on age, race, gender, education, and party identification.
+
+### Version 1: `gt` table (recommended for HTML)
+
+```{r gt-table}
+comparison |>
+  gt() |>
+  tab_header(
+    title    = "Sample Composition Before and After Weighting",
+    subtitle = "Raked to ACS 2023 and Pew NPORS benchmarks"
+  ) |>
+  fmt_number(columns = c(Unweighted, Weighted, Difference), decimals = 3) |>
+  cols_label(
+    Variable   = "",
+    Unweighted = "Unweighted",
+    Weighted   = "Weighted",
+    Difference = "Difference"
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels()
+  ) |>
+  tab_source_note(
+    source_note = md("*Source: Author's survey (N = 1,500). Weights via iterative raking (anesrake).*")
+  ) |>
+  data_color(
+    columns = Difference,
+    fn = scales::col_numeric(
+      palette = c("#d73027", "white", "#1a9850"),
+      domain  = c(-0.2, 0.2)
+    )
+  )
+```
+
+### Version 2: `kable` table (works for PDF and Word)
+
+```{r kable-table}
+comparison |>
+  mutate(across(c(Unweighted, Weighted, Difference), \(x) round(x, 3))) |>
+  kbl(
+    caption   = "Sample Composition Before and After Weighting",
+    col.names = c("", "Unweighted", "Weighted", "Difference"),
+    booktabs  = TRUE,
+    align     = c("l", "r", "r", "r")
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    latex_options     = c("striped", "hold_position"),
+    full_width        = FALSE
+  ) |>
+  footnote(
+    general = "Weights computed via iterative raking to ACS 2023 and Pew NPORS targets.",
+    general_title = "Note:",
+    footnote_as_chunk = TRUE
+  )
+```
+
+## Optional: Add standard errors
+
+```{r build-comparison-se}
+comparison_se <- data.frame(
+  Variable = var_labels[vars_comp],
+  
+  Unw_Mean = sapply(vars_comp, function(v) mean(survey[[v]], na.rm = TRUE)),
+  Unw_SE   = sapply(vars_comp, function(v) {
+               x <- survey[[v]][!is.na(survey[[v]])]
+               sd(x) / sqrt(length(x))
+             }),
+  
+  Wt_Mean = sapply(vars_comp, function(v) {
+              as.numeric(svymean(as.formula(paste0("~", v)),
+                                 design, na.rm = TRUE))
+            }),
+  Wt_SE   = sapply(vars_comp, function(v) {
+              SE(svymean(as.formula(paste0("~", v)),
+                         design, na.rm = TRUE))
+            }),
+  row.names = NULL
+) |>
+  mutate(Difference = Wt_Mean - Unw_Mean)
+```
+
+```{r gt-table-se}
+comparison_se |>
+  gt() |>
+  tab_header(
+    title    = "Sample Means with Standard Errors",
+    subtitle = "Unweighted and weighted estimates"
+  ) |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  cols_label(
+    Variable   = "",
+    Unw_Mean   = "Mean",
+    Unw_SE     = "SE",
+    Wt_Mean    = "Mean",
+    Wt_SE      = "SE",
+    Difference = "Diff"
+  ) |>
+  tab_spanner(label = "Unweighted", columns = c(Unw_Mean, Unw_SE)) |>
+  tab_spanner(label = "Weighted",   columns = c(Wt_Mean, Wt_SE)) |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels()
+  )
+```

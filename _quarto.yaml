@@ -1,0 +1,19 @@
+project:
+  type: default
+  execute-dir: project
+  pre-render: scripts/export-cited-refs.R
+  output-dir: _output
+  render:
+    - cue-energy.qmd
+    - manuscript/cue-energy-online-methods.qmd
+
+bibliography: references.bib
+csl: american-political-science-association.csl
+
+execute:
+  freeze: auto
+
+format:
+  html: default
+  pdf: default
+  docx: default

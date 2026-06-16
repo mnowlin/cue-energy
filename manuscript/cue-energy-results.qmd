@@ -1,0 +1,178 @@
+# Results
+
+I first use OLS models to estimate agreement with the Trump and climate cue questions for liberal Democrats and conservative Republicans. @fig-cueModels shows the coefficient plots.
+
+```{r}
+#| label: fig-cueModels
+#| fig-cap: Coefficient Plots of Trump Cue and Climate Cue
+#| echo: false
+#| warning: false
+#| message: false
+
+# coefs comes from scripts/manuscript-setup.R (sourced in cue-energy.qmd)
+p1 <- ggplot(filter(coefs, model == "Trump Cue"), aes(x = estimate, y = term, color = term)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "grey50") +
+  geom_point(size = 4) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_manual(values = c("Conservative\nRepublicans" = "red",
+                                "Liberal\nDemocrats" = "blue")) +
+  labs(x = "", y = NULL,
+       title = "How do you feel about the Trump administration’s goal of increasing the use of\nfossil fuels and decreasing the use of renewable sources in generating electricity?") +
+  theme_minimal() + theme(legend.position = "none", plot.title = element_text(face = "bold", size = 8))
+
+p2 <- ggplot(filter(coefs, model == "Climate Cue"), aes(x = estimate, y = term, color = term)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "grey50") +
+  geom_point(size = 4) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_manual(values = c("Conservative\nRepublicans" = "red",
+                                "Liberal\nDemocrats" = "blue")) +
+  labs(x = "Coefficient Estimates", y = NULL,
+       title = "How do you feel about increasing the use of renewable sources\nin generating electricity as a way to address climate change?",
+       caption = "A 1 to 5 scale was used on both questions") +
+  theme_minimal() + theme(legend.position = "none", plot.title = element_text(face = "bold", size = 8))
+
+p1 / p2
+```
+
+As shown, for the Trump cue liberal democrats were significantly less likely, at `r round(cuemodel1$coefficients[3], 3)`, to support Trump's actions on energy, whereas conservative Republicans had an estimated level of support `r round(cuemodel1$coefficients[2], 3)` points higher on the 1 to 5 scale than other political beliefs. For the climate change cue, liberal Democrats were significantly more likely than others to support renewable energy to address climate change, with an estimated coefficient of `r round(cuemodel2$coefficients[3], 3)`, and conservative Republicans were significantly less likely with a coefficient of `r round(cuemodel2$coefficients[2], 3)`. These results suggest that respondents were responsive to the cues in ways that were expected.
+
+## Preferred energy mix by cue and political beliefs
+
+Next, respondents were asked what percentage of the total US electricity supply should come from various sources. Respondents were again reminded of the current energy mix. Additionally, respondents were instructed that their percentages for each source must add to one hundred. The results by beliefs and cue are shown in @fig-pred.
+
+```{r}
+#| label: fig-pred
+#| fig-cap: Predicted Energy Mix by Political Beliefs and Cues
+#| echo: false
+#| warning: false
+#| message: false
+
+# pred_df comes from scripts/manuscript-setup.R (sourced in cue-energy.qmd)
+ggplot(pred_df, aes(x = treatment, y = fit, fill = party)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(
+    aes(ymin = lwr, ymax = upr),
+    position = position_dodge(width = 0.8),
+    width = 0.2
+  ) +
+  facet_wrap(~ source, nrow = 1) +
+  scale_fill_manual(values = c("Liberal Democrats" = "#2166AC",
+                               "Conservative Republicans" = "#B2182B")) +
+  labs(
+    x = NULL,
+    y = "Percent (%)",
+    fill = NULL,
+    title = "",
+    caption = "Bars show predicted values from OLS; whiskers are 95% confidence intervals."
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(size = 5, hjust = 0.5),
+    axis.title = element_text(size = 10),
+    panel.grid.major.x = element_blank(),
+    strip.text = element_text(face = "bold")
+  )
+```
+
+As can be seen, conservative Republicans preferred an energy mix with more fossil fuels than did liberal Democrats, particularly Republicans that received the Trump cue. Conservative Republicans in the Trump condition preferred an energy mix that consists of about `r round(pred_df$fit[2],0)`% fossil fuels compared to `r round(pred_df$fit[12],0)`% in the climate condition and `r round(pred_df$fit[22],0)`% in the control. Liberal Democrats preferred an energy mix with more renewables than Republicans, particularly wind and solar, and the percentages of renewable sources seemed consistent for Democrats across the three conditions. Finally, Republicans preferred more nuclear energy than Democrats across all conditions, yet the differences were smallest in the Trump condition. Next, I examine differences in preferred energy sources across both treatment conditions and political beliefs.
+
+To assess which of the differences in @fig-pred are statistically significant, I estimated design-based contrasts both for the partisan gap (liberal Democrats − conservative Republicans) within each condition and for each party's shift across conditions; the full set of contrasts is reported in @tbl-pred-contrasts. The partisan gap is statistically significant for every energy source in every condition, confirming that liberal Democrats and conservative Republicans differ in their preferred mix regardless of the cue. The within-party cue effects, however, are concentrated almost entirely among conservative Republicans exposed to the Trump cue. Relative to the control condition, Republicans in the Trump condition preferred `r pred_diff("Fossil Fuels", "Republicans: Trump - Control", abs = TRUE)` more fossil fuels, along with `r pred_diff("Wind", "Republicans: Trump - Control", abs = TRUE)` less wind and `r pred_diff("Solar", "Republicans: Trump - Control", abs = TRUE)` less solar. By contrast, the climate cue moved Republicans negligibly on fossil fuels (`r pred_diff("Fossil Fuels", "Republicans: Climate - Control")`), and liberal Democrats shifted little across conditions on any source. No within-party difference reached significance for nuclear energy. Together, these contrasts show that the cue-driven movement in @fig-pred is driven by conservative Republicans responding to the Trump cue rather than by liberal Democrats.
+
+To test whether the differences across treatment conditions and political beliefs were significant, I first examine the gaps in preferred energy mix between liberal Democrats and conservative Republicans for each energy source within each treatment condition. To calculate the gaps, I used the predicted values from the OLS models of preferred energy mix and subtracted the predicted value for conservative Republicans from the predicted value for liberal Democrats. This gap illustrated the polarization of energy preferences between the two groups and across treatment conditions. I sorted the gaps by size and direction, and they are plotted in @fig-gap.
+
+```{r}
+#| label: fig-gap
+#| fig-cap: Largest Gaps by Political Belief in Preferred Energy Mix
+#| echo: false
+#| warning: false
+#| message: false
+
+# gap_sorted / gap_ranked come from scripts/manuscript-setup.R (sourced in cue-energy.qmd)
+ggplot(gap_sorted, aes(x = gap, y = label)) +
+  geom_vline(xintercept = 0, color = "grey40", linewidth = 0.4) +
+  geom_segment(aes(x = 0, xend = gap, yend = label),
+               color = "grey60", linewidth = 0.6) +
+  geom_pointrange(aes(xmin = lwr, xmax = upr, color = direction), size = 0.5) +
+  scale_color_manual(
+    values = c("Dem" = "#2166AC", "Rep" = "#B2182B"),
+    labels = c("Dem" = "Democrats prefer more",
+               "Rep" = "Republicans prefer more"),
+    name = NULL
+  ) +
+  labs(
+    x = "Predicted partisan gap (percentage points)\nLiberal Democrats − Conservative Republicans",
+    y = NULL,
+    title = "",
+    caption = "Sorted by absolute size of gap. Bars are 95% confidence intervals from svyglm models."
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank()
+  )
+```
+
+ As shown in @fig-gap, fossil fuels are the most polarized, particularly in the Trump condition with an average difference of `r round(abs(gap_ranked$gap[1]),0)` percentage points between liberal Democrats and conservative Republicans. Also as shown, Democrats preferred more wind and solar energy overall, with the largest partisan gaps in the Trump condition. Nuclear was supported more by conservative Republicans, and was most polarized in the climate and control conditions. Overall, hydro was preferred by liberal Democrats, yet it was the least polarized energy sources. The hydro power control condition had the smallest gap, with a difference of only about `r round(abs(gap_ranked$gap[nrow(gap_ranked)]),0)` percentage points.
+
+Next, I compare the gaps across treatment conditions to examine whether the cues shifted the partisan differences in preferred energy mix. Specifically, I used a difference-in-differences (DiD) approach, where I examine the difference between political beliefs (i.e., liberal Democrats - conservative Republicans), which are shown in @fig-gap, and differences between treatment conditions (e.g., Trump cue - control) using interaction terms between political beliefs and treatment conditions.^[Note that I am not using a traditional DiD design, which estimates differences between groups across two time periods based on an assumption of parallel trends [@bakerDifferenceinDifferencesDesignsPractitioners2026].] This approach allows me to test whether the cues shifted the partisan gaps in preferred energy mix. The results are shown in @tbl-did.  
+
+```{r}
+#| label: tbl-did
+#| tbl-cap: "Treatment Effects on the Preferred Energy Mix Across Political Beliefs"
+#| echo: false
+#| warning: false
+#| message: false
+
+# did_table and make_did_flextable() come from scripts/manuscript-setup.R
+# (sourced in cue-energy.qmd). Rendered in-document so it appears in html, pdf, docx.
+make_did_flextable()
+```
+
+@tbl-did illustrates the change in the partisan gap for each energy source across each pairwise treatment comparison. Additionally, @tbl-did includes an omnibus F-test which examines whether the cues had an overall effect on the partisan gaps across each energy source. As can be seen, for fossil fuels the F-test was significant, indicating that the partisan gaps in preferred energy mix shift significantly for fossil fuels. These impacts were a result of the Trump condition, as a shift of `r did_shift("Fossil Fuels", "Trump Cue vs Control")` occurred between the Trump and control condition, and a shift of `r did_shift("Fossil Fuels", "Trump Cue vs Climate")` happened between the Trump and climate change condition. Additionally, the gap for hydro power was significantly higher (at _p_<0.10) in the climate condition compared to the control condition.  
+
+Finally, I compared the preferred energy mix to the current baseline. Overall, the evidence suggests that Trump may polarize energy preferences by shifting conservative Republicans to be more in favor of fossil fuels than they might be otherwise. However, the shift in the energy mix from the current baseline is important to address climate change. @fig-mixchange shows the differences in the current vs preferred energy mixes across partisans and treatments.
+
+```{r}
+#| label: fig-mixchange
+#| fig-cap: Preferred Change from Existing Energy Mix (percentage points)
+#| echo: false
+#| warning: false
+#| message: false
+
+# change_df comes from scripts/manuscript-setup.R (sourced in cue-energy.qmd)
+ggplot(change_df, aes(x = treatment, y = change_fit, fill = party)) +
+  geom_hline(yintercept = 0, color = "grey30", linewidth = 0.5) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(
+    aes(ymin = change_lwr, ymax = change_upr),
+    position = position_dodge(width = 0.8),
+    width = 0.2
+  ) +
+  facet_wrap(~ source, nrow = 1) +
+  scale_fill_manual(values = c("Liberal Democrats"        = "#2166AC",
+                               "Conservative Republicans" = "#B2182B")) +
+  labs(
+    x = NULL,
+    y = "Percentage Points",
+    fill = NULL,
+    title = "",
+    caption = paste(
+      "Bars show predicted preferred share minus the current share shown to respondents.",
+      "Whiskers are 95% confidence intervals from svyglm models with survey weights.",
+      "Positive values = expand; negative = contract.",
+      sep = "\n"
+    )
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(size = 5, hjust = 0.5),
+    axis.title = element_text(size = 10),
+    panel.grid.major.x = element_blank(),
+    strip.text = element_text(face = "bold")
+  )
+```
+
+As shown, all respondents want an energy mix with fewer fossil fuels and more renewables. However, there are 
