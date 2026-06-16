@@ -7,14 +7,11 @@
 # macOS
 .DS_Store
 
-# Local-only data and literature (kept out of version control)
-/data/
-/literature/
-
 /.quarto/
 **/*.quarto_ipynb
 
 # Quarto / knitr generated artifacts
+/_output/
 /_freeze/
 /figure/
 **/*_files/

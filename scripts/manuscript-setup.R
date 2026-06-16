@@ -1,7 +1,7 @@
 # Shared setup for the cue-energy manuscript.
-# Sourced by cue-energy.qmd and cue-energy-supplemental.qmd so that all data, models,
-# and the objects referenced in the prose, figures, and tables come from a single
-# source of truth. The .qmd chunks handle only plotting/rendering of these objects.
+# Sourced by cue-energy.qmd so that all data, models, and the objects referenced in
+# the prose, figures, and tables come from a single source of truth. The article
+# chunks (in manuscript/*.qmd) handle only plotting/rendering of these objects.
 # Paths are project-relative; Quarto runs with execute-dir: project (see _quarto.yaml).
 
 library(tidyverse)
@@ -343,7 +343,7 @@ make_pred_contrasts_flextable <- function() {
     "(percentage points) underlying Figure 2. Partisan-gap rows are the",
     "Liberal Democrats − Conservative Republicans difference within each",
     "condition; within-party rows are the change for that party when moving",
-    "from one condition to another.",
+    "from one condition to another (positive = the later condition is higher).",
     "Estimates use survey weights; standard errors and p-values are design-based.",
     "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
   )
@@ -479,7 +479,7 @@ make_did_flextable <- function() {
     "the partisan gap on each energy source. Subsequent rows show the estimated",
     "change in the partisan gap (Liberal Democrats − Conservative Republicans)",
     "when moving from one treatment condition to another, with 95% confidence",
-    "intervals in brackets. Estimates",
+    "intervals in brackets. Positive values indicate the gap widened. Estimates",
     "from svyglm models fit separately by energy source, using survey weights;",
     "standard errors and confidence intervals are design-based.",
     "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
@@ -605,7 +605,7 @@ make_did_controls_flextable <- function() {
     "shift the partisan gap on each energy source; subsequent rows show the",
     "estimated change in the partisan gap (Liberal Democrats − Conservative",
     "Republicans) when moving from one condition to another, with 95% confidence",
-    "intervals in brackets. Estimates",
+    "intervals in brackets. Positive values indicate the gap widened. Estimates",
     "use survey weights; standard errors and confidence intervals are design-based.",
     "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
   )
