@@ -1,7 +1,7 @@
 # Shared setup for the cue-energy manuscript.
-# Sourced by cue-energy.qmd so that all data, models, and the objects referenced in
-# the prose, figures, and tables come from a single source of truth. The article
-# chunks (in manuscript/*.qmd) handle only plotting/rendering of these objects.
+# Sourced by cue-energy.qmd and cue-energy-supplemental.qmd so that all data, models,
+# and the objects referenced in the prose, figures, and tables come from a single
+# source of truth. The .qmd chunks handle only plotting/rendering of these objects.
 # Paths are project-relative; Quarto runs with execute-dir: project (see _quarto.yaml).
 
 library(tidyverse)
