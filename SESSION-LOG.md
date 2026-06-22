@@ -73,11 +73,14 @@ A survey experiment (3×2 design) examining how partisan cues (Trump administrat
 
 ---
 
-### Session 6 — 2026-06-22 (Current session — in progress)
-**Uncommitted changes:** `cue-energy.qmd`, `cue-energy-supplemental.qmd`
+### Session 6 — 2026-06-22
+**Commits:** `e058f67`
 
-- Created this session log.
-- [Add notes here about what was worked on and any decisions made.]
+- Created `SESSION-LOG.md` to track work across sessions.
+- Fixed italics rendering as underlines in PDF: switched `fontfamily: ebgaramond` to `mainfont: "EB Garamond"` (uses fontspec with LuaLaTeX) and added `\normalem` to the PDF header to restore `\emph{}` behavior after `ulem` package redefines it.
+- Removed URLs from journal article references in the PDF: added `article-journal` to the exclusion condition in the `access` macro of the CSL file. Because `export-cited-refs.R` overwrites the local CSL from the master on every render, applied the patch inside that script (after the copy step) so it persists automatically.
+- Resolved diverged git history between local and remote (duplicate commits with different hashes); force-pushed local `main` to bring remote in sync.
+- Rendered final HTML, PDF, and DOCX outputs.
 
 ---
 

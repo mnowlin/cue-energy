@@ -1,7 +1,7 @@
 ---
 title: "Party or Climate? The Polarization of the US Public’s Energy Preferences"
 fig-cap-location: top
-fontfamily: ebgaramond
+mainfont: "EB Garamond"
 link-bibliography: false
 format:
   pdf:
@@ -13,6 +13,7 @@ format:
         \usepackage{float}
         \usepackage{amsmath}
         \addtokomafont{disposition}{\rmfamily}
+        \normalem
   html: 
     include-in-header: 
       text: |
@@ -94,7 +95,7 @@ Following the information, respondents were place in one of the three conditions
 
 > Control: no cue respondents went straight to the energy mix question
 
-**Energy mix**: For preferred energy mix, respondents indicated their preferred percentages for each source. Additionally, respondents were instructed that their total percentages must add to one hundred.^[Question wording on preferred was intended to match previous research (see [@hawesClimateSciencePolitics2022; @ter-mkrtchyanPortionsPortfoliosUnderstanding2022])] It was worded as follows:
+**Energy mix**: For preferred energy mix, respondents indicated their preferred percentages for each source. Additionally, respondents were instructed that their total percentages must add to one hundred.^[Question wording on preferred energy mix was intended to match previous research, including @hawesClimateSciencePolitics2022; @ter-mkrtchyanPortionsPortfoliosUnderstanding2022] It was worded as follows:
 
 > Thinking about the overall supply of electricity. What percentage of the total U.S. electricity supply over the next 20 years would you like to see come from each of the 5 primary sources? NOTE: The sum of the five boxes below must equal 100
 
@@ -241,7 +242,7 @@ The results in @tbl-pred-contrasts show that the partisan gap is statistically s
 
 In terms of the hypotheses, as expected conservative Republicans in the Trump condition preferred `r pred_diff("Fossil Fuels", "Republicans: Trump - Control", abs = TRUE)` more fossil fuels, and less renewables with `r pred_diff("Wind", "Republicans: Trump - Control", abs = TRUE)` less wind, `r pred_diff("Solar", "Republicans: Trump - Control", abs = TRUE)` less solar, and `r pred_diff("Hydro", "Republicans: Trump - Control", abs = TRUE)` less hydro power than those in the control condition. Additionally, also expected, they were preferred more fossil fuels, at `r pred_diff("Fossil Fuels", "Republicans: Trump - Climate", abs = TRUE)`, and less wind, with `r pred_diff("Wind", "Republicans: Trump - Climate", abs = TRUE)` in the Trump condition versus the climate condition. However, contrary to expectations, conservative Republicans were no more or less likely to prefer fossil fuels or oppose renewables in the climate change versus control condition.     
 
-Also as shown in @tbl-pred-contrasts, overall, liberal Democrats preferred more wind, solar, energy and less fossil fuels and nuclear across all conditions. However, contrary to expectations, liberal Democrats only preferred more hydro, at `r pred_diff("Hydro", "Democrats: Climate - Control", abs = TRUE)` in the climate condition compared to the control. Additionally, they unexpectedly, showed some responsiveness to the Trump cues. Compared to the climate condition, liberal Democrats in the Trump condition preferred `r pred_diff("Fossil Fuels", "Democrats: Trump - Climate", abs = TRUE)` more fossil fuels, `r pred_diff("Wind", "Democrats: Trump - Climate", abs = TRUE)` less wind, and `r pred_diff("Hydro", "Democrats: Trump - Climate", abs = TRUE)` less hydro. Similarly, compared to the control condition, liberal Democrats in the Trump condition preferred more fossil fuels, `r pred_diff("Fossil Fuels", "Democrats: Trump - Control", abs = TRUE)` and `r pred_diff("Solar", "Democrats: Trump - Control", abs = TRUE)` less hydro. However, the shifts for liberal Democrats were much smaller than those for conservative Republicans, and the shifts for Democrats in the Trump condition compared tp the control were significant at p \< 0.10.
+Also as shown in @tbl-pred-contrasts, overall, liberal Democrats preferred more wind, solar, energy and less fossil fuels and nuclear across all conditions. However, contrary to expectations regarding renewable energy, liberal Democrats only preferred more hydro, at `r pred_diff("Hydro", "Democrats: Climate - Control", abs = TRUE)` in the climate condition compared to the control. Additionally, they unexpectedly, showed some responsiveness to the Trump cues. Compared to the climate condition, liberal Democrats in the Trump condition preferred `r pred_diff("Fossil Fuels", "Democrats: Trump - Climate", abs = TRUE)` more fossil fuels, `r pred_diff("Wind", "Democrats: Trump - Climate", abs = TRUE)` less wind, and `r pred_diff("Hydro", "Democrats: Trump - Climate", abs = TRUE)` less hydro. Similarly, compared to the control condition, liberal Democrats in the Trump condition preferred more fossil fuels, `r pred_diff("Fossil Fuels", "Democrats: Trump - Control", abs = TRUE)` and `r pred_diff("Solar", "Democrats: Trump - Control", abs = TRUE)` less hydro. However, the shifts for liberal Democrats were much smaller than those for conservative Republicans, and the shifts for Democrats in the Trump condition compared tp the control were significant at p \< 0.10.
 
 Nuclear was supported more by conservative Republicans, and was most polarized in the climate and control conditions. No within-party difference across the conditions were significant for nuclear energy. Overall, hydro was preferred by liberal Democrats, yet it was the least polarized energy source. The hydro power control condition had the smallest gap, with a difference of only about `r round(abs(gap_ranked$gap[nrow(gap_ranked)]),0)` percentage points. Liberal Democrats in the climate cue preferred `r pred_diff("Hydro", "Democrats: Climate - Control", abs = TRUE)` more hydro than liberal Democrats in the control condition. Together, these results show that the cue-driven movement in @fig-pred is driven largely by conservative Republicans responding to the Trump cue; however, liberal Democrats also responded to the Trump cue.
 

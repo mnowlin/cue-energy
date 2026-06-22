@@ -42,8 +42,15 @@ sel <- which(entry_keys %in% keys)
 out_lines <- unlist(lapply(sel, function(i) c(bib[starts[i]:ends[i]], "")))
 writeLines(out_lines, out_bib, useBytes = TRUE)
 
-# --- 4. Copy the CSL locally -----------------------------------------------
+# --- 4. Copy the CSL locally and suppress URLs for journal articles ----------
 invisible(file.copy(master_csl, out_csl, overwrite = TRUE))
+csl_txt <- readLines(out_csl, warn = FALSE, encoding = "UTF-8")
+csl_txt <- gsub(
+  'type="legal_case" match="none"',
+  'type="legal_case article-journal" match="none"',
+  csl_txt, fixed = TRUE
+)
+writeLines(csl_txt, out_csl, useBytes = TRUE)
 
 # --- 5. Report -------------------------------------------------------------
 missing <- setdiff(keys[grepl("[0-9]", keys)], entry_keys)  # likely-real keys
