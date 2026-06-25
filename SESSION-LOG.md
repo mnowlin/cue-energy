@@ -84,6 +84,15 @@ A survey experiment (3×2 design) examining how partisan cues (Trump administrat
 
 ---
 
+### Session 7 — 2026-06-25 (Inline R code fixes and manuscript rendering)
+**Commits:** uncommitted as of session end
+
+- Fixed inline R code for predicted fossil fuel percentages (line 196): replaced fragile numeric row indices (`pred_df$fit[2]`, `[12]`, `[22]`) with explicit `dplyr::filter()` expressions. Old indices were pointing at wrong rows due to `imap_dfr` row ordering; correct values are Conservative Republicans × Fossil Fuels for Trump (row 6), Climate (row 5), and Control (row 4) conditions.
+- Added inline R code to discussion fossil fuels paragraph (line 326): replaced five hardcoded numbers (16.1, 18.1, 23.5 pp partisan gaps; 9.5, 9.4 pp within-party shifts) with `pred_contrasts` filter expressions. Partisan gap values use `abs()` since the contrast is computed as Dem − Rep (negative for fossil fuels).
+- Rendered manuscript successfully in HTML, PDF, and DOCX across multiple iterations.
+
+---
+
 ## Analysis Architecture (as of Session 5+)
 
 All analysis is centralized in `scripts/manuscript-setup.R`, which is sourced at the top of `cue-energy.qmd`. The script handles:

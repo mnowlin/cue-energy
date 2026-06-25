@@ -343,7 +343,7 @@ make_pred_contrasts_flextable <- function() {
     "(percentage points) underlying Figure 2. Partisan-gap rows are the",
     "Liberal Democrats − Conservative Republicans difference within each",
     "condition; within-party rows are the change for that party when moving",
-    "from one condition to another (positive = the later condition is higher).",
+    "from one condition to another.",
     "Estimates use survey weights; standard errors and p-values are design-based.",
     "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
   )
@@ -479,7 +479,7 @@ make_did_flextable <- function() {
     "the partisan gap on each energy source. Subsequent rows show the estimated",
     "change in the partisan gap (Liberal Democrats − Conservative Republicans)",
     "when moving from one treatment condition to another, with 95% confidence",
-    "intervals in brackets. Positive values indicate the gap widened. Estimates",
+    "intervals in brackets. Estimates",
     "from svyglm models fit separately by energy source, using survey weights;",
     "standard errors and confidence intervals are design-based.",
     "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
@@ -605,7 +605,7 @@ make_did_controls_flextable <- function() {
     "shift the partisan gap on each energy source; subsequent rows show the",
     "estimated change in the partisan gap (Liberal Democrats − Conservative",
     "Republicans) when moving from one condition to another, with 95% confidence",
-    "intervals in brackets. Positive values indicate the gap widened. Estimates",
+    "intervals in brackets. Estimates",
     "use survey weights; standard errors and confidence intervals are design-based.",
     "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
   )

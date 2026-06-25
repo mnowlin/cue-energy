@@ -18,7 +18,6 @@ Despite the use of quotas, the sample from Cloud Research was not perfectly repr
 
 [^1]: See here:https://www.pewresearch.org/politics/fact-sheet/party-affiliation-fact-sheet-npors/.
 
-
 ```{r create dataset for descriptive statistics}
 #| echo: false
 #| include: false
