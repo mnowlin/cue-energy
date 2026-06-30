@@ -16,7 +16,6 @@
 **/*.quarto_ipynb
 
 # Quarto / knitr generated artifacts
-/_output/
 /_freeze/
 /figure/
 **/*_files/

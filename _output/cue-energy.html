@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Party or Climate? The Polarization of the US Public’s Energy Preferences</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="cue-energy_files/libs/clipboard/clipboard.min.js"></script>
+<script src="cue-energy_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="cue-energy_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="cue-energy_files/libs/quarto-html/popper.min.js"></script>
+<script src="cue-energy_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="cue-energy_files/libs/quarto-html/anchor.min.js"></script>
+<link href="cue-energy_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="cue-energy_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="cue-energy_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="cue-energy_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="cue-energy_files/libs/bootstrap/bootstrap-d348440511ae175013aee83224f32baf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="cue-energy_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="cue-energy_files/libs/tabwid-1.1.3/tabwid.js"></script>
+<style>
+  body {
+    font-family: 'EB Garamond', serif;
+  }
+</style>
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="cue-energy.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="cue-energy.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Party or Climate? The Polarization of the US Public’s Energy Preferences</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Mitigating climate change requires a significant shift away from fossil fuels toward alternative energy sources, such as renewables and nuclear energy. The energy transition requires action from all sectors of society, including governments. Public policy can guide the move away from fossil fuels, yet policy actions require sufficient public support. Public opinion can influence energy policy by incentivizing policymakers through support for clean energy, voting for candidates that advocate for clean energy, and supporting renewable energy projects in their community <span class="citation" data-cites="gazmararianPublicOpinionFoundations2026">(<a href="#ref-gazmararianPublicOpinionFoundations2026" role="doc-biblioref">Gazmararian, Mildenberger, and Tingley 2026</a>)</span>. Therefore, understanding the mechanisms that shape public opinion is important for the clean energy transition.</p>
+<p>It is well-documented that climate change is highly polarized among both political elites and the public, particularly in the United States. Conservatives and Republicans are less likely to think climate change is happening and less supportive of policies to address climate change than Democrats and liberals <span class="citation" data-cites="dunlapPoliticalDivideClimate2016 eganUSPartisanPolarization2024 hawesClimateSciencePolitics2022">(<a href="#ref-dunlapPoliticalDivideClimate2016" role="doc-biblioref">Dunlap, McCright, and Yarosh 2016</a>; <a href="#ref-eganUSPartisanPolarization2024" role="doc-biblioref">Egan and Mullin 2024</a>; <a href="#ref-hawesClimateSciencePolitics2022" role="doc-biblioref">Hawes and Nowlin 2022</a>)</span>. While views on climate change are extremely polarized among the US public, support for expanding renewable energy sources, such as wind and solar, has been generally strong in the last several years and less polarized than climate change <span class="citation" data-cites="croweEffectPartisanCues2020 ter-mkrtchyanPortionsPortfoliosUnderstanding2022">(<a href="#ref-croweEffectPartisanCues2020" role="doc-biblioref">Crowe 2020</a>; <a href="#ref-ter-mkrtchyanPortionsPortfoliosUnderstanding2022" role="doc-biblioref">Ter-Mkrtchyan et al. 2022</a>)</span>.</p>
+<p>Yet, this may be changing, with support for renewable energy becoming more polarized. Recent survey data from the Pew Research Center show that support for expanding renewable energy among Republicans has declined, from 65 percent in 2020 to 28 percent in 2026, while at the same time, support for expanding fossil fuels increased from 35 percent in 2020 to 71 percent in 2026 among Republicans <span class="citation" data-cites="kennedyAmericansShiftingViews2026">(<a href="#ref-kennedyAmericansShiftingViews2026" role="doc-biblioref">Kennedy and Kikuchi 2026</a>)</span>. In this paper, I examine two possible mechanisms that could account for the shift among Republicans, including framing that connects renewable energy to climate change or cues from prominent Republicans, most notably Donald Trump.</p>
+<p>Donald Trump may serve to politicize energy</p>
+<p>The purpose of the study is to examine how partisan or climate change cues could shift the general public’s preferred energy mix for electricity production.</p>
+</section>
+<section id="cues-and-energy-polarization" class="level1">
+<h1>Cues and Energy Polarization</h1>
+<p>There is clear evidence of polarization in views on climate change among the US public, with multiple studies finding stark differences in climate views across political beliefs such as ideology and partisanship <span class="citation" data-cites="druckmanEvidenceMotivatedReasoning2019 dunlapPoliticalDivideClimate2016 dunlapWideningGapRepublican2008 mccrightPoliticizationClimateChange2011 smithPolarisationClimateEnvironmental2024">(e.g., <a href="#ref-druckmanEvidenceMotivatedReasoning2019" role="doc-biblioref">Druckman and McGrath 2019</a>; <a href="#ref-dunlapWideningGapRepublican2008" role="doc-biblioref">Dunlap and McCright 2008</a>; <a href="#ref-dunlapPoliticalDivideClimate2016" role="doc-biblioref">Dunlap, McCright, and Yarosh 2016</a>; <a href="#ref-mccrightPoliticizationClimateChange2011" role="doc-biblioref">McCright and Dunlap 2011</a>; <a href="#ref-smithPolarisationClimateEnvironmental2024" role="doc-biblioref">Smith, Bognar, and Mayer 2024</a>)</span>. However, political polarization regarding energy, including the favorability of specific energy sources and support for energy policies, is more nuanced <span class="citation" data-cites="ansolabehereCheapCleanHow2016">(<a href="#ref-ansolabehereCheapCleanHow2016" role="doc-biblioref">Ansolabehere and Konisky 2016</a>)</span>. In general, polarization varies by energy source, with views on fossil fuels being extremely polarized, whereas views on other energy sources are less polarized <span class="citation" data-cites="bergquistEnergyPolicyPublic2020">(<a href="#ref-bergquistEnergyPolicyPublic2020" role="doc-biblioref">Bergquist, Konisky, and Kotcher 2020</a>)</span>.</p>
+<p>Public opinion regarding fossil fuels, such as coal, oil, and gas, is shaped, in large part, by political beliefs. Compared to conservatives and Republicans, liberals and Democrats are less supportive of coal <span class="citation" data-cites="hartPoliticalPolarizationSupport2021">(<a href="#ref-hartPoliticalPolarizationSupport2021" role="doc-biblioref">Hart, Stedman, and Clarke 2021</a>)</span> and more concerned about extraction processes associated with oil and gas, such as hydraulic fracturing, or “fracking” <span class="citation" data-cites="davisEnergyAbundanceEnvironmental2014 raimiPartisanshipProximityPredict2020">(<a href="#ref-davisEnergyAbundanceEnvironmental2014" role="doc-biblioref">Davis and Fisk 2014</a>; <a href="#ref-raimiPartisanshipProximityPredict2020" role="doc-biblioref">Raimi, Krupnick, and Bazilian 2020</a>)</span>. For liberals and Democrats, the risks of fossil fuels, including the health, environmental, and climate impacts, influence opposition to fossil fuels, whereas conservatives and Republicans tend to emphasize the economic and energy security benefits <span class="citation" data-cites="clarkePoliticsScientificConsensus2019 howellSeeingRiskColoredGlasses2019">(<a href="#ref-clarkePoliticsScientificConsensus2019" role="doc-biblioref">Clarke and Evensen 2019</a>; <a href="#ref-howellSeeingRiskColoredGlasses2019" role="doc-biblioref">Howell et al. 2019</a>)</span>.</p>
+<p>Renewable energy sources are generally less polarized than fossil fuels, with liberals/Democrats and conservatives/Republicans supporting increases in renewables relative to the current energy mix <span class="citation" data-cites="hawesClimateSciencePolitics2022 ter-mkrtchyanPortionsPortfoliosUnderstanding2022">(<a href="#ref-hawesClimateSciencePolitics2022" role="doc-biblioref">Hawes and Nowlin 2022</a>; <a href="#ref-ter-mkrtchyanPortionsPortfoliosUnderstanding2022" role="doc-biblioref">Ter-Mkrtchyan et al. 2022</a>)</span>. However, there are partisan differences, but they are differences in <em>degree</em> rather than <em>direction</em>, as liberals/Democrats tend to be more supportive of renewables than conservatives/Republicans <span class="citation" data-cites="bergquistEnergyPolicyPublic2020 hamiltonChangeWindUS2018">(<a href="#ref-bergquistEnergyPolicyPublic2020" role="doc-biblioref">Bergquist, Konisky, and Kotcher 2020</a>; <a href="#ref-hamiltonChangeWindUS2018" role="doc-biblioref">Hamilton et al. 2018</a>)</span>. Additionally, the reasons for support vary by political beliefs. Conservatives/Republicans support renewable sources because of the economic benefits and costs, whereas liberals/Democrats support them because of climate concerns <span class="citation" data-cites="gustafsonRepublicansDemocratsDiffer2020">(<a href="#ref-gustafsonRepublicansDemocratsDiffer2020" role="doc-biblioref">Gustafson et al. 2020</a>)</span>. In general, previous research suggests that the way that political beliefs shape the public’s views on fossil fuels and renewables is through the emphasis that conservatives/Republicans vs liberals/Democrats place on various aspect of energy. For conservatives/Republicans, the emphasis is on costs and benefits, but for liberals/Democrats the emphasis is on health, environment, and climate change.</p>
+<p>Views on nuclear energy are generally less polarized across political beliefs than fossil fuels or renewables sources. To the extent nuclear energy is polarized, it tends to find more support among conservatives/Republicans than liberals/Democrats <span class="citation" data-cites="yeoPartisanAmplificationRisk2014 mcbethPoliticalIdeologyNuclear2023a">(<a href="#ref-mcbethPoliticalIdeologyNuclear2023a" role="doc-biblioref">McBeth, Warnement Wrobel, and van Woerden 2023</a>; <a href="#ref-yeoPartisanAmplificationRisk2014" role="doc-biblioref">Yeo et al. 2014</a>)</span>. However, public support for nuclear energy is also driven by events, like the three major nuclear accidents, and shifts in the supply of other energy sources <span class="citation" data-cites="guptaTrackingNuclearMood2019">(<a href="#ref-guptaTrackingNuclearMood2019" role="doc-biblioref">Gupta et al. 2019</a>)</span>. Also of note is that even though it doesn’t emit greenhouse gases when generating electricity, those most concerned about climate change tend to be less supportive of nuclear energy <span class="citation" data-cites="ter-mkrtchyanPublicNuclearPreferences2026">(<a href="#ref-ter-mkrtchyanPublicNuclearPreferences2026" role="doc-biblioref">Ter-Mkrtchyan et al. 2026</a>)</span>.</p>
+<p>As noted, recent public surveys indicate that support among Republicans for renewables is falling while support for fossil fuels is increasing. One reason for this trend may be that renewable energy has become entangled with climate change, leading Republicans to be less supportive. For example, support for renewable energy policy declined among conservatives with that policy was paired with a carbon capture and storage climate policy <span class="citation" data-cites="marlowNontransformativeClimatePolicy2023">(<a href="#ref-marlowNontransformativeClimatePolicy2023" role="doc-biblioref">Marlow and Makovi 2023</a>)</span>. Therefore, if renewables are framed as an approach to address climate change, which causes a climate cue, the use of renewables is likely to become more polarized. Framing entails focusing on one or more aspects of an issue, which can shape how that issue is viewed and understood. How climate policies are framed, such as science, moral, and economic frames can lead to more (less) support for those policies<span class="citation" data-cites="seversonMoralFramesClimate2015">(<a href="#ref-seversonMoralFramesClimate2015" role="doc-biblioref">Severson and Coleman 2015</a>)</span>, and frames regarding reducing energy waste and producing low-carbon domestic energy can reduce climate change polarization <span class="citation" data-cites="whitmarshToolsNewClimate2017">(<a href="#ref-whitmarshToolsNewClimate2017" role="doc-biblioref">Whitmarsh and Corner 2017</a>)</span>. Similarly, frames can shape views on energy sources, as a frame that emphasizes how renewables can save costs increases support for renewables across partisan groups <span class="citation" data-cites="gustafsonDurableBipartisanEffects2022">(<a href="#ref-gustafsonDurableBipartisanEffects2022" role="doc-biblioref">Gustafson et al. 2022</a>)</span>.</p>
+<p>The importance of framing in shaping public opinion in studies that have found that a climate change frame can influence views on energy. For example, one study found that Republicans were less supportive of a carbon tax, fuel efficiency, and renewables when they were framed as a way to address climate change compared to being framed as a way to address air pollution or energy security <span class="citation" data-cites="feldmanClimateChangePolarizing2018">(<a href="#ref-feldmanClimateChangePolarizing2018" role="doc-biblioref">Feldman and Hart 2018</a>)</span>. Additionally, Republicans were more supportive of renewable energy portfolios in their state when they were framed as helping with air pollution, but no difference in support when those policies were associated with climate change <span class="citation" data-cites="stokesRenewableEnergyPolicy2017">(<a href="#ref-stokesRenewableEnergyPolicy2017" role="doc-biblioref">Stokes and Warshaw 2017</a>)</span>. Along similar lines, views on climate change mediated views about the preferred US energy mix, but only for conservative Republicans and liberal Democrats, not for more moderate political beliefs <span class="citation" data-cites="hawesClimateSciencePolitics2022">(<a href="#ref-hawesClimateSciencePolitics2022" role="doc-biblioref">Hawes and Nowlin 2022</a>)</span>. However, it should be noted that framing may have limited impacts <span class="citation" data-cites="hartPoliticalPolarizationSupport2021 zhouBoomerangsJavelinsHow2016">(<a href="#ref-hartPoliticalPolarizationSupport2021" role="doc-biblioref">Hart, Stedman, and Clarke 2021</a>; <a href="#ref-zhouBoomerangsJavelinsHow2016" role="doc-biblioref">Zhou 2016</a>)</span>, particularly in the presence of counter-frames <span class="citation" data-cites="aklinDebatingCleanEnergy2013">(<a href="#ref-aklinDebatingCleanEnergy2013" role="doc-biblioref">Aklin and Urpelainen 2013</a>)</span>.</p>
+<p>Apart from framing, elite cues can drive polarization among the public. Elites such as prominent elected officials, political parties, and media figures can influence public opinion and drive polarization. Indeed, elite cues may be one of the most important factors for public opinion about climate change <span class="citation" data-cites="brulleShiftingPublicOpinion2012">(<a href="#ref-brulleShiftingPublicOpinion2012" role="doc-biblioref">Brulle, Carmichael, and Jenkins 2012</a>)</span>, and it is likely that the elite debate over the Kyoto Protocol in 1998-99 was a major factor in the development of polarization over climate change <span class="citation" data-cites="krosnickImpactFall19972000">(<a href="#ref-krosnickImpactFall19972000" role="doc-biblioref">Krosnick, Holbrook, and Visser 2000</a>)</span>. Additionally, cues work to both strengthen the views of co-partisans and produce a backlash effect for out-partisans, which can lead to polarization <span class="citation" data-cites="merkleyPartyCuesNews2021">(<a href="#ref-merkleyPartyCuesNews2021" role="doc-biblioref">Merkley and Stecula 2021</a>)</span>. By taking a position on an issue, elites can bring attention to it and make it more salient, which creates a signal for the public. This signal can lead to polarization, such as with the Green New Deal that was widely popular, but became polarized as a result of elite discourse <span class="citation" data-cites="gustafsonDevelopmentPartisanPolarization2019">(<a href="#ref-gustafsonDevelopmentPartisanPolarization2019" role="doc-biblioref">Gustafson et al. 2019</a>)</span>.</p>
+<p>Polarization on energy among the public varies by source, yet polarization among elites, specifically elected officials, grew as energy policy became more regulatory and less distributive <span class="citation" data-cites="lowryDisentanglingEnergyPolicy2008">(<a href="#ref-lowryDisentanglingEnergyPolicy2008" role="doc-biblioref">Lowry 2008</a>)</span>. But, it was the 2010s when differences on energy issues between the political parties in the US Congress became “pervasive and intense” <span class="citation" data-cites="jeongPolarisationEnergyPolicy2021">(<a href="#ref-jeongPolarisationEnergyPolicy2021" role="doc-biblioref">Jeong and Lowry 2021, 4</a>)</span>. The growing polarization on energy issues among elites sets the stage for more uniform polarization among the public. This becomes more likely as prominent political figures express views on energy issues, as cues that came from individual elites seem to be more impactful on public opinion than cues that are simply based on political party <span class="citation" data-cites="nicholsonPolarizingCues2012">(<a href="#ref-nicholsonPolarizingCues2012" role="doc-biblioref">Nicholson 2012</a>)</span>.</p>
+<p>No political figure in the last decade, or more, has done more to polarization the public than President Trump. The “Trump effect” has been show to polarize views on immigration <span class="citation" data-cites="taylorTrumpEffectImmigration2026">(<a href="#ref-taylorTrumpEffectImmigration2026" role="doc-biblioref">Taylor 2026</a>)</span> and free trade <span class="citation" data-cites="essigTrumpEffectPolitical2021">(<a href="#ref-essigTrumpEffectPolitical2021" role="doc-biblioref">Essig et al. 2021</a>)</span>. President Trump expressed skepticism about climate change even before running for the presidency. As a political candidate in 2016, he expressed support for fossil fuels, and during his first term, he withdrew the US from the Paris Agreement on climate change. However, since the start of his second administration, President Trump has accelerated efforts to bolster the production and use of fossil fuels while also hindering the development of renewable energy sources <span class="citation" data-cites="gerrardTrumpsMultiProngedAttack2025 joselowHowTrumpsFirst2025">(<a href="#ref-gerrardTrumpsMultiProngedAttack2025" role="doc-biblioref">Gerrard 2025</a>; <a href="#ref-joselowHowTrumpsFirst2025" role="doc-biblioref">Joselow and Washington 2025</a>)</span>. Such actions are likely to polarize the public further on energy issues.</p>
+<section id="hypotheses" class="level2">
+<h2 class="anchored" data-anchor-id="hypotheses">Hypotheses</h2>
+<p>The observed growing polarization on energy issues, most notably fossil fuels and renewables, could be a result of a climate change frame associated with those energy sources and/or a result of elite cues, particularly from President Trump, regarding those energy sources. To examine these possibilities, I posit the following hypotheses regarding the impacts of climate and partisan cues on the preferred energy mix of fossil fuels and renewable energy sources on the public.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Generally, I expect that the cues will move co-partisans more in the direction of the party’s position and have a backlash effect on out-partisans, moving them further away from the out-party’s position. Given that nuclear energy is not as central as fossil fuels and renewable sources to the current climate debate or Trump’s actions on energy, I do not have any expectations regarding the impacts of the cues on nuclear energy use.</p>
+<blockquote class="blockquote">
+<p>Conservative Republicans who receive the <em>Trump cue</em> will support a <em>higher</em> percentage of fossil fuels, and a <em>lower</em> percentage of renewable energy sources than those in the climate change or control group, and those with other political beliefs</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Conservative Republicans who receive the <em>climate cue</em> will support a <em>higher</em> percentage of fossil fuels, and a <em>lower</em> percentage of renewable energy sources than those in the Trump or control group, and those with other political beliefs</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Liberal Democrats who receive the <em>Trump cue</em> will support a <em>lower</em> percentage of fossil fuels, and a <em>higher</em> percentage of renewable energy sources than those in the climate change or control group, and those with other political beliefs</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Liberal Democrats who receive the <em>climate cue</em> will support a <em>lower</em> percentage of fossil fuels, and a <em>higher</em> percentage of renewable energy sources than those in the climate change or control group, and those with other political beliefs</p>
+</blockquote>
+<p>In the next section, I describe the research design I used to examine the impacts of a climate change cue or a Trump cue on the US public’s preferred energy mix.</p>
+</section>
+</section>
+<section id="research-design-and-measures" class="level1">
+<h1>Research Design and Measures</h1>
+<p>To test the hypotheses, I use a 3 X 2 experimental design, where respondents were randomly assigned to one of three experimental conditions, including a Trump cue, a climate cue, and a control condition with no cues which were compared across two types of political beliefs, including conservative Republicans and liberal Democrats. The preferred energy mix for producing electricity is the dependent variable and is measured as the percentage each respondent allocated across the five energy sources, including fossil fuels, wind, solar, hydro, and nuclear.</p>
+<p><strong>Information</strong>: As part of the research design, respondents were first given the current energy mix, as of 2024, of the US related to electricity. Therefore, respondents were anchored to the actual energy mix use to produce electricity in the US, as of 2024 the most recent year where data was available.</p>
+<blockquote class="blockquote">
+<p>We currently obtain approximately 58 percent of our electricity from fossil fuels (coal, oil, and natural gas), 22 percent from renewable sources (wind, solar, and hydropower), 18 percent from nuclear energy, and 2 percent from other sources (wood, biofuels, waste products, and geothermal energy).</p>
+</blockquote>
+<p>Following the information, respondents were placed in one of the three conditions, and then asked for their preferred energy mix.</p>
+<p><strong>Cues</strong>: The Trump and climate cues were questions that asked respondents to indicate their agreement with the statements on a 1 (strongly oppose) to 5 (strongly support) scale. Question wording included:</p>
+<blockquote class="blockquote">
+<p>Trump cue: <em>As you may have heard, the Trump administration has taken steps to increase the production of fossil fuels, particularly coal, and reduce the use of renewable energy like solar and wind for electricity generation</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p><em>Using a scale of 1 to 5, where 1 means strongly oppose and 5 means strongly support, how do you feel about the Trump administration’s goal of increasing the use of fossil fuels and decreasing the use of renewable sources in generating electricity?</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Climate cue: <em>Scientists agree that the use of fossil fuels has contributed to climate change, and to address climate change, we need to increase the use of renewable sources such as wind, solar, and hydropower</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p><em>Using a scale of 1 to 5, where 1 means strongly disagree and 5 means strongly agree, how do you feel about increasing the use of renewable sources in generating electricity as a way to address climate change?</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Control: <em>No cue</em>, respondents went straight to the energy mix question</p>
+</blockquote>
+<p><strong>Energy mix</strong>: For preferred energy mix, respondents indicated their preferred percentages for each source. Respondents were reminded of the current contributions of each source to the overall energy mix, and they were instructed that their total percentages must add to one hundred.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> It was worded as follows:</p>
+<blockquote class="blockquote">
+<p>Thinking about the overall supply of electricity. What percentage of the total U.S. electricity supply over the next 20 years would you like to see come from each of the 5 primary sources? NOTE: The sum of the five boxes below must equal 100</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Fossil fuels (coal, oil, natural gas), which produced 58 percent in 2024</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Wind energy, which produced 10 percent in 2024</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Solar energy, which produced 7 percent in 2024</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Hydropower, which produced 5 percent in 2024</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Nuclear energy, which produced 18 percent in 2024</p>
+</blockquote>
+<p>To measure political beliefs, respondents were asked with which political party they most identify and to place themselves on a 1 to 7 scale of political ideology, where 1 is strongly liberal, 4 is middle of the road, and 7 is strongly conservative. Response were combined so that liberal Democrats are those that identify with the Democratic party and are strongly liberal or liberal, and conservative Republicans are those that are Republicans and strongly conservative or conservative. Other political beliefs, including conservative Democrats, liberal Republicans, and moderate independents are the excluded referents.</p>
+</section>
+<section id="data" class="level1">
+<h1>Data</h1>
+<p>The data for this study comes from a survey of 3113 US residents recruited through Cloud Research, a survey panel provider that uses a variety of online recruitment methods to build a large and diverse panel of respondents. Cloud Research provides a quota-based sampling approach, where US Census data is used to ensure representation across key demographic groups. The survey was internet based, and administered in QuestionPro. It was fielded from April 10 to April 15, 2026. Survey weights were applied to ensure that the sample was representative. As noted, respondents were randomly assigned to one of three conditions, and random assignment produced approximately equal groups, with the Trump cue, <em>n</em> = 1049, the climate cue, <em>n</em> = 1013, and control, <em>n</em> = 1051, from the sample of <em>N</em> = 3113.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>In the next section, I first examine the cue questions to confirm that respondents were responsive to the cues. Then, I examine the preferred energy mix by political beliefs and treatment condition. Next, I test whether the partisan gaps in preferred energy mix differ significantly across treatment conditions. Finally, I explore the differences in preferred energy sources from the current energy mix across treatment conditions and political beliefs.</p>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<p>I first use OLS models to estimate agreement with the Trump and climate cue questions for liberal Democrats and conservative Republicans. <a href="#fig-cueModels" class="quarto-xref">Figure&nbsp;1</a> shows the coefficient plots.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-cueModels" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cueModels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Coefficient Plots of Trump Cue and Climate Cue
+</figcaption>
+<div aria-describedby="fig-cueModels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="cue-energy_files/figure-html/fig-cueModels-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>As shown, for the Trump cue liberal democrats were significantly less likely, at -0.753, to support Trump’s actions on energy, whereas conservative Republicans had an estimated level of support 1.416 points higher on the 1 to 5 scale than other political beliefs. For the climate change cue, liberal Democrats were significantly more likely than others to support renewable energy to address climate change, with an estimated coefficient of 0.556, and conservative Republicans were significantly less likely with a coefficient of -0.663. These results suggest that respondents were responsive to the cues in ways that were expected.</p>
+<p>Next, I examine the differences in the predicted preferred energy mix across treatments and political beliefs. The results are shown in <a href="#fig-pred" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-pred" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-pred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Predicted Preferred Energy Mix by Political Beliefs and Cues
+</figcaption>
+<div aria-describedby="fig-pred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="cue-energy_files/figure-html/fig-pred-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>As can be seen, conservative Republicans preferred an energy mix with more fossil fuels than did liberal Democrats, particularly Republicans that received the Trump cue. Conservative Republicans in the Trump condition preferred an energy mix that consists of about 41% fossil fuels compared to 31% in both the climate and control conditions. Liberal Democrats preferred an energy mix with more renewables than Republicans, particularly wind and solar, and the percentages of renewable sources seemed largely consistent for Democrats across the three conditions. Finally, Republicans preferred more nuclear energy than Democrats across all conditions, yet the differences were smallest in the Trump condition.</p>
+<p>Next, I illustrate the polarization of energy preferences across beliefs and cues by sorting the gaps by size and direction, and they are shown in <a href="#fig-gap" class="quarto-xref">Figure&nbsp;3</a>. As shown, fossil fuels are the most polarized, particularly in the Trump condition with an average difference of 23.5 percentage points between liberal Democrats and conservative Republicans. In the climate condition the gap was 18.1 and it was 16.1 in the control. Following fossil fuels, wind and solar are the next most polarized and preferred by liberal Democrats roughly equally across all three conditions. For wind the gap between the parties ranged from 11 to 12 points, and the gaps for solar were similar with a range of 10 to 12 points. Nuclear energy show some polarization with conservative Republicans more supportive than liberal Democrats, and the gaps ranged from 4 to 8 points. Finally, hydro is the least polarized, with gaps of only 2 to 4 percentage points.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-gap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Largest Gaps by Political Belief in Preferred Energy Mix
+</figcaption>
+<div aria-describedby="fig-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="cue-energy_files/figure-html/fig-gap-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>To assess the hypotheses and examine which of the differences are statistically significant, I estimated design-based contrasts both for the partisan gap (liberal Democrats − conservative Republicans) within each condition and for shifts across conditions (e.g., Trump − control). Design-based contrasts were used to account for the survey weights. The results are shown in <a href="#tbl-pred-contrasts" class="quarto-xref">Table&nbsp;1</a>.</p>
+<div class="cell" data-tbl-pos="H">
+<div id="tbl-pred-contrasts" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-pos="H">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-pred-contrasts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Pairwise Differences in the Predicted Preferred Energy Mix
+</figcaption>
+<div aria-describedby="tbl-pred-contrasts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-05962da2{}.cl-05932594{font-family:'Helvetica';font-size:8pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-0593259e{font-family:'Helvetica';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-0593259f{font-family:'Helvetica';font-size:7pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-059486e6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-059486e7{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-059486f0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-05949816{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05949817{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05949820{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05949821{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05949822{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05949823{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0594982a{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0594982b{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-05962da2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-05949816"><p class="cl-059486e6"><span class="cl-05932594">Comparison</span></p></th><th class="cl-05949817"><p class="cl-059486e7"><span class="cl-05932594">Fossil Fuels</span></p></th><th class="cl-05949817"><p class="cl-059486e7"><span class="cl-05932594">Wind</span></p></th><th class="cl-05949817"><p class="cl-059486e7"><span class="cl-05932594">Solar</span></p></th><th class="cl-05949817"><p class="cl-059486e7"><span class="cl-05932594">Hydro</span></p></th><th class="cl-05949817"><p class="cl-059486e7"><span class="cl-05932594">Nuclear</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-05949820"><p class="cl-059486e6"><span class="cl-0593259e">Gap (Dem - Rep): Control</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-16.1***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">10.9***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">10.0***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">2.0*</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-6.7***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05949820"><p class="cl-059486e6"><span class="cl-0593259e">Gap (Dem - Rep): Climate</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-18.1***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">11.0***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">11.0***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">4.1***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-8.1***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05949820"><p class="cl-059486e6"><span class="cl-0593259e">Gap (Dem - Rep): Trump</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-23.5***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">12.4***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">11.6***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">3.7***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-4.3**</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05949820"><p class="cl-059486e6"><span class="cl-0593259e">Republicans: Climate - Control</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">0.2</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">0.7</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-1.2</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-0.6</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">0.9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05949820"><p class="cl-059486e6"><span class="cl-0593259e">Republicans: Trump - Control</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">9.5***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-2.4*</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-3.4*</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-1.6†</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-2.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05949820"><p class="cl-059486e6"><span class="cl-0593259e">Republicans: Trump - Climate</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">9.4***</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-3.1*</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-2.2</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-1.0</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-3.1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05949820"><p class="cl-059486e6"><span class="cl-0593259e">Democrats: Climate - Control</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-1.8</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">0.9</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-0.2</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">1.6*</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-0.4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05949820"><p class="cl-059486e6"><span class="cl-0593259e">Democrats: Trump - Control</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">2.2†</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-0.9</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">-1.7†</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">0.1</span></p></td><td class="cl-05949821"><p class="cl-059486e7"><span class="cl-0593259e">0.3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05949822"><p class="cl-059486e6"><span class="cl-0593259e">Democrats: Trump - Climate</span></p></td><td class="cl-05949823"><p class="cl-059486e7"><span class="cl-0593259e">4.0***</span></p></td><td class="cl-05949823"><p class="cl-059486e7"><span class="cl-0593259e">-1.8†</span></p></td><td class="cl-05949823"><p class="cl-059486e7"><span class="cl-0593259e">-1.5</span></p></td><td class="cl-05949823"><p class="cl-059486e7"><span class="cl-0593259e">-1.4*</span></p></td><td class="cl-05949823"><p class="cl-059486e7"><span class="cl-0593259e">0.7</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-0594982a"><p class="cl-059486f0"><span class="cl-0593259f">Note: Cell entries are estimated differences in the predicted preferred share (percentage points) underlying Figure 2. Partisan-gap rows are the Liberal Democrats − Conservative Republicans difference within each condition; within-party rows are the change for that party when moving from one condition to another. Estimates use survey weights; standard errors and p-values are design-based. *** p &lt; 0.001, ** p &lt; 0.01, * p &lt; 0.05, † p &lt; 0.10.</span></p></td></tr></tfoot></table></div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The first three rows in <a href="#tbl-pred-contrasts" class="quarto-xref">Table&nbsp;1</a> show that the partisan gaps, illustrated in <a href="#fig-gap" class="quarto-xref">Figure&nbsp;3</a>, are statistically significant for every energy source in every condition. This means that liberal Democrats and conservative Republicans differ in their preferred mix regardless of the experimental condition. In terms of the hypotheses, as expected conservative Republicans in the Trump condition preferred 9.5 percentage points (p &lt; 0.001) more fossil fuels, and less renewables with 2.4 percentage points (p = 0.046) less wind, 3.4 percentage points (p = 0.017) less solar, and 1.6 percentage points (p = 0.100) less hydro than those in the control condition. Additionally, also as expected, they preferred more fossil fuels, at 9.4 percentage points (p &lt; 0.001), and less wind, with 3.1 percentage points (p = 0.011) in the Trump condition versus the climate condition. However, contrary to expectations, conservative Republicans were no more or less likely to prefer fossil fuels or oppose renewables in the climate change versus control condition.</p>
+<p>Also as shown in <a href="#tbl-pred-contrasts" class="quarto-xref">Table&nbsp;1</a>, overall, liberal Democrats preferred more wind, solar, energy and less fossil fuels and nuclear than Republicans across all conditions. However, contrary to expectations regarding renewable energy, liberal Democrats only preferred more hydro, at 1.6 percentage points (p = 0.018) in the climate condition compared to the control. However, compared to the climate condition, liberal Democrats in the Trump condition preferred 4.0 percentage points (p &lt; 0.001) more fossil fuels, 1.8 percentage points (p = 0.065) less wind, and 1.4 percentage points (p = 0.036) less hydro. Similarly, compared to the control condition, liberal Democrats in the Trump condition preferred more fossil fuels, 2.2 percentage points (p = 0.072) and 1.7 percentage points (p = 0.085) less hydro. However, the shifts for liberal Democrats were much smaller than those for conservative Republicans, and the shifts for Democrats in the Trump condition compared to the control were significant at p &lt; 0.10.</p>
+<p>Nuclear was supported more by Republicans than Democrats, and was most polarized in the climate and control conditions. No within-party difference across the conditions were significant for nuclear energy. Overall, hydro was preferred by liberal Democrats, yet, as noted, it was the least polarized energy source. The hydro power control condition had the smallest gap, with a difference of only about 2 percentage points. Liberal Democrats in the climate cue preferred 1.6 percentage points (p = 0.018) more hydro than liberal Democrats in the control condition. Together, these results show that the cue-driven movement in <a href="#fig-pred" class="quarto-xref">Figure&nbsp;2</a> is driven largely by conservative Republicans responding to the Trump cue.</p>
+<p>Next, I compare the gaps across treatment conditions to examine whether the cues shifted the partisan differences in preferred energy mix. Specifically, I use a difference-in-differences (DiD) approach, where I examine the difference between political beliefs (i.e., liberal Democrats - conservative Republicans), which are shown in <a href="#fig-gap" class="quarto-xref">Figure&nbsp;3</a>, and differences between treatment conditions (e.g., Trump cue - control) using interaction terms between political beliefs and treatment conditions.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> This approach allows me to test whether the cues shifted the partisan gaps in the preferred energy mix. The results are shown in <a href="#tbl-did" class="quarto-xref">Table&nbsp;2</a>.</p>
+<div class="cell">
+<div id="tbl-did" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-did-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Treatment Effects on the Preferred Energy Mix Across Political Beliefs
+</figcaption>
+<div aria-describedby="tbl-did-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-05a335e2{}.cl-059fc5ce{font-family:'Helvetica';font-size:8pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-059fc5d8{font-family:'Helvetica';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-059fc5d9{font-family:'Helvetica';font-size:7pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-05a15e0c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-05a15e16{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-05a15e17{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-05a16bae{width:1.7in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05a16baf{width:0.92in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05a16bb0{width:1.7in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05a16bb1{width:0.92in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05a16bb8{width:1.7in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05a16bb9{width:0.92in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05a16bba{width:1.7in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05a16bc2{width:0.92in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-05a335e2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-05a16bae"><p class="cl-05a15e0c"><span class="cl-059fc5ce">Contrast</span></p></th><th class="cl-05a16baf"><p class="cl-05a15e16"><span class="cl-059fc5ce">Fossil Fuels</span></p></th><th class="cl-05a16baf"><p class="cl-05a15e16"><span class="cl-059fc5ce">Wind</span></p></th><th class="cl-05a16baf"><p class="cl-05a15e16"><span class="cl-059fc5ce">Solar</span></p></th><th class="cl-05a16baf"><p class="cl-05a15e16"><span class="cl-059fc5ce">Hydro</span></p></th><th class="cl-05a16baf"><p class="cl-05a15e16"><span class="cl-059fc5ce">Nuclear</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-05a16bb0"><p class="cl-05a15e0c"><span class="cl-059fc5d8">Omnibus F-test (any treatment effect on gap)</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">F = 3.82*</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">F = 0.63</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">F = 0.45</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">F = 1.84</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">F = 1.37</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05a16bb0"><p class="cl-05a15e0c"><span class="cl-059fc5d8">Climate Cue vs Control</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">-1.95 [-6.55, 2.66]</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">0.16 [-3.06, 3.38]</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">0.97 [-2.40, 4.34]</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">2.16† [-0.21, 4.53]</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">-1.34 [-5.91, 3.22]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05a16bb0"><p class="cl-05a15e0c"><span class="cl-059fc5d8">Trump Cue vs Control</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">-7.34** [-12.57, -2.10]</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">1.50 [-1.42, 4.42]</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">1.64 [-1.75, 5.02]</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">1.75 [-0.56, 4.05]</span></p></td><td class="cl-05a16bb1"><p class="cl-05a15e16"><span class="cl-059fc5d8">2.45 [-1.93, 6.84]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-05a16bb8"><p class="cl-05a15e0c"><span class="cl-059fc5d8">Trump Cue vs Climate</span></p></td><td class="cl-05a16bb9"><p class="cl-05a15e16"><span class="cl-059fc5d8">-5.39* [-10.78, -0.00]</span></p></td><td class="cl-05a16bb9"><p class="cl-05a15e16"><span class="cl-059fc5d8">1.34 [-1.69, 4.37]</span></p></td><td class="cl-05a16bb9"><p class="cl-05a15e16"><span class="cl-059fc5d8">0.67 [-2.63, 3.97]</span></p></td><td class="cl-05a16bb9"><p class="cl-05a15e16"><span class="cl-059fc5d8">-0.41 [-2.76, 1.94]</span></p></td><td class="cl-05a16bb9"><p class="cl-05a15e16"><span class="cl-059fc5d8">3.80 [-0.81, 8.40]</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-05a16bba"><p class="cl-05a15e17"><span class="cl-059fc5d9">Note: Top row shows the omnibus F-test for whether treatments jointly shift the partisan gap on each energy source. Subsequent rows show the estimated change in the partisan gap (Liberal Democrats − Conservative Republicans) when moving from one treatment condition to another, with 95% confidence intervals in brackets. Estimates from svyglm models fit separately by energy source, using survey weights; standard errors and confidence intervals are design-based. *** p &lt; 0.001, ** p &lt; 0.01, * p &lt; 0.05, † p &lt; 0.10.</span></p></td></tr></tfoot></table></div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><a href="#tbl-did" class="quarto-xref">Table&nbsp;2</a> illustrates the change in the partisan gap for each energy source across each pairwise treatment comparison. Additionally, <a href="#tbl-did" class="quarto-xref">Table&nbsp;2</a> includes an omnibus F-test which examines whether the cues had an overall effect on the partisan gaps across each energy source. As can be seen, for fossil fuels the F-test was significant, indicating that the partisan gaps in preferred energy mix shift significantly for fossil fuels. These impacts were a result of the Trump condition, as a shift of -7.3 percentage points occurred between the Trump and control condition, and a shift of -5.4 percentage points happened between the Trump and climate change condition. Additionally, the gap for hydro power was significantly higher (at <em>p</em>&lt;0.10) in the climate condition compared to the control condition.</p>
+<p>Finally, I compared the preferred energy mix to the current baseline. Overall, the evidence presented here suggests that Trump may polarize energy preferences by shifting conservative Republicans to be more in favor of fossil fuels than they might be otherwise. However, the shift in the energy mix from the current baseline is important to address climate change. Previous research has noted that the public, on average, prefers an energy portfolio with fewer fossil fuels and more renewable energy sources than the US uses currently <span class="citation" data-cites="hawesClimateSciencePolitics2022 ter-mkrtchyanPortionsPortfoliosUnderstanding2022">(<a href="#ref-hawesClimateSciencePolitics2022" role="doc-biblioref">Hawes and Nowlin 2022</a>; <a href="#ref-ter-mkrtchyanPortionsPortfoliosUnderstanding2022" role="doc-biblioref">Ter-Mkrtchyan et al. 2022</a>)</span>. Therefore, I compare the differences in preferred energy sources from the current baseline across political beliefs and treatment conditions in <a href="#fig-mixchange" class="quarto-xref">Figure&nbsp;4</a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-mixchange" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-mixchange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Preferred Change from Existing Energy Mix (percentage points)
+</figcaption>
+<div aria-describedby="fig-mixchange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="cue-energy_files/figure-html/fig-mixchange-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>As shown, all respondents want an energy mix with fewer fossil fuels and more renewables. When comparing each group’s predicted preferred share to the status quo, the preferred changes are statistically significant for 29 of the 30 group-by-source-by-condition comparisons. Both liberal Democrats and conservative Republicans preferred significantly less fossil fuel and significantly more wind, solar, and hydropower than the current mix across all three conditions, with Democrats favoring larger shifts away from fossil fuels and toward renewables than Republicans. These findings support previous research that suggests that the public is generally supportive of a transition to renewable energy sources, even among conservative Republicans. Additionally, the cues had little effect on the preferred change from the current mix for most sources, except for fossil fuels, where the Trump cue led conservative Republicans to prefer a smaller reduction in fossil fuels, -17.4, than they did in the control with -26.9, and climate conditions at -26.8.</p>
+<p>The two parties diverge only on nuclear energy, with liberal Democrats preferring a small but significant reduction (about three percentage points), whereas conservative Republicans preferred an expansion in the control and climate conditions. The only non-significant difference is conservative Republicans’ preferred nuclear share in the Trump condition, which is statistically indistinguishable from the current level (a change of 1.3 percentage points, with a 95% confidence interval that includes zero).</p>
+</section>
+<section id="discussion" class="level1">
+<h1>Discussion</h1>
+<p>While climate change has been a polarized political issue for decades, energy has not been as politicized or as polarized. There are partisan differences, particularly with regard to fossil fuels, but by and large the US public has supported relying less on fossil fuels and more on renewable sources of energy. However, recent public opinion data shows that Republicans have become less supportive of renewable energy over the last decade. In this paper, I tested two possible explanations, including that renewable energy has become entangled with climate change, and that elite cues, particularly from Donald Trump, have made Republicans less supportive of renewables.</p>
+<p>To test several hypotheses based on the two possible explanations, I developed a survey experiment that provided respondents with either a climate change cue, a Trump cue, or no cue. The impacts of these cues on respondents’ preferred energy mix were then measured across political beliefs. Consistent with previous research, conservative Republicans preferred more fossil fuels and nuclear energy than liberal Democrats, whereas liberal Democrats preferred more renewables sources. These general results were consistent across the treatment conditions. Next, I examine the hypotheses and results by the various energy sources.</p>
+<p><strong>Fossil fuels</strong>: As expected, conservative Republicans in the Trump condition preferred more fossil fuels compared to the control and climate conditions. In addition, across energy sources the largest partisan gaps were for fossil fuels, with a 16.1 percentage point gap in the control condition, a 18.1 percentage point gap in the climate condition, and a 23.5 percentage point gap in the Trump condition. Looking at within party differences, conservative Republicans in the Trump condition preferred 9.5 percentage points more fossil fuels than those in the control, and 9.4 more than those in the climate condition. Significant differences existed between political beliefs for fossil fuels, as shown in the omnibus F-test in <a href="#tbl-did" class="quarto-xref">Table&nbsp;2</a>. The difference between liberal Democrat and conservative Republicans was -7.3 percentage points percentage points from the Trump to control condition, and -5.4 percentage points percentage points between the Trump and climate change condition. Finally, all respondents across all conditions preferred an energy mix with fewer fossil fuels than the US currently uses, with conservative Republicans in the Trump condition preferring a smaller reduction.</p>
+<p>I expected a backlash effect for liberal Democrats in the Trump condition; however, they preferred more fossil fuels at 4.0 percentage points (p &lt; 0.001) percentage points and 2.2 percentage points (p = 0.072) percentage points compared to the climate and control conditions respectively. Therefore, there did not seem to be the expected backlash. However, liberal Democrats preferred a low percentage of fossil fuels across all conditions, including an energy mix with 13% fossil fuels when given the climate cue compared to 17% with the Trump cue and 15% in the control condition. Liberal Democrats want significantly fewer fossil fuels than are currently used in the US, and the within-partisan differences reflect the impact of the climate cue compared to Trump cue and, to a lesser extent, the Trump cue versus the control.</p>
+<p><strong>Renewables</strong>: I hypothosized that Conservative Republicans who received the Trump cue would prefer an energy mix with less renewables, and that is the case. Compared to the control, Republicans given the Trump cue preferred 2.4 percentage points (p = 0.046) percentage points, 3.4 percentage points (p = 0.017) less solar, and 1.6 percentage points (p = 0.100) less hydro. For the Trump cue versus the climate cue, Republicans preferred less wind at 3.1 percentage points (p = 0.011). Yet, there was no evidence of a backlash as no significant differences exsisted between the climate versus the control for Republicans. While renewables were polarized and the Trump cue served to shift Republicans away from renewables, Republicans, on average, still prefered an energy mix with more renewable sources than the current baseline across all the conditions.</p>
+<p>For liberal Democrats, I expected that they preferred more renewables in the climate condition and the Trump condition. This was only the case in for hydro in the climate versus control condition with a difference of 1.6 percentage points (p = 0.018). Additionally, contrary to expectations, there was not a backlash effect as Democrats preferred slighty less solar in the Trump condition versus the control and slightly less wind in the Trump condition versus the climate condition. Similar to the fossil fuel results, these differences are small as the preferred energy mix of liberal Democrats is dominated by renewables with solar at 29% , 29%, and 27% in the control, climate, and Trump conditions respectively. This is followed by wind at 27%, 27%, and 26% across conditions.</p>
+<p><strong>Nuclear</strong>: While I had no clear expectation with regard to nuclear energy, there were some differences across political beliefs even as there were no within-party differences across treatment conditions. Republicans preferred an energy mix with more nuclear energy than Democrats, with largest gap, 8 percentage points, occuring the climate condition. Nuclear energy is a carbon-free source of electricity, yet it is supported by conservative Republicans. Nuclear energy will likely need to part of the energy transition, and the degree to which it is polarized is not likely, at this point, to drive strong opposition as the second Trump administration takes action to support the development of nuclear energy <span class="citation" data-cites="mcdermottTrumpAdministrationAnnounces2026">(e.g., <a href="#ref-mcdermottTrumpAdministrationAnnounces2026" role="doc-biblioref">McDermott and Daly 2026</a>)</span>. Liberals, Democrats, and others concerned about climate change but skeptical about nuclear energy have long faced the tension between the risks of nuclear and it’s availability as a carbon-free way to generate electricity. Perhaps Trump’s efforts on nuclear will push Democrats toward opposition, but the findings here suggested limited potential for that type of backlash.</p>
+<p>Overall, these results suggest that the Trump effect is the most likely explanation for the Republican shift on fossil fuels and renewable energy. Democrats were not as responsive to cues as Republicans, although they did prefer less use of fossil fuels in climate condition compared to the Trump condition and slighly more hydro power in the climate condition compared to the control. In general, Trump seems to have execarbated some existing polarization, particularly on fossil fuels, rather than creating polarization where none had existed before. Additionally, respondents of all political beliefs across all conditions, anchored by information regarding the current US energy mix, preferred fewer fossil fuels and more renewable sources of energy for the production of electricity. Finally, there was limited evidence for the expected backlash effects. Compared to the control, Republicans in the climate condition saw no shifts in support for fossil fuels or opposition to renewables. Simarly, Democrats in the Trump condition did not support fossil fuels less or renewables more in the Trump condition. In fact, Democrats preferred <em>more</em> fossil fuels after receiving the Trump than the climate cue or the control. However, those results reflect the fact that preferred percent for Democrats in the climate change was low at 13% as compared to Trump condition at 17% and 15% in the control.</p>
+<p>Looking ahead, the potential for Trump to further polarize energy sources will likely be constrainted by the political environment, including his popularity and events related to energy. Since taking office for the second time, Trump approval has fallen, inflation has increased, and the military actions against Iran have impacted global energy supplies. These factors likely limit the impact that Trump’s actions on energy will have on the US public’s views about energy sources. Indeed, perhaps one reason that energy is a less politisized and polarized issue than climate change is that the costs of energy are so readily apparent to consumers. Therefore, views about energy are driven in large part by day-to-day experiences with prices and less by political identities.</p>
+<p>While this paper provides some insights into the polarization of energy issues, there are some limitations. One possible limitation in the timing of the survey. It was fielded in April of 2026 when US military actions in Iran were creating high levels of uncertainty around energy supply and prices. Additionally, the data is cross-sectional, which limits the ability to understand how opinion dynamics at a time when there is a lot happening regarding energy. Future research should use panel data to explore responses to Trump’s actions in the context of other events. Finally,survey experiments such as the one here are generally strong in terms of internal validilty; however, they are weaker on external validity as multiple factors shape how the public views issues like energy. Utilizing panel data could also help address concerns about external validity.</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>Addressing and limiting the impacts of a changing climate require transitioning away from fossil fuels as a primary energy source.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="references" class="level1 unnumbered">
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-aklinDebatingCleanEnergy2013" class="csl-entry" role="listitem">
+Aklin, Michaël, and Johannes Urpelainen. 2013. <span>“Debating <span>Clean Energy</span>: <span>Frames</span>, <span>Counter Frames</span>, and <span>Audiences</span>.”</span> <em>Global Environmental Change</em> 23(5): 1225–32.
+</div>
+<div id="ref-ansolabehereCheapCleanHow2016" class="csl-entry" role="listitem">
+Ansolabehere, Stephen, and David M. Konisky. 2016. <em>Cheap and <span>Clean</span>: <span>How Americans Think</span> about <span>Energy</span> in the <span>Age</span> of <span>Global Warming</span></em>. The MIT Press.
+</div>
+<div id="ref-bakerDifferenceinDifferencesDesignsPractitioners2026" class="csl-entry" role="listitem">
+Baker, Andrew, Brantly Callaway, Scott Cunningham, Andrew Goodman-Bacon, and Pedro H. C. Sant’Anna. 2026. <span>“Difference-in-<span>Differences Designs</span>: <span>A Practitioner</span>’s <span>Guide</span>.”</span> <em>Journal of Economic Literature</em> 64(2): 498–557.
+</div>
+<div id="ref-bergquistEnergyPolicyPublic2020" class="csl-entry" role="listitem">
+Bergquist, Parrish, David M Konisky, and John Kotcher. 2020. <span>“Energy <span>Policy</span> and <span>Public Opinion</span>: <span>Patterns</span>, <span>Trends</span> and <span>Future Directions</span>.”</span> <em>Progress in Energy</em> 2(3): 032003.
+</div>
+<div id="ref-brulleShiftingPublicOpinion2012" class="csl-entry" role="listitem">
+Brulle, Robert J., Jason Carmichael, and J. Craig Jenkins. 2012. <span>“Shifting <span>Public Opinion</span> on <span>Climate Change</span>: <span>An Empirical Assessment</span> of <span>Factors Influencing Concern</span> over <span>Climate Change</span> in the <span>U</span>.<span>S</span>., 2002–2010.”</span> <em>Climatic Change</em> 114(2): 169–88.
+</div>
+<div id="ref-clarkePoliticsScientificConsensus2019" class="csl-entry" role="listitem">
+Clarke, Christopher E., and Darrick T. N. Evensen. 2019. <span>“The <span>Politics</span> of <span>Scientific Consensus</span>? <span>Political Divergence</span> and <span>Partisanship</span> in <span>Unconventional Energy Development</span> in the <span>United States</span>.”</span> <em>Energy Research &amp; Social Science</em> 51: 156–67.
+</div>
+<div id="ref-croweEffectPartisanCues2020" class="csl-entry" role="listitem">
+Crowe, Jessica A. 2020. <span>“The <span>Effect</span> of <span>Partisan Cues</span> on <span>Support</span> for <span>Solar</span> and <span>Wind Energy</span> in the <span>United States</span>.”</span> <em>Social Science Quarterly</em> 101(4): 1461–74.
+</div>
+<div id="ref-davisEnergyAbundanceEnvironmental2014" class="csl-entry" role="listitem">
+Davis, Charles, and Jonathan M. Fisk. 2014. <span>“Energy <span>Abundance</span> or <span>Environmental Worries</span>? <span>Analyzing Public Support</span> for <span>Fracking</span> in the <span>United States</span>.”</span> <em>Review of Policy Research</em> 31(1): 1–16.
+</div>
+<div id="ref-druckmanEvidenceMotivatedReasoning2019" class="csl-entry" role="listitem">
+Druckman, James N., and Mary C. McGrath. 2019. <span>“The <span>Evidence</span> for <span>Motivated Reasoning</span> in <span>Climate Change Preference Formation</span>.”</span> <em>Nature Climate Change</em> 9(2): 111–19.
+</div>
+<div id="ref-dunlapWideningGapRepublican2008" class="csl-entry" role="listitem">
+Dunlap, Riley E., and Aaron M. McCright. 2008. <span>“A <span>Widening Gap</span>: <span>Republican</span> and <span>Democratic Views</span> on <span>Climate Change</span>.”</span> <em>Environment</em> 50(5): 26–35.
+</div>
+<div id="ref-dunlapPoliticalDivideClimate2016" class="csl-entry" role="listitem">
+Dunlap, Riley E., Aaron M. McCright, and Jerrod H. Yarosh. 2016. <span>“The <span>Political Divide</span> on <span>Climate Change</span>: <span>Partisan Polarization Widens</span> in the <span>U</span>.<span>S</span>.”</span> <em>Environment: Science and Policy for Sustainable Development</em> 58(5): 4–23.
+</div>
+<div id="ref-eganUSPartisanPolarization2024" class="csl-entry" role="listitem">
+Egan, Patrick J., and Megan Mullin. 2024. <span>“<span>US Partisan Polarization</span> on <span>Climate Change</span>: <span>Can Stalemate Give Way</span> to <span>Opportunity</span>?”</span> <em>PS: Political Science &amp; Politics</em> 57(1): 30–35.
+</div>
+<div id="ref-essigTrumpEffectPolitical2021" class="csl-entry" role="listitem">
+Essig, Joseph, Ping Xu, James C. Garand, and Ceren Keser. 2021. <span>“The <span>‘<span>Trump</span>’</span> <span>Effect</span>: <span>Political Elite</span> and <span>Support</span> for <span>Free Trade</span> in <span>America</span>.”</span> <em>American Politics Research</em> 49(3): 328–42.
+</div>
+<div id="ref-feldmanClimateChangePolarizing2018" class="csl-entry" role="listitem">
+Feldman, Lauren, and P. Sol Hart. 2018. <span>“Climate <span>Change</span> as a <span>Polarizing Cue</span>: <span>Framing Effects</span> on <span>Public Support</span> for <span>Low-Carbon Energy Policies</span>.”</span> <em>Global Environmental Change</em> 51: 54–66.
+</div>
+<div id="ref-gazmararianPublicOpinionFoundations2026" class="csl-entry" role="listitem">
+Gazmararian, Alexander F., Matto Mildenberger, and Dustin Tingley. 2026. <span>“Public <span>Opinion Foundations</span> of the <span>Clean Energy Transition</span>.”</span> <em>Environmental Politics</em> 35(4): 846–68.
+</div>
+<div id="ref-gerrardTrumpsMultiProngedAttack2025" class="csl-entry" role="listitem">
+Gerrard, Michael B. 2025. <span>“Trump’s <span>Multi-Pronged Attack</span> on <span>Renewable Energy</span>.”</span> <em>New York Law Journal</em>.
+</div>
+<div id="ref-guptaTrackingNuclearMood2019" class="csl-entry" role="listitem">
+Gupta, Kuhika, Matthew C. Nowlin, Joseph T. Ripberger, Hank C. Jenkins-Smith, and Carol L. Silva. 2019. <span>“Tracking the <span>Nuclear</span> ’<span>Mood</span>’ in the <span>United States</span>: <span>Introducing</span> a <span>Long Term Measure</span> of <span>Public Opinion About Nuclear Energy Using Aggregate Survey Data</span>.”</span> <em>Energy Policy</em> 133.
+</div>
+<div id="ref-gustafsonDurableBipartisanEffects2022" class="csl-entry" role="listitem">
+Gustafson, Abel, Matthew H. Goldberg, Parrish Bergquist, Karine Lacroix, Seth A. Rosenthal, and Anthony Leiserowitz. 2022. <span>“The <span>Durable</span>, <span>Bipartisan Effects</span> of <span>Emphasizing</span> the <span>Cost Savings</span> of <span>Renewable Energy</span>.”</span> <em>Nature Energy</em> 7(11): 1023–30.
+</div>
+<div id="ref-gustafsonRepublicansDemocratsDiffer2020" class="csl-entry" role="listitem">
+Gustafson, Abel, Matthew H. Goldberg, John E. Kotcher, Seth A. Rosenthal, Edward W. Maibach, Matthew T. Ballew, and Anthony Leiserowitz. 2020. <span>“Republicans and <span>Democrats Differ</span> in <span>Why They Support Renewable Energy</span>.”</span> <em>Energy Policy</em> 141: 111448.
+</div>
+<div id="ref-gustafsonDevelopmentPartisanPolarization2019" class="csl-entry" role="listitem">
+Gustafson, Abel, Seth A. Rosenthal, Matthew T. Ballew, Matthew H. Goldberg, Parrish Bergquist, John E. Kotcher, Edward W. Maibach, and Anthony Leiserowitz. 2019. <span>“The <span>Development</span> of <span>Partisan Polarization Over</span> the <span>Green New Deal</span>.”</span> <em>Nature Climate Change</em> 9: 940–44.
+</div>
+<div id="ref-hamiltonChangeWindUS2018" class="csl-entry" role="listitem">
+Hamilton, Lawrence C., Erin Bell, Joel Hartter, and Jonathan D. Salerno. 2018. <span>“A <span>Change</span> in the <span>Wind</span>? <span>US Public Views</span> on <span>Renewable Energy</span> and <span>Climate Compared</span>.”</span> <em>Energy, Sustainability and Society</em> 8(1): 11.
+</div>
+<div id="ref-hartPoliticalPolarizationSupport2021" class="csl-entry" role="listitem">
+Hart, P. Sol, Richard C. Stedman, and Christopher E. Clarke. 2021. <span>“Political <span>Polarization</span> in <span>Support</span> for <span>Subsidizing Unprofitable Coal Power Plants</span>.”</span> <em>Energy Policy</em> 150: 112156.
+</div>
+<div id="ref-hawesClimateSciencePolitics2022" class="csl-entry" role="listitem">
+Hawes, Rachel, and Matthew C. Nowlin. 2022. <span>“Climate <span>Science</span> or <span>Politics</span>? <span>Disentangling</span> the <span>Roles</span> of <span>Citizen Beliefs</span> and <span>Support</span> for <span>Energy</span> in the <span>United States</span>.”</span> <em>Energy Research &amp; Social Science</em> 85: 102419.
+</div>
+<div id="ref-howellSeeingRiskColoredGlasses2019" class="csl-entry" role="listitem">
+Howell, Emily L., Christopher D. Wirz, Dominique Brossard, Dietram A. Scheufele, and Michael A. Xenos. 2019. <span>“Seeing <span>Through Risk-Colored Glasses</span>: <span>Risk</span> and <span>Benefit Perceptions</span>, <span>Knowledge</span>, and the <span>Politics</span> of <span>Fracking</span> in the <span>United States</span>.”</span> <em>Energy Research &amp; Social Science</em> 55: 168–78.
+</div>
+<div id="ref-jeongPolarisationEnergyPolicy2021" class="csl-entry" role="listitem">
+Jeong, Gyung-Ho, and William Lowry. 2021. <span>“The <span>Polarisation</span> of <span>Energy Policy</span> in the <span>US Congress</span>.”</span> <em>Journal of Public Policy</em> 41(1): 17–41.
+</div>
+<div id="ref-joselowHowTrumpsFirst2025" class="csl-entry" role="listitem">
+Joselow, Brad PlumerLisa FriedmanMaxine, and Scott DanceReporting from Washington. 2025. <span>“How <span>Trump</span>’s <span>First Year Reshaped U</span>.<span>S</span>. <span>Energy</span> and <span>Climate Policy</span>.”</span> <em>The New York Times: Climate</em>. https://www.nytimes.com/2025/12/22/climate/how-trumps-first-year-reshaped-us-energy-and-climate-policy.html (December 22, 2025).
+</div>
+<div id="ref-kennedyAmericansShiftingViews2026" class="csl-entry" role="listitem">
+Kennedy, Brian, and Emma Kikuchi. 2026. <span>“Americans’ <span>Shifting Views</span> on <span>Energy Sources</span>, <span>Policy</span> in 2026.”</span> https://www.pewresearch.org/science/2026/04/03/americans-shifting-views-on-energy-issues/ (April 21, 2026).
+</div>
+<div id="ref-krosnickImpactFall19972000" class="csl-entry" role="listitem">
+Krosnick, Jon A., Allyson L. Holbrook, and Penny S. Visser. 2000. <span>“The <span>Impact</span> of the <span>Fall</span> 1997 <span>Debate About Global Warming</span> on <span>American Public Opinion</span>.”</span> <em>Public Understanding of Science</em> 9(3): 239–60.
+</div>
+<div id="ref-lowryDisentanglingEnergyPolicy2008" class="csl-entry" role="listitem">
+Lowry, William R. 2008. <span>“Disentangling <span>Energy Policy</span> from <span>Environmental Policy</span>.”</span> <em>Social Science Quarterly</em> 89(5): 1195–1211.
+</div>
+<div id="ref-marlowNontransformativeClimatePolicy2023" class="csl-entry" role="listitem">
+Marlow, Thomas, and Kinga Makovi. 2023. <span>“Non-<span>Transformative Climate Policy Options Decrease Conservative Support</span> for <span>Renewable Energy</span> in the <span>US</span>.”</span> <em>Environmental Research Letters</em> 18(2): 024002.
+</div>
+<div id="ref-mcbethPoliticalIdeologyNuclear2023a" class="csl-entry" role="listitem">
+McBeth, Mark K., Megan Warnement Wrobel, and Irene van Woerden. 2023. <span>“Political <span>Ideology</span> and <span>Nuclear Energy</span>: <span>Perception</span>, <span>Proximity</span>, and <span>Trust</span>.”</span> <em>Review of Policy Research</em> 40(1): 88–118.
+</div>
+<div id="ref-mccrightPoliticizationClimateChange2011" class="csl-entry" role="listitem">
+McCright, Aaron M., and Riley E. Dunlap. 2011. <span>“The <span>Politicization</span> of <span>Climate Change</span> and <span>Polarization</span> in the <span>American Public</span>’s <span>Views</span> of <span>Global Warming</span>, 2001–2010.”</span> <em>The Sociological Quarterly</em> 52(2): 155–94.
+</div>
+<div id="ref-mcdermottTrumpAdministrationAnnounces2026" class="csl-entry" role="listitem">
+McDermott, Jennifer, and Matthew Daly. 2026. <span>“Trump <span>Administration Announces</span> $17.5 <span>Billion</span> in <span>Loans</span> for 10 <span>New Large Nuclear Reactors</span>.”</span> https://abcnews.com/Business/wireStory/trump-administration-announces-175-billion-loans-10-new-134137821 (June 25, 2026).
+</div>
+<div id="ref-merkleyPartyCuesNews2021" class="csl-entry" role="listitem">
+Merkley, Eric, and Dominik A. Stecula. 2021. <span>“Party <span>Cues</span> in the <span>News</span>: <span>Democratic Elites</span>, <span>Republican Backlash</span>, and the <span>Dynamics</span> of <span>Climate Skepticism</span>.”</span> <em>British Journal of Political Science</em> 51(4): 1439–56.
+</div>
+<div id="ref-nicholsonPolarizingCues2012" class="csl-entry" role="listitem">
+Nicholson, Stephen P. 2012. <span>“Polarizing <span>Cues</span>.”</span> <em>American Journal of Political Science</em> 56(1): 52–66.
+</div>
+<div id="ref-raimiPartisanshipProximityPredict2020" class="csl-entry" role="listitem">
+Raimi, Daniel, Alan Krupnick, and Morgan Bazilian. 2020. <span>“Partisanship and <span>Proximity Predict Opposition</span> to <span>Fracking</span> in <span>Colorado</span>.”</span> <em>Energy Research &amp; Social Science</em> 64: 101441.
+</div>
+<div id="ref-seversonMoralFramesClimate2015" class="csl-entry" role="listitem">
+Severson, Alexander W., and Eric A. Coleman. 2015. <span>“Moral <span>Frames</span> and <span>Climate Change Policy Attitudes</span>.”</span> <em>Social Science Quarterly</em> 96(5): 1277–90.
+</div>
+<div id="ref-smithPolarisationClimateEnvironmental2024" class="csl-entry" role="listitem">
+Smith, E. Keith, M. Julia Bognar, and Adam P. Mayer. 2024. <span>“Polarisation of <span>Climate</span> and <span>Environmental Attitudes</span> in the <span>United States</span>, 1973-2022.”</span> <em>npj Climate Action</em> 3(1): 2.
+</div>
+<div id="ref-stokesRenewableEnergyPolicy2017" class="csl-entry" role="listitem">
+Stokes, Leah C., and Christopher Warshaw. 2017. <span>“Renewable <span>Energy Policy Design</span> and <span>Framing Influence Public Support</span> in the <span>United States</span>.”</span> <em>Nature Energy</em> 2(8, 8): 1–6.
+</div>
+<div id="ref-taylorTrumpEffectImmigration2026" class="csl-entry" role="listitem">
+Taylor, Andrew J. 2026. <span>“A <span>Trump Effect</span> on <span>Immigration Policy Attitudes</span>? <span>Another Look</span>.”</span> <em>Journal of Public Policy</em> 46(1): 102–25.
+</div>
+<div id="ref-ter-mkrtchyanPublicNuclearPreferences2026" class="csl-entry" role="listitem">
+Ter-Mkrtchyan, Ani, Kuhika Gupta, Hank C. Jenkins-Smith, Joseph T. Ripberger, and Carol L. Silva. 2026. <span>“Public <span>Nuclear Preferences</span> in the <span>United States</span> in the <span>Context</span> of <span>Climate Change</span>: <span>Exploring Inter-</span> and <span>Intra-Group Variations</span>.”</span> <em>Policy Studies Journal</em> Forthcoming: e70121.
+</div>
+<div id="ref-ter-mkrtchyanPortionsPortfoliosUnderstanding2022" class="csl-entry" role="listitem">
+Ter-Mkrtchyan, Ani, Wesley Wehde, Kuhika Gupta, Hank C. Jenkins-Smith, Joseph T. Ripberger, and Carol L. Silva. 2022. <span>“Portions in <span>Portfolios</span>: <span>Understanding Public Preferences</span> for <span>Electricity Production Using Compositional Survey Data</span> in the <span>United States</span>.”</span> <em>Energy Research &amp; Social Science</em> 91: 102759.
+</div>
+<div id="ref-whitmarshToolsNewClimate2017" class="csl-entry" role="listitem">
+Whitmarsh, Lorraine, and Adam Corner. 2017. <span>“Tools for a <span>New Climate Conversation</span>: <span>A Mixed-Methods Study</span> of <span>Language</span> for <span>Public Engagement Across</span> the <span>Political Spectrum</span>.”</span> <em>Global Environmental Change</em> 42: 122–35.
+</div>
+<div id="ref-yeoPartisanAmplificationRisk2014" class="csl-entry" role="listitem">
+Yeo, Sara K., Michael A. Cacciatore, Dominique Brossard, Dietram A. Scheufele, Kristin Runge, Leona Y. Su, Jiyoun Kim, Michael Xenos, and Elizabeth A. Corley. 2014. <span>“Partisan <span>Amplification</span> of <span>Risk</span>: <span>American Perceptions</span> of <span>Nuclear Energy Risk</span> in the <span>Wake</span> of the <span>Fukushima Daiichi Disaster</span>.”</span> <em>Energy Policy</em> 67: 727–36.
+</div>
+<div id="ref-zhouBoomerangsJavelinsHow2016" class="csl-entry" role="listitem">
+Zhou, Jack. 2016. <span>“Boomerangs <span>Versus Javelins</span>: <span>How Polarization Constrains Communication</span> on <span>Climate Change</span>.”</span> <em>Environmental Politics</em> 25(5): 788–811.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The hypotheses presented here are condensed version of those that were preregistered using the Open Science Framework (OSF): https://osf.io/s2ku8/overview?view_only=8d073e8b77f44768a27184b9b0aff785<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Question wording on preferred energy mix was intended to match previous research, including <span class="citation" data-cites="hawesClimateSciencePolitics2022">Hawes and Nowlin (<a href="#ref-hawesClimateSciencePolitics2022" role="doc-biblioref">2022</a>)</span>; <span class="citation" data-cites="ter-mkrtchyanPortionsPortfoliosUnderstanding2022">Ter-Mkrtchyan et al. (<a href="#ref-ter-mkrtchyanPortionsPortfoliosUnderstanding2022" role="doc-biblioref">2022</a>)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>For more information on the sample and the weighting procedures as well as a comparison of covariates across the three conditions see the supplemental materials.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Note that I am not using a traditional DiD design, which estimates differences between groups across two time periods based on an assumption of parallel trends <span class="citation" data-cites="bakerDifferenceinDifferencesDesignsPractitioners2026">(<a href="#ref-bakerDifferenceinDifferencesDesignsPractitioners2026" role="doc-biblioref">Baker et al. 2026</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

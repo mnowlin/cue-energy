@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Party or Climate? The Polarization of the US Public’s Energy Preferences</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="index_files/libs/tabwid-1.1.3/tabwid.js"></script>
+<style>
+  body {
+    font-family: 'EB Garamond', serif;
+  }
+</style>
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="index.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Party or Climate? The Polarization of the US Public’s Energy Preferences</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Mitigating climate change requires a significant shift away from fossil fuels toward alternative energy sources, such as renewables and nuclear energy. The energy transition requires action from all sectors of society, including governments. Public policy can guide the move away from fossil fuels, yet policy actions require sufficient public support. Public opinion can influence energy policy by incentivizing policymakers through support for clean energy, voting for candidates that advocate for clean energy, and supporting renewable energy projects in their community <span class="citation" data-cites="gazmararianPublicOpinionFoundations2026">(<a href="#ref-gazmararianPublicOpinionFoundations2026" role="doc-biblioref">Gazmararian, Mildenberger, and Tingley 2026</a>)</span>. Therefore, understanding the mechanisms that shape public opinion is important for the clean energy transition.</p>
+<p>It is well-documented that climate change is highly polarized among both political elites and the public, particularly in the United States. Conservatives and Republicans are less likely to think climate change is happening and less supportive of policies to address climate change than Democrats and liberals <span class="citation" data-cites="dunlapPoliticalDivideClimate2016 eganUSPartisanPolarization2024 hawesClimateSciencePolitics2022">(<a href="#ref-dunlapPoliticalDivideClimate2016" role="doc-biblioref">Dunlap, McCright, and Yarosh 2016</a>; <a href="#ref-eganUSPartisanPolarization2024" role="doc-biblioref">Egan and Mullin 2024</a>; <a href="#ref-hawesClimateSciencePolitics2022" role="doc-biblioref">Hawes and Nowlin 2022</a>)</span>. While views on climate change are extremely polarized among the US public, support for expanding renewable energy sources, such as wind and solar, has been generally strong in the last several years and less polarized than climate change <span class="citation" data-cites="croweEffectPartisanCues2020 ter-mkrtchyanPortionsPortfoliosUnderstanding2022">(<a href="#ref-croweEffectPartisanCues2020" role="doc-biblioref">Crowe 2020</a>; <a href="#ref-ter-mkrtchyanPortionsPortfoliosUnderstanding2022" role="doc-biblioref">Ter-Mkrtchyan et al. 2022</a>)</span>.</p>
+<p>Yet, this may be changing, with support for renewable energy becoming more polarized. Recent survey data from the Pew Research Center show that support for expanding renewable energy among Republicans has declined, from 65 percent in 2020 to 28 percent in 2026, while at the same time, support for expanding fossil fuels increased from 35 percent in 2020 to 71 percent in 2026 among Republicans <span class="citation" data-cites="kennedyAmericansShiftingViews2026">(<a href="#ref-kennedyAmericansShiftingViews2026" role="doc-biblioref">Kennedy and Kikuchi 2026</a>)</span>. In this paper, I examine two possible mechanisms that could account for the shift among Republicans, including framing that connects renewable energy to climate change or cues from prominent Republicans, most notably Donald Trump.</p>
+<section id="research-design" class="level2">
+<h2 class="anchored" data-anchor-id="research-design">Research Design</h2>
+<p>The data for this study comes from a survey of 3113 US residents recruited through Cloud Research. The purpose of the study was to examine how partisan or climate change cues could shift the general public’s preferred energy mix. Specifically, this study examines the shift of partisans, including liberal Democrats and conservative Republicans. To measure political beliefs, respondents were asked with which political party they most identify and to place themselves on a 1 to 7 scale of political ideology, where 1 is strongly liberal, 4 is middle of the road, and 7 is strongly conservative. Response were combined so that liberal Democrats are those that identify with the Democratic party and are strongly liberal or liberal, and conservative Republicans are those that are Republicans and strongly conservative or conservative. Other political beliefs, including conservative Democrats, liberal Republicans, and moderate independents are the excluded referents.</p>
+<p>As part of the research design, respondents were first given the current energy mix of the US related to electricity, which is that the US obtains 58 percent of our electricity from fossil fuels (coal, oil, and natural gas), 22 percent from renewable sources (wind, solar, and hydropower), 18 percent from nuclear energy, and 2 percent from other sources (wood, biofuels, waste products, and geothermal energy). Therefore, respondents were anchored to the actual energy mix of the US, as of 2024 the most recent year where data was available.</p>
+<p>Following the information regarding the current US energy mix, respondents were split into one of three experimental conditions, including a Trump cue, a climate cue, and a control condition with no cues. There were roughly 1000 respondents in each condition. The cues were in the form of questions regarding agreement, on a 1 strongly disagree to 5 strongly agree scale, with Trump’s actions on encouraging the development of fossil fuels over renewable energy and agreement with the need to increase the use of renewable sources to address climate change.</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p><a href="#fig-cueModels" class="quarto-xref">Figure&nbsp;1</a> shows the coefficient plots for agreement with the cue questions for liberal Democrats and conservative Republicans.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-cueModels" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cueModels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Coefficient Plots of Trump Cue and Climate Cue
+</figcaption>
+<div aria-describedby="fig-cueModels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-cueModels-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>As shown, for the Trump cue liberal democrats were significantly less likely, at -0.753, to support Trump’s actions on energy, whereas conservative Republicans had an estimated level of support 1.416 points higher on the 1 to 5 scale than other political beliefs. For the climate change cue, liberal Democrats were significantly more likely than others to support renewable energy for climate change, with an estimated coefficient of 0.556, and conservative Republicans were significantly less likely with a coefficient of -0.663. These results suggest that respondents were responsive to the cues.</p>
+<section id="preferred-energy-mix-by-political-beliefs-and-cue" class="level3">
+<h3 class="anchored" data-anchor-id="preferred-energy-mix-by-political-beliefs-and-cue">Preferred energy mix by political beliefs and cue</h3>
+<p>Next, respondents were asked what percentage of the total US electricity supply should come from various. Respondents were again reminded of the current energy mix. Additionally, respondents were instructed that their percentages for each source must add to one hundred. The results by beliefs and cue are shown in <a href="#fig-pred" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-pred" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-pred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Predicted Energy Mix by Political Beliefs and Cues
+</figcaption>
+<div aria-describedby="fig-pred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-pred-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>As can be seen, conservative Republicans preferred an energy mix with more fossil fuels than did liberal Democrats, particularly Republicans that received the Trump cue. Conservative Republicans in the Trump condition preferred an energy mix that consists of about 13 fossil fuels compared to 13 % in the climate condition and 13% in the control. Liberal Democrats preferred an energy mix with more renewables than Republicans, particularly wind and solar, and the percentages of renewable sources seemed consistent for Democrats across the three conditions. Finally, Republicans preferred more nuclear energy than Democrats across all conditions, yet the differences were smallest in the Trump condition. Next, I examine polarization of preferred energy sources.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-gap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Largest Partisan Gaps in Preferred Energy Mix
+</figcaption>
+<div aria-describedby="fig-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-gap-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-gap" class="quarto-xref">Figure&nbsp;3</a> shows the differences in preferred energy sources across political beliefs and cues. The differences are sorted by the size of the gap and which party prefers more of each energy source. As shown, fossil fuels are the most polarized, particularly in the Trump condition with an average difference of 23 percentage points between liberal Democrats and conservative Republicans. Also as shown, Democrats preferred more wind and solar energy overall, with the largest partisan gaps in the Trump condition. Nuclear was most polarized in the climate and control conditions, followed by hydro in the climate and Trump condition, then nuclear in the Trump condition. Finally, the least polarized was hydro in the control condition, with a difference of only about 2 percentage points.</p>
+<p>To test whether the differences across treatment conditions and political beliefs was significant, I did a Difference-in-Differences (DiD) test using interactions between political beliefs and treatment conditions. Specifically, DiD examines whether there is a significant shift in partisan differences moving from one treatment condition to another.</p>
+<div class="cell">
+<div id="tbl-did" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-did-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Treatment effects on the partisan gap in preferred energy mix (unadjusted p-values)
+</figcaption>
+<div aria-describedby="tbl-did-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-49d26c5a{}.cl-49cfcac2{font-family:'Helvetica';font-size:8pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-49cfcac3{font-family:'Helvetica';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-49cfcacc{font-family:'Helvetica';font-size:7pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-49d0f3fc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-49d0f3fd{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-49d0f3fe{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-49d10068{width:1.7in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-49d10069{width:0.92in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-49d1006a{width:1.7in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-49d1006b{width:0.92in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-49d1006c{width:1.7in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-49d1006d{width:0.92in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-49d10072{width:1.7in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-49d10073{width:0.92in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-49d26c5a"><thead><tr style="overflow-wrap:break-word;"><th class="cl-49d10068"><p class="cl-49d0f3fc"><span class="cl-49cfcac2">Contrast</span></p></th><th class="cl-49d10069"><p class="cl-49d0f3fd"><span class="cl-49cfcac2">Fossil Fuels</span></p></th><th class="cl-49d10069"><p class="cl-49d0f3fd"><span class="cl-49cfcac2">Wind</span></p></th><th class="cl-49d10069"><p class="cl-49d0f3fd"><span class="cl-49cfcac2">Solar</span></p></th><th class="cl-49d10069"><p class="cl-49d0f3fd"><span class="cl-49cfcac2">Hydro</span></p></th><th class="cl-49d10069"><p class="cl-49d0f3fd"><span class="cl-49cfcac2">Nuclear</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-49d1006a"><p class="cl-49d0f3fc"><span class="cl-49cfcac3">Omnibus F-test (any treatment effect on gap)</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">F = 3.82*</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">F = 0.63</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">F = 0.45</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">F = 1.84</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">F = 1.37</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-49d1006a"><p class="cl-49d0f3fc"><span class="cl-49cfcac3">Climate Cue vs Control</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">-1.95 [-6.55, 2.66]</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">0.16 [-3.06, 3.38]</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">0.97 [-2.40, 4.34]</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">2.16† [-0.21, 4.53]</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">-1.34 [-5.91, 3.22]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-49d1006a"><p class="cl-49d0f3fc"><span class="cl-49cfcac3">Trump Cue vs Control</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">-7.34** [-12.57, -2.10]</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">1.50 [-1.42, 4.42]</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">1.64 [-1.75, 5.02]</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">1.75 [-0.56, 4.05]</span></p></td><td class="cl-49d1006b"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">2.45 [-1.93, 6.84]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-49d1006c"><p class="cl-49d0f3fc"><span class="cl-49cfcac3">Trump Cue vs Climate</span></p></td><td class="cl-49d1006d"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">-5.39* [-10.78, -0.00]</span></p></td><td class="cl-49d1006d"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">1.34 [-1.69, 4.37]</span></p></td><td class="cl-49d1006d"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">0.67 [-2.63, 3.97]</span></p></td><td class="cl-49d1006d"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">-0.41 [-2.76, 1.94]</span></p></td><td class="cl-49d1006d"><p class="cl-49d0f3fd"><span class="cl-49cfcac3">3.80 [-0.81, 8.40]</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-49d10072"><p class="cl-49d0f3fe"><span class="cl-49cfcacc">Note: Top row shows the omnibus F-test for whether treatments jointly shift the partisan gap on each energy source. Subsequent rows show the estimated change in the partisan gap (Liberal Democrats − Conservative Republicans) when moving from one treatment condition to another, with 95% confidence intervals in brackets. Positive values indicate the gap widened. Estimates from svyglm models fit separately by energy source, using survey weights; standard errors and confidence intervals are design-based. *** p &lt; 0.001, ** p &lt; 0.01, * p &lt; 0.05, † p &lt; 0.10.</span></p></td></tr></tfoot></table></div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The results of the DiD estimates are shown in <a href="#tbl-did" class="quarto-xref">Table&nbsp;1</a>. As shown, the partisan gaps in preferred energy mix shift significantly for fossil fuels in the Trump conditions, with a shift of … between Trump and control condition, and a shift of … between the Trump and climate change condition.</p>
+<p>Finally, I compared the preferred energy mix to the current baseline. Overall, the evidence suggests that Trump may polarize energy preferences by shifting conservative Republicans to be more in favor of fossil fuels than they might be otherwise. However, the shift in the energy mix from the current baseline is important to address climate change. <a href="#fig-mixchange" class="quarto-xref">Figure&nbsp;4</a> shows the differences in the current vs preferred energy mixes across partisans and treatments.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-mixchange" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-mixchange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Preferred Change from Existing Energy Mix (percentage points)
+</figcaption>
+<div aria-describedby="fig-mixchange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-mixchange-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>As shown, all respondents want an energy mix with fewer fossil fuels and more renewables.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="references" class="level1 unnumbered">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-croweEffectPartisanCues2020" class="csl-entry" role="listitem">
+Crowe, Jessica A. 2020. <span>“The <span>Effect</span> of <span>Partisan Cues</span> on <span>Support</span> for <span>Solar</span> and <span>Wind Energy</span> in the <span>United States</span>.”</span> <em>Social Science Quarterly</em> 101(4): 1461–74. https://onlinelibrary.wiley.com/doi/abs/10.1111/ssqu.12799 (September 27, 2025).
+</div>
+<div id="ref-dunlapPoliticalDivideClimate2016" class="csl-entry" role="listitem">
+Dunlap, Riley E., Aaron M. McCright, and Jerrod H. Yarosh. 2016. <span>“The <span>Political Divide</span> on <span>Climate Change</span>: <span>Partisan Polarization Widens</span> in the <span>U</span>.<span>S</span>.”</span> <em>Environment: Science and Policy for Sustainable Development</em> 58(5): 4–23.
+</div>
+<div id="ref-eganUSPartisanPolarization2024" class="csl-entry" role="listitem">
+Egan, Patrick J., and Megan Mullin. 2024. <span>“<span>US Partisan Polarization</span> on <span>Climate Change</span>: <span>Can Stalemate Give Way</span> to <span>Opportunity</span>?”</span> <em>PS: Political Science &amp; Politics</em> 57(1): 30–35. https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/us-partisan-polarization-on-climate-change-can-stalemate-give-way-to-opportunity/2666C4C08C3A5456B3001240B882C48D (April 22, 2026).
+</div>
+<div id="ref-gazmararianPublicOpinionFoundations2026" class="csl-entry" role="listitem">
+Gazmararian, Alexander F., Matto Mildenberger, and Dustin Tingley. 2026. <span>“Public <span>Opinion Foundations</span> of the <span>Clean Energy Transition</span>.”</span> <em>Environmental Politics</em> 35(4): 846–68. https://doi.org/10.1080/09644016.2025.2508563 (October 2, 2025).
+</div>
+<div id="ref-hawesClimateSciencePolitics2022" class="csl-entry" role="listitem">
+Hawes, Rachel, and Matthew C. Nowlin. 2022. <span>“Climate <span>Science</span> or <span>Politics</span>? <span>Disentangling</span> the <span>Roles</span> of <span>Citizen Beliefs</span> and <span>Support</span> for <span>Energy</span> in the <span>United States</span>.”</span> <em>Energy Research &amp; Social Science</em> 85: 102419. https://www.sciencedirect.com/science/article/abs/pii/S2214629621005065 (November 29, 2021).
+</div>
+<div id="ref-kennedyAmericansShiftingViews2026" class="csl-entry" role="listitem">
+Kennedy, Brian, and Emma Kikuchi. 2026. <span>“Americans’ <span>Shifting Views</span> on <span>Energy Sources</span>, <span>Policy</span> in 2026.”</span> https://www.pewresearch.org/science/2026/04/03/americans-shifting-views-on-energy-issues/ (April 21, 2026).
+</div>
+<div id="ref-ter-mkrtchyanPortionsPortfoliosUnderstanding2022" class="csl-entry" role="listitem">
+Ter-Mkrtchyan, Ani, Wesley Wehde, Kuhika Gupta, Hank C. Jenkins-Smith, Joseph T. Ripberger, and Carol L. Silva. 2022. <span>“Portions in <span>Portfolios</span>: <span>Understanding Public Preferences</span> for <span>Electricity Production Using Compositional Survey Data</span> in the <span>United States</span>.”</span> <em>Energy Research &amp; Social Science</em> 91: 102759. https://www.sciencedirect.com/science/article/pii/S2214629622002626 (August 12, 2022).
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
