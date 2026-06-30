@@ -12,11 +12,13 @@ and figures reported in the manuscript.
 cue-energy.qmd               Manuscript source (renders to HTML, PDF, DOCX)
 cue-energy-supplemental.qmd  Supplemental materials (renders to HTML, PDF, DOCX)
 _quarto.yaml                 Quarto project config
+_output/                     Rendered outputs (HTML, PDF, DOCX)
 scripts/
   manuscript-setup.R         Sourced by the .qmd files: cleans data, fits models,
                              builds figures and tables (no side effects)
   export-cited-refs.R        Pre-render step: trims the master .bib to cited keys
   draft-analysis.R           Early exploratory analysis (superseded by manuscript-setup.R)
+  survey_weighting_diagnostic.R  Diagnostics for survey weighting
 data/                        Survey data + codebook (NOT in git -- see below)
 figure/                      Exported figure PNGs
 ```
