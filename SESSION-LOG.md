@@ -93,6 +93,16 @@ A survey experiment (3×2 design) examining how partisan cues (Trump administrat
 
 ---
 
+### Session 8 — 2026-06-30 (Manuscript recovery)
+**Commits:** `00d60d5`
+
+- Discovered that `cue-energy.qmd` was not the most recent version — a bad rebase performed earlier today (around 10:19–10:24) had scrambled the git history, causing the reorganization commit (Jun 16) to overwrite the Jun 22 afternoon and Jun 25 content edits to `cue-energy.qmd`.
+- Traced the issue: the rebase grafted older commits (May 8, May 19, Jun 16) on top of the Jun 25 edits, leaving the reorganization's truncated file (331 lines) as HEAD instead of the Jun 25 version (358 lines).
+- Restored `cue-energy.qmd` from OneDrive version history to recover today's working version (351 lines).
+- Committed and pushed the restored file.
+
+---
+
 ## Analysis Architecture (as of Session 5+)
 
 All analysis is centralized in `scripts/manuscript-setup.R`, which is sourced at the top of `cue-energy.qmd`. The script handles:
