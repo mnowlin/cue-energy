@@ -7,9 +7,10 @@
 # macOS
 .DS_Store
 
-# Local-only data and literature (kept out of version control)
+# Local-only data, literature, and notebooks (kept out of version control)
 /data/
 /literature/
+/notebooks/
 
 /.quarto/
 **/*.quarto_ipynb
