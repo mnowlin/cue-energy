@@ -1,7 +1,7 @@
 # Party or Climate? The Polarization of the US Public's Energy Preferences
 
 Manuscript and reproducible analysis examining how partisan and climate change
-cues influence the US public's support for different energy sources.
+cues influence the US public's support for different energy sources. The hypotheses were preregistered using the Open Science Framework (OSF): https://osf.io/s2ku8/overview?view_only=8d073e8b77f44768a27184b9b0aff785
 
 The analysis uses survey-weighted regression models and reproduces all tables
 and figures reported in the manuscript.
