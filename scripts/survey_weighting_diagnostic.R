@@ -368,5 +368,3 @@ cat(" Survey design 'design' ready for analysis.\n")
 cat(" Use svymean(), svyglm(), svyby(), etc.\n")
 cat("========================================================\n")
 
-
-
