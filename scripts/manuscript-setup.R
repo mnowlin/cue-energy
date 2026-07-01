@@ -1,7 +1,7 @@
 # Shared setup for the cue-energy manuscript.
 # Sourced by cue-energy.qmd so that all data, models, and the objects referenced in
 # the prose, figures, and tables come from a single source of truth. The article
-# chunks (in manuscript/*.qmd) handle only plotting/rendering of these objects.
+# chunks (in *.qmd) handle only plotting/rendering of these objects.
 # Paths are project-relative; Quarto runs with execute-dir: project (see _quarto.yaml).
 
 library(tidyverse)
@@ -252,61 +252,78 @@ gap_ranked <- gap_sorted |> arrange(desc(abs(gap)))
 # energy source: (a) the partisan gap (Dem - Rep) within each condition, and
 # (b) the within-party shift across conditions (each cue vs control, and Trump
 # vs climate). Estimates, SEs, and p-values use the survey design df.
-pred_contrasts <- imap_dfr(models, function(mod, source_name) {
-  nd <- expand_grid(
-    party     = factor(c("Conservative Republicans", "Liberal Democrats"),
-                       levels = c("Conservative Republicans", "Liberal Democrats")),
-    treatment = factor(c("Control", "Climate", "Trump"),
-                       levels = c("Control", "Climate", "Trump"))
-  )
-  X         <- model.matrix(delete.response(terms(mod)), data = nd)
-  df_design <- degf(mod$survey.design)
-
-  row_of <- function(p, t) X[nd$party == p & nd$treatment == t, ]
-
-  test_contrast <- function(name, type, cvec) {
-    est <- as.numeric(cvec %*% coef(mod))
-    se  <- sqrt(as.numeric(cvec %*% vcov(mod) %*% cvec))
-    tstat <- est / se
-    tibble(source = source_name, type = type, contrast = name,
-           estimate = est, se = se, t = tstat,
-           p_value = 2 * pt(-abs(tstat), df = df_design))
-  }
-
-  D <- "Liberal Democrats"; R <- "Conservative Republicans"
-  bind_rows(
-    # (a) partisan gap (Dem - Rep) within each condition
-    test_contrast("Gap (Dem - Rep): Control", "Partisan gap",
-                  row_of(D, "Control") - row_of(R, "Control")),
-    test_contrast("Gap (Dem - Rep): Climate", "Partisan gap",
-                  row_of(D, "Climate") - row_of(R, "Climate")),
-    test_contrast("Gap (Dem - Rep): Trump", "Partisan gap",
-                  row_of(D, "Trump") - row_of(R, "Trump")),
-    # (b) within-party shift across conditions
-    test_contrast("Republicans: Climate - Control", "Within-party",
-                  row_of(R, "Climate") - row_of(R, "Control")),
-    test_contrast("Republicans: Trump - Control", "Within-party",
-                  row_of(R, "Trump") - row_of(R, "Control")),
-    test_contrast("Republicans: Trump - Climate", "Within-party",
-                  row_of(R, "Trump") - row_of(R, "Climate")),
-    test_contrast("Democrats: Climate - Control", "Within-party",
-                  row_of(D, "Climate") - row_of(D, "Control")),
-    test_contrast("Democrats: Trump - Control", "Within-party",
-                  row_of(D, "Trump") - row_of(D, "Control")),
-    test_contrast("Democrats: Trump - Climate", "Within-party",
-                  row_of(D, "Trump") - row_of(D, "Climate"))
-  )
-}) |>
-  mutate(
-    source = factor(source, levels = source_labels),
-    stars  = case_when(
-      p_value < 0.001 ~ "***",
-      p_value < 0.01  ~ "**",
-      p_value < 0.05  ~ "*",
-      p_value < 0.10  ~ "†",
-      TRUE            ~ ""
+# Generalized so the same contrast logic can be reused for robustness checks
+# that swap in a different set of per-source models (e.g., unweighted OLS in
+# place of the weighted svyglm models). df_fun extracts the reference
+# distribution's df from a fitted model (design df for svyglm, residual df
+# for lm).
+compute_pred_contrasts <- function(model_list, df_fun) {
+  imap_dfr(model_list, function(mod, source_name) {
+    nd <- expand_grid(
+      party     = factor(c("Conservative Republicans", "Liberal Democrats"),
+                         levels = c("Conservative Republicans", "Liberal Democrats")),
+      treatment = factor(c("Control", "Climate", "Trump"),
+                         levels = c("Control", "Climate", "Trump"))
     )
-  )
+    # Some model lists (e.g., the demographic-controls robustness check) add
+    # additive covariates beyond party/treatment. Their value doesn't matter
+    # here: every contrast below subtracts two rows with the same covariate
+    # value, so a constant placeholder cancels out and leaves the estimated
+    # party/treatment contrast unaffected.
+    extra_vars <- setdiff(all.vars(delete.response(terms(mod))), c("party", "treatment"))
+    for (v in extra_vars) nd[[v]] <- 0
+
+    X         <- model.matrix(delete.response(terms(mod)), data = nd)
+    df_design <- df_fun(mod)
+
+    row_of <- function(p, t) X[nd$party == p & nd$treatment == t, ]
+
+    test_contrast <- function(name, type, cvec) {
+      est <- as.numeric(cvec %*% coef(mod))
+      se  <- sqrt(as.numeric(cvec %*% vcov(mod) %*% cvec))
+      tstat <- est / se
+      tibble(source = source_name, type = type, contrast = name,
+             estimate = est, se = se, t = tstat,
+             p_value = 2 * pt(-abs(tstat), df = df_design))
+    }
+
+    D <- "Liberal Democrats"; R <- "Conservative Republicans"
+    bind_rows(
+      # (a) partisan gap (Dem - Rep) within each condition
+      test_contrast("Gap (Dem - Rep): Control", "Partisan gap",
+                    row_of(D, "Control") - row_of(R, "Control")),
+      test_contrast("Gap (Dem - Rep): Climate", "Partisan gap",
+                    row_of(D, "Climate") - row_of(R, "Climate")),
+      test_contrast("Gap (Dem - Rep): Trump", "Partisan gap",
+                    row_of(D, "Trump") - row_of(R, "Trump")),
+      # (b) within-party shift across conditions
+      test_contrast("Republicans: Climate - Control", "Within-party",
+                    row_of(R, "Climate") - row_of(R, "Control")),
+      test_contrast("Republicans: Trump - Control", "Within-party",
+                    row_of(R, "Trump") - row_of(R, "Control")),
+      test_contrast("Republicans: Trump - Climate", "Within-party",
+                    row_of(R, "Trump") - row_of(R, "Climate")),
+      test_contrast("Democrats: Climate - Control", "Within-party",
+                    row_of(D, "Climate") - row_of(D, "Control")),
+      test_contrast("Democrats: Trump - Control", "Within-party",
+                    row_of(D, "Trump") - row_of(D, "Control")),
+      test_contrast("Democrats: Trump - Climate", "Within-party",
+                    row_of(D, "Trump") - row_of(D, "Climate"))
+    )
+  }) |>
+    mutate(
+      source = factor(source, levels = source_labels),
+      stars  = case_when(
+        p_value < 0.001 ~ "***",
+        p_value < 0.01  ~ "**",
+        p_value < 0.05  ~ "*",
+        p_value < 0.10  ~ "†",
+        TRUE            ~ ""
+      )
+    )
+}
+
+pred_contrasts <- compute_pred_contrasts(models, function(mod) degf(mod$survey.design))
 
 # Inline helper: estimate + significance for a given source/contrast.
 # e.g. pred_diff("Fossil Fuels", "Republicans: Trump - Control")
@@ -479,7 +496,7 @@ make_did_flextable <- function() {
     "the partisan gap on each energy source. Subsequent rows show the estimated",
     "change in the partisan gap (Liberal Democrats − Conservative Republicans)",
     "when moving from one treatment condition to another, with 95% confidence",
-    "intervals in brackets. Positive values indicate the gap widened. Estimates",
+    "intervals in brackets. Estimates",
     "from svyglm models fit separately by energy source, using survey weights;",
     "standard errors and confidence intervals are design-based.",
     "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
@@ -595,6 +612,44 @@ compute_did_table <- function(model_list) {
     pivot_wider(names_from = source, values_from = cell)
 }
 
+pred_contrasts_controls <- compute_pred_contrasts(models_controls, function(mod) degf(mod$survey.design))
+
+pred_contrasts_controls_table <- pred_contrasts_controls |>
+  mutate(cell = sprintf("%.1f%s", estimate, stars)) |>
+  select(contrast, source, cell) |>
+  pivot_wider(names_from = source, values_from = cell) |>
+  mutate(contrast = factor(contrast, levels = pred_contrasts_order)) |>
+  arrange(contrast)
+
+make_pred_contrasts_controls_flextable <- function() {
+  note_text <- paste(
+    "Replicates the pairwise-differences table from the main text, adding",
+    "age, sex, race, education, and income as additive controls to each",
+    "svyglm model. Cell entries are estimated differences in the predicted",
+    "preferred share (percentage points). Partisan-gap rows are the Liberal",
+    "Democrats − Conservative Republicans difference within each condition;",
+    "within-party rows are the change for that party when moving from one",
+    "condition to another (positive = the later condition is higher).",
+    "Estimates use survey weights; standard errors and p-values are design-based.",
+    "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
+  )
+  pred_contrasts_controls_table |>
+    rename(Comparison = contrast) |>
+    select(Comparison, `Fossil Fuels`, Wind, Solar, Hydro, Nuclear) |>
+    flextable() |>
+    align(j = 1,   align = "left",   part = "all") |>
+    align(j = 2:6, align = "center", part = "all") |>
+    bold(part = "header") |>
+    fontsize(size = 8, part = "all") |>
+    padding(padding = 3, part = "all") |>
+    add_footer_lines(values = paste("Note:", note_text)) |>
+    fontsize(size = 7, part = "footer") |>
+    italic(part = "footer") |>
+    set_table_properties(layout = "fixed") |>
+    width(j = 1,   width = 2.0) |>
+    width(j = 2:6, width = 0.86)
+}
+
 did_table_controls <- compute_did_table(models_controls)
 
 make_did_controls_flextable <- function() {
@@ -605,7 +660,7 @@ make_did_controls_flextable <- function() {
     "shift the partisan gap on each energy source; subsequent rows show the",
     "estimated change in the partisan gap (Liberal Democrats − Conservative",
     "Republicans) when moving from one condition to another, with 95% confidence",
-    "intervals in brackets. Positive values indicate the gap widened. Estimates",
+    "intervals in brackets. Estimates",
     "use survey weights; standard errors and confidence intervals are design-based.",
     "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
   )
@@ -624,4 +679,170 @@ make_did_controls_flextable <- function() {
     set_table_properties(layout = "fixed") |>
     width(j = 1,   width = 1.7) |>
     width(j = 2:6, width = 0.92)
+}
+
+# --- Robustness: results without survey weights ------------------------------
+# Re-estimate the preferred-mix models via unweighted OLS (no survey weights)
+# to confirm the main results are not an artifact of the raking weights. Same
+# formula and party x treatment interaction as the main (weighted) models.
+survey_df_partisans <- survey_df |> filter(!is.na(party))
+
+models_unweighted <- map(sources, function(s) {
+  f <- as.formula(paste(s, "~ party * treatment"))
+  lm(f, data = survey_df_partisans)
+}) |>
+  set_names(source_labels)
+
+pred_contrasts_unweighted <- compute_pred_contrasts(models_unweighted, df.residual)
+
+pred_contrasts_unweighted_table <- pred_contrasts_unweighted |>
+  mutate(cell = sprintf("%.1f%s", estimate, stars)) |>
+  select(contrast, source, cell) |>
+  pivot_wider(names_from = source, values_from = cell) |>
+  mutate(contrast = factor(contrast, levels = pred_contrasts_order)) |>
+  arrange(contrast)
+
+make_pred_contrasts_unweighted_flextable <- function() {
+  note_text <- paste(
+    "Replicates the pairwise-differences table from the main text using",
+    "unweighted OLS models (no survey weights) in place of the weighted",
+    "svyglm models. Cell entries are estimated differences in the predicted",
+    "preferred share (percentage points). Partisan-gap rows are the Liberal",
+    "Democrats − Conservative Republicans difference within each condition;",
+    "within-party rows are the change for that party when moving from one",
+    "condition to another.",
+    "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
+  )
+  pred_contrasts_unweighted_table |>
+    rename(Comparison = contrast) |>
+    select(Comparison, `Fossil Fuels`, Wind, Solar, Hydro, Nuclear) |>
+    flextable() |>
+    align(j = 1,   align = "left",   part = "all") |>
+    align(j = 2:6, align = "center", part = "all") |>
+    bold(part = "header") |>
+    fontsize(size = 8, part = "all") |>
+    padding(padding = 3, part = "all") |>
+    add_footer_lines(values = paste("Note:", note_text)) |>
+    fontsize(size = 7, part = "footer") |>
+    italic(part = "footer") |>
+    set_table_properties(layout = "fixed") |>
+    width(j = 1,   width = 2.0) |>
+    width(j = 2:6, width = 0.86)
+}
+
+did_table_unweighted <- compute_did_table(models_unweighted)
+
+make_did_unweighted_flextable <- function() {
+  note_text <- paste(
+    "Replicates the difference-in-differences table from the main text using",
+    "unweighted OLS models (no survey weights) in place of the weighted",
+    "svyglm models. Top row shows the omnibus F-test for whether treatments",
+    "jointly shift the partisan gap on each energy source. Subsequent rows",
+    "show the estimated change in the partisan gap (Liberal Democrats −",
+    "Conservative Republicans) when moving from one treatment condition to",
+    "another, with 95% confidence intervals in brackets.",
+    "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
+  )
+  did_table_unweighted |>
+    rename(Contrast = contrast) |>
+    select(Contrast, `Fossil Fuels`, Wind, Solar, Hydro, Nuclear) |>
+    flextable() |>
+    align(j = 1,   align = "left",   part = "all") |>
+    align(j = 2:6, align = "center", part = "all") |>
+    bold(part = "header") |>
+    fontsize(size = 8, part = "all") |>
+    padding(padding = 3, part = "all") |>
+    add_footer_lines(values = paste("Note:", note_text)) |>
+    fontsize(size = 7, part = "footer") |>
+    italic(part = "footer") |>
+    set_table_properties(layout = "fixed") |>
+    width(j = 1,   width = 1.7) |>
+    width(j = 2:6, width = 0.92)
+}
+
+# --- Preferred energy mix by treatment condition (all respondents) ----------
+# Simple descriptive check, not split by party: the mean preferred share for
+# each energy source under each condition, with a test of whether the three
+# condition means differ. Weighted uses the survey design; unweighted uses
+# the raw sample, for comparison.
+condition_design <- svydesign(ids = ~1, weights = ~weight, data = cueEnergyData)
+
+compute_condition_means <- function(weighted) {
+  imap_dfr(set_names(sources, source_labels), function(s, source_name) {
+    f <- as.formula(paste(s, "~ condition"))
+
+    if (weighted) {
+      means <- sapply(levels(cueEnergyData$condition), function(cond) {
+        as.numeric(svymean(as.formula(paste0("~", s)),
+                           subset(condition_design, condition == cond), na.rm = TRUE))
+      })
+      mod <- svyglm(f, design = condition_design)
+      p_value <- linearHypothesis(
+        mod, c("conditionClimate = 0", "conditionTrump = 0"), test = "F"
+      )$`Pr(>F)`[2]
+    } else {
+      means <- tapply(cueEnergyData[[s]], cueEnergyData$condition, mean, na.rm = TRUE)
+      p_value <- anova(lm(f, data = cueEnergyData))$`Pr(>F)`[1]
+    }
+
+    tibble(
+      source  = source_name,
+      Control = means[["Control"]],
+      Climate = means[["Climate"]],
+      Trump   = means[["Trump"]],
+      p_value = p_value
+    )
+  }) |>
+    mutate(
+      source = factor(source, levels = source_labels),
+      stars  = case_when(
+        p_value < 0.001 ~ "***",
+        p_value < 0.01  ~ "**",
+        p_value < 0.05  ~ "*",
+        p_value < 0.10  ~ "†",
+        TRUE            ~ ""
+      )
+    ) |>
+    arrange(source)
+}
+
+condition_means_weighted   <- compute_condition_means(weighted = TRUE)
+condition_means_unweighted <- compute_condition_means(weighted = FALSE)
+
+make_condition_means_flextable <- function(tbl, weighted) {
+  note_text <- paste(
+    "Cell entries are", if (weighted) "weighted" else "unweighted",
+    "mean preferred percentage allocations by treatment condition, pooled",
+    "across all respondents (not split by political beliefs). The p-value",
+    "tests whether the three condition means differ",
+    if (weighted) "(design-based F-test)." else "(one-way ANOVA).",
+    "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
+  )
+  tbl |>
+    rename(`Energy Source` = source) |>
+    mutate(
+      Control = sprintf("%.1f", Control),
+      Climate = sprintf("%.1f", Climate),
+      Trump   = sprintf("%.1f", Trump),
+      `p-value` = sprintf("%.3f%s", p_value, stars)
+    ) |>
+    select(`Energy Source`, Control, Climate, Trump, `p-value`) |>
+    flextable() |>
+    align(j = 1,   align = "left",   part = "all") |>
+    align(j = 2:5, align = "center", part = "all") |>
+    bold(part = "header") |>
+    fontsize(size = 9, part = "all") |>
+    padding(padding = 4, part = "all") |>
+    autofit() |>
+    add_footer_lines(values = paste("Note:", note_text)) |>
+    fontsize(size = 8, part = "footer") |>
+    italic(part = "footer")
+}
+
+make_condition_means_weighted_flextable <- function() {
+  make_condition_means_flextable(condition_means_weighted, weighted = TRUE)
+}
+
+make_condition_means_unweighted_flextable <- function() {
+  make_condition_means_flextable(condition_means_unweighted, weighted = FALSE)
 }

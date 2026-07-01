@@ -38,8 +38,20 @@ ends   <- c(starts[-1] - 1L, length(bib))
 entry_keys <- trimws(sub("^[[:space:]]*@[^{(]+[{(]([^,]+),?.*$", "\\1", bib[starts]))
 
 # --- 3. Select cited entries and write the local bib -----------------------
+# Journal articles (@article) omit url/urldate so the rendered references
+# show a DOI rather than a URL; other entry types (reports, websites, etc.)
+# keep their url field since they often have no DOI.
+entry_types <- tolower(trimws(sub("^[[:space:]]*@([A-Za-z]+).*$", "\\1", bib[starts])))
+url_field_pat <- "^[[:space:]]*url(date)?[[:space:]]*="
+
 sel <- which(entry_keys %in% keys)
-out_lines <- unlist(lapply(sel, function(i) c(bib[starts[i]:ends[i]], "")))
+out_lines <- unlist(lapply(sel, function(i) {
+  entry <- bib[starts[i]:ends[i]]
+  if (entry_types[i] == "article") {
+    entry <- entry[!grepl(url_field_pat, entry, perl = TRUE, ignore.case = TRUE)]
+  }
+  c(entry, "")
+}))
 writeLines(out_lines, out_bib, useBytes = TRUE)
 
 # --- 4. Copy the CSL locally -----------------------------------------------

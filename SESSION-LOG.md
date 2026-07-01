@@ -103,6 +103,20 @@ A survey experiment (3×2 design) examining how partisan cues (Trump administrat
 
 ---
 
+### Session 9 — 2026-07-01 (Docx edit merge, figure-caption fix, robustness tables)
+**Commits:** uncommitted as of session end
+
+- Merged Word track-changed edits back into the manuscript: extracted the accepted/rejected text from `_output/cue-energy.docx` with pandoc, diffed them, and applied each prose edit to `cue-energy.qmd` by hand — preserving citation keys, cross-references, footnotes, and inline R code untouched. Fixed one leftover typo (missing space, "Finally,survey experiments") not covered by tracked changes.
+- Updated `scripts/export-cited-refs.R` so `@article` entries drop their `url`/`urldate` fields when the local `references.bib` is written (journal articles show a DOI instead), while other entry types (`@online`, `@book`, etc.) keep their URL.
+- Diagnosed and fixed docx-only figure-caption clipping for `fig-gap` and `fig-mixchange`: both use a `labs(caption = ...)` string rendered directly into the ggplot image. Quarto's default docx figure canvas (5×4in) is much smaller than its HTML default (~7×5in), so the caption's fixed absolute font size overflowed and was hard-clipped by the raster device before the image ever reached Word. Fixed by setting `fig-width: 7` / `fig-height: 5.6` under `format: docx:` in `cue-energy.qmd`, matching the HTML canvas size. (Two earlier attempts — shrinking the Quarto caption-style font via a custom `reference-doc.docx`, and a `cantSplit` post-render docx patch to stop table rows splitting across pages — were based on a wrong diagnosis and were reverted.)
+- Added a full unweighted (OLS, no survey weights) robustness replication of the main pairwise-contrasts and DiD tables: refactored the contrast logic into a reusable `compute_pred_contrasts()` helper (weighted main-text numbers unchanged), added `models_unweighted`, `make_pred_contrasts_unweighted_flextable()`, and `make_did_unweighted_flextable()` (the latter reusing the existing `compute_did_table()`, which was already model-agnostic). New section in `cue-energy-supplemental.qmd`.
+- Added the demographic-controls analog of the pairwise-contrasts table (`make_pred_contrasts_controls_flextable()`), alongside the existing DiD-with-controls table. Fixed a bug this surfaced in `compute_pred_contrasts()`: its newdata frame only had `party`/`treatment` columns, which broke `model.matrix()` for `models_controls` (adds age/sex/race/education/income). Fixed by filling any extra model covariates with a constant placeholder — they're additive-only, so they cancel out of every contrast regardless of value.
+- Investigated a follow-up question about why the DiD-with-controls table looked less stable than the pred-contrasts-with-controls table. Confirmed via direct model inspection there's no bug (identical coefficient names/sample sizes); the DiD (interaction) coefficients are actually just as stable as the pred-contrasts within-party rows — the visible difference was one borderline p-value (fossil fuels, Trump vs. climate: p = 0.050 → 0.063 with controls) crossing the 0.05 threshold on a nearly-unchanged point estimate. Added a clarifying sentence to the supplemental noting this.
+- Added a new descriptive table (not split by party): mean preferred energy mix by treatment condition, weighted and unweighted versions, each with a per-row significance test (design-based F-test / one-way ANOVA) for whether the three condition means differ. New `compute_condition_means()` plus two flextable renderers in `scripts/manuscript-setup.R`; new section in `cue-energy-supplemental.qmd`. Fossil fuels is the one source with a clearly significant shift (Trump condition mean noticeably higher than control/climate) in both versions.
+- Re-rendered HTML, PDF, and DOCX for both the main manuscript and supplemental throughout; confirmed main-text numbers were unaffected by the refactors.
+
+---
+
 ## Analysis Architecture (as of Session 5+)
 
 All analysis is centralized in `scripts/manuscript-setup.R`, which is sourced at the top of `cue-energy.qmd`. The script handles:
