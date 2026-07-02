@@ -12,6 +12,7 @@
 /data/
 /literature/
 /notebooks/
+/submission-files/
 
 /.quarto/
 **/*.quarto_ipynb
