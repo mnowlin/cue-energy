@@ -16,4 +16,5 @@ execute:
 format:
   html: default
   pdf: default
-  docx: default
+  docx:
+    reference-doc: custom-reference-doc.docx

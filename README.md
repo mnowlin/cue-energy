@@ -6,11 +6,18 @@ cues influence the US public's support for different energy sources. The hypothe
 The analysis uses survey-weighted regression models and reproduces all tables
 and figures reported in the manuscript.
 
+## Abstract
+
+In the US, support for renewable energy among Republicans has declined in recent years, while support for fossil fuels has grown. This paper uses a preregistered survey experiment (N = 3,113) to test two possible explanations for this shift, including cues linking renewables to climate change and a cue about Trump's energy views. Respondents were given the current US energy mix for producing electricity across five sources (fossil fuels, wind, solar, hydropower, and nuclear), and then randomly assigned to a Trump cue, a climate cue, or a control condition before indicating their preferred energy mix. Conservative Republicans with the Trump cue favored more fossil fuels and fewer renewables, but were not responsive to the climate cue. Liberal Democrats were largely unaffected by either cue. However, all groups preferred a mix with fewer fossil fuels and more renewables than the current US supply, regardless of treatment condition.
+
+See [`abstract.md`](abstract.md).
+
 ## Layout
 
 ```
 cue-energy.qmd               Manuscript source (renders to HTML, PDF, DOCX)
 cue-energy-supplemental.qmd  Supplemental materials (renders to HTML, PDF, DOCX)
+abstract.md                  Manuscript abstract
 _quarto.yaml                 Quarto project config
 _output/                     Rendered outputs (HTML, PDF, DOCX)
 scripts/

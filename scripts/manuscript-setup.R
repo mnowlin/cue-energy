@@ -360,7 +360,7 @@ make_pred_contrasts_flextable <- function() {
     "(percentage points) underlying Figure 2. Partisan-gap rows are the",
     "Liberal Democrats − Conservative Republicans difference within each",
     "condition; within-party rows are the change for that party when moving",
-    "from one condition to another (positive = the later condition is higher).",
+    "from one condition to another.",
     "Estimates use survey weights; standard errors and p-values are design-based.",
     "*** p < 0.001, ** p < 0.01, * p < 0.05, † p < 0.10."
   )
@@ -455,6 +455,35 @@ did_omnibus <- imap_dfr(models, function(mod, source_name) {
 did_shift <- function(src, con, digits = 1) {
   row <- did_combined[did_combined$source == src & did_combined$contrast == con, ]
   sprintf("%.*f percentage points", digits, row$estimate)
+}
+
+# Helpers for inline reporting of the raw partisan gap (LD - Rep) by source and
+# treatment. Used to illustrate that a DiD estimate's sign reflects the
+# direction of the shift, not whether the gap widened or narrowed -- that
+# depends on which way the baseline gap already points for that source, so it
+# has to be checked against |gap| before vs. after.
+pred_fit <- function(src, party, trt) {
+  pred_df$fit[pred_df$source == src & pred_df$party == party &
+                pred_df$treatment == trt]
+}
+
+gap_value <- function(src, trt) {
+  pred_fit(src, "Liberal Democrats", trt) -
+    pred_fit(src, "Conservative Republicans", trt)
+}
+
+# e.g. gap_formula("Fossil Fuels", "Control") -> "15.0 − 31.1 = −16.1"
+gap_formula <- function(src, trt, digits = 1) {
+  ld  <- pred_fit(src, "Liberal Democrats", trt)
+  rep <- pred_fit(src, "Conservative Republicans", trt)
+  sprintf("%.*f − %.*f = %.*f", digits, ld, digits, rep, digits, ld - rep)
+}
+
+# "widened" if |gap| grew from trt1 to trt2, else "narrowed"
+gap_change_label <- function(src, trt1, trt2) {
+  before <- abs(gap_value(src, trt1))
+  after  <- abs(gap_value(src, trt2))
+  if (after > before) "widened" else "narrowed"
 }
 
 # Display table (omnibus row + per-contrast rows, one column per source)

@@ -3,6 +3,9 @@ title: "Supplemental Materials: Party or Climate? The Polarization of the US Pub
 fig-cap-location: top
 fontfamily: ebgaramond
 link-bibliography: false
+format:
+  docx:
+    reference-doc: custom-reference-doc.docx
 ---
 
 ```{r}
@@ -14,7 +17,7 @@ source("scripts/manuscript-setup.R")
 
 ## Survey Sample
 
-Despite the use of quotas, the sample from Cloud Research was not perfectly representative of the US population. Specifically, the sample was younger, whiter, more educated, and more aligned with the Democratic party than the US population. To address this, I used the `survey` and `anesrake` packages in `R` to perform iterative raking to compute survey weights that align the sample with the US Census's 2023 American Community Survey (ACS) on key demographic variables, including age, race, gender, and education. Additionally, I used the Pew Research Center's National Public Opinion Reference Survey (NPORS) from 2025 to align the sample on political party affiliation.[^1] The differences between the unweighted and weighted sample are shown in @tbl-descript. The weights were then applied to all analyses in the paper.
+Despite the use of quotas, the sample from Cloud Research was not perfectly representative of the US population. Specifically, the sample was younger, whiter, more educated, and more aligned with the Democratic Party than the US population. To address this, I used the `survey` and `anesrake` packages in `R` to perform iterative raking to compute survey weights that align the sample with the US Census's 2023 American Community Survey (ACS) on key demographic variables, including age, race, gender, and education. Additionally, I used the Pew Research Center's National Public Opinion Reference Survey (NPORS) from 2025 to align the sample on political party affiliation.[^1] The differences between the unweighted and weighted samples are shown in @tbl-descript. 
 
 [^1]: See here:https://www.pewresearch.org/politics/fact-sheet/party-affiliation-fact-sheet-npors/.
 
@@ -54,7 +57,7 @@ comparison <- data.frame(
 #| warning: false
 #| echo: false
 #| label: tbl-descript
-#| tbl-cap: "Unweighted vs. Weighted Means on Key Variables"
+#| tbl-cap: "Unweighted vs. Weighted Means on Demographic and Party Variables"
 #| tbl-pos: H
 
 comparison |>
@@ -74,7 +77,7 @@ comparison |>
 
 ## Robustness: Results Without Survey Weights
 
-To confirm that the main results are not an artifact of the survey weights, I re-estimate the preferred-mix models via unweighted OLS in place of the weighted `svyglm` models, using the same specification (`party * treatment` for each energy source). @tbl-pred-contrasts-unweighted replicates the pairwise-differences table from the main text, and @tbl-did-unweighted replicates the difference-in-differences table. The estimates are substantively unchanged from the weighted analysis, indicating that the reported cue effects are not a product of the raking weights.
+The analysis presented in the manuscript used the survey weights. To confirm that the main results are not a result of the weights, I re-estimate the preferred-mix models with unweighted OLS using the same specification (_party_ * _treatment_ for each energy source). @tbl-pred-contrasts-unweighted replicates the pairwise-differences table from the main text, and @tbl-did-unweighted replicates the difference-in-differences table. The estimates are substantively unchanged from the weighted analysis, indicating that the cue effects are likely not a product of the weights.
 
 ```{r}
 #| label: tbl-pred-contrasts-unweighted
@@ -98,10 +101,9 @@ make_pred_contrasts_unweighted_flextable()
 make_did_unweighted_flextable()
 ```
 
-
 ## Covariate Balance Across Conditions
 
-Respondents were randomly assigned to the Trump cue, climate cue, or control condition. @tbl-balance compares demographic covariates across the three conditions to confirm that random assignment produced comparable groups. Of the covariates examined, the conditions differ significantly only on age and the share of white respondents; however, political beliefs (liberal Democrats and conservative Republicans) are balanced across conditions.
+Respondents were randomly assigned to the Trump, climate, or control conditions. @tbl-balance compares the demographic covariates across the three conditions to confirm that the random assignment produced comparable groups. Of the covariates examined, the conditions differed significantly only in terms of age and race; however, political beliefs, the variables of interest, were balanced across conditions.
 
 ```{r}
 #| label: tbl-balance
@@ -116,7 +118,7 @@ make_balance_flextable()
 
 ## Robustness: Controlling for Demographic Covariates
 
-Because the conditions differ by chance on age and race (see @tbl-balance), I re-estimate the main difference-in-differences models adding age, sex, race, education, and income as additive controls. @tbl-pred-contrasts-controls and @tbl-did-controls report the same contrasts as the main-text pairwise-differences and difference-in-differences tables. The estimated treatment effects on the partisan gap are substantively unchanged from the main specification, indicating that the cue effects are not driven by the chance covariate imbalances across conditions.
+Because of the differences in age and race across the conditions, I re-estimated the difference-in-differences models with age, sex, race, education, and income added as controls. @tbl-pred-contrasts-controls and @tbl-did-controls report largely the same results as the main-text pairwise-differences and difference-in-differences tables. The estimated cue effects on the partisan gap are substantively unchanged from what is  shown in the manuscript, indicating that the results are likely not driven by the age and race imbalances across conditions.
 
 ```{r}
 #| label: tbl-pred-contrasts-controls
@@ -131,7 +133,7 @@ make_pred_contrasts_controls_flextable()
 
 ```{r}
 #| label: tbl-did-controls
-#| tbl-cap: "Difference-in-Differences Estimates with Demographic Controls"
+#| tbl-cap: "Treatment Effects on the Polarization of Preferred Energy Sources with Demographic Controls"
 #| echo: false
 #| warning: false
 #| message: false
@@ -140,25 +142,25 @@ make_pred_contrasts_controls_flextable()
 make_did_controls_flextable()
 ```
 
-One contrast crosses the conventional significance threshold once controls are added: for fossil fuels, the Trump-vs-climate shift in the partisan gap is significant at *p* = 0.050 in the main specification but only at *p* = 0.063 with controls. The point estimate itself is nearly unchanged (−5.4 vs. −4.98 percentage points, with heavily overlapping confidence intervals), so this reflects the estimate sitting at the edge of the *p* < 0.05 boundary rather than a substantively different finding.
-
-
-
 ## Preregistered Hypotheses
 
-In addition to the hypotheses present in the paper, I also preregistered other hypotheses that were not included in the paper. These include hypotheses about the effects of political beliefs on support/opposition to the climate change and Trump cues, as well as hypotheses about how the general impacts of the climate change and Trump cues, regardless of political ideology.
+In addition to the hypotheses presented in the manuscript, I also preregistered other hypotheses that were not included in the analysis. First, were hypotheses regarding political beliefs on support/opposition to the climate change and Trump cues. Second, were hypotheses about the impacts of the cues on the preferred energy mix for all respondents (i.e., not split by political beliefs).
 
-CUES Conservative Republicans will be more supportive of Trump's actions to increase the use of fossil fuels and decrease the use of renewable sources than those with other political beliefs
+### Cue Hypotheses
 
-Liberal Democrats will be more supportive of increasing the use of renewable sources to address climate change than those with other political beliefs
+> Conservative Republicans will be more supportive of Trump's actions to increase the use of fossil fuels and decrease the use of renewable sources than those with other political beliefs
 
-ENERGY MIX Those who receive the Trump cue will support a higher percentage of fossil fuels than those in the climate change or control group
+> Liberal Democrats will be more supportive of increasing the use of renewable sources to address climate change than those with other political beliefs
 
-Those who receive the climate cue will support a higher percentage of renewable energy sources (wind, solar, hydropower) than those in the Trump or control group
+The results presented in Figure 1 in the manuscript show that these hypotheses were confirmed. 
 
-## Preferred Energy Mix by Treatment Condition
+### Energy Mix All Respondents Hypotheses 
 
-@tbl-condition-means-weighted and @tbl-condition-means-unweighted show the mean preferred percentage allocation for each energy source under each treatment condition, pooled across all respondents (i.e., not split by political beliefs). The p-value in each row tests whether the three condition means differ for that energy source (a design-based F-test for the weighted table, a one-way ANOVA for the unweighted table).
+> Those who receive the Trump cue will support a higher percentage of fossil fuels than those in the climate change or control group
+
+> Those who receive the climate cue will support a higher percentage of renewable energy sources (wind, solar, hydropower) than those in the Trump or control group
+
+@tbl-condition-means-weighted and @tbl-condition-means-unweighted show the mean preferred percentage for each energy source under each treatment condition, pooled across all respondents, weighted (@tbl-condition-means-weighted) and unweighted (@tbl-condition-means-unweighted). The p-value in each row tests whether the three condition means differ for that energy source (a design-based F-test for the weighted table, a one-way ANOVA for the unweighted table).
 
 ```{r}
 #| label: tbl-condition-means-weighted
@@ -182,3 +184,4 @@ make_condition_means_weighted_flextable()
 make_condition_means_unweighted_flextable()
 ```
 
+As shown, respondents in the Trump condition preferred more fossil fuels than those in the other conditions, with or without survey weights. In addition, the climate condition showed some increases in renewable sources, but these results were not robust, with p-values <0.10 and differences between the weighted and unweighted samples.   
