@@ -13,6 +13,7 @@
 /literature/
 /notebooks/
 /submission-files/
+/reviews/
 
 /.quarto/
 **/*.quarto_ipynb

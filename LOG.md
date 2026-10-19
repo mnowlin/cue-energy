@@ -129,6 +129,27 @@ A survey experiment (3×2 design) examining how partisan cues (Trump administrat
 
 ---
 
+### Session 11 — 2026-10-19 (R&R from Environmental Politics: review plan, party-based reanalysis)
+
+- Received a revise decision from *Environmental Politics* (FENP-2026-0506; revision due 2027-01-15; 8,000-word limit including references). Three reviews were summarized and a revision plan and draft response letter were written in `reviews/` (`revision-plan.md`, `response-letter.md`). `reviews/` is gitignored.
+- Moved the data-build script from `data/` to `scripts/make-datasets.R`.
+  - Fixed the input path (`data/raw-data.csv`).
+  - Removed a commented Census API key.
+  - Made the paths to the sibling-project exports relative, and guarded those exports behind `export_other_projects` (default `FALSE`).
+  - Added partisanship (`party3`, `pid.strength`, `pid7`), `ideology`, pre-treatment `trust.president` and concern items, `time.taken.seconds`, and a demographic-only raking weight `weight.demo`.
+  - Regenerated the CSVs. The existing columns reproduce the previous files exactly.
+- Found that party ID, strength, and ideology were measured post-treatment. They are balanced across conditions (design-based χ² p = .51/.62/.61), and Trump approval does not differ by condition within party.
+- Found that `libDem`/`conRep` include *slightly* liberal/conservative (ideology 1–3 / 5–7), not "strongly liberal or liberal" as the manuscript states. The text needs correcting.
+- Decisions:
+  - Main groups are now all Democrats / all Republicans, including leaners (ideology × party moves to the supplement as the preregistered spec).
+  - Renewables = wind + solar + hydro.
+  - The main analysis uses demographic-only weights (`weight.demo`), since party ID is post-treatment. The party-raked weights and the unweighted results become robustness checks.
+- Added `scripts/revision-analysis.R`: party × treatment models, within-party contrasts, partisan-gap changes, heterogeneity by partisan strength and by pre-treatment Trump trust, post-treatment balance checks, and robustness checks (party-raked weights, unweighted, excluding speeders). Republicans' Trump vs. control effect is +8.8 pp fossil (p < .001) and −7.6 pp renewables (p = .002). The climate cue has no significant effect. Unweighted, the Republican renewables effect is weaker (−3.3, p = .10).
+- Added `scripts/revision-figures.R`, which builds the consolidated results figure (`fig_effects`). It shows within-party effects by outcome on a shared axis, with significance marked. It is not yet in `cue-energy.qmd`; it moves into a chunk once the results text is revised.
+- Initialized `renv` (`renv.lock`, R 4.6.0). Set local `core.fileMode false` to ignore OneDrive permission-only changes.
+
+---
+
 ## Analysis Architecture (as of Session 5+)
 
 All analysis is centralized in `scripts/manuscript-setup.R`, which is sourced at the top of `cue-energy.qmd`. The script handles:

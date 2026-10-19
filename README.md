@@ -26,13 +26,17 @@ scripts/
   export-cited-refs.R        Pre-render step: trims the master .bib to cited keys
   draft-analysis.R           Early exploratory analysis (superseded by manuscript-setup.R)
   survey_weighting_diagnostic.R  Diagnostics for survey weighting
+  make-datasets.R            Builds data/cueEnergyData*.csv (recodes + raking weights)
+                             from the raw survey export (run from project root)
+  revision-analysis.R        R&R analyses: party-based models, robustness checks
+  revision-figures.R         R&R consolidated results figure
 data/                        Survey data + codebook (NOT in git -- see below)
 figure/                      Exported figure PNGs
 ```
 
 ## Reproducing the analysis
 
-Requires R with: `tidyverse`, `survey`, `broom`, `patchwork`, `car`, `flextable`.
+Package versions are recorded with `renv`. Run `renv::restore()` to install them.
 
 - **Full manuscript:** `quarto render` → outputs to `_output/`
   (HTML, PDF, and DOCX for both the manuscript and supplemental materials)
@@ -41,7 +45,8 @@ Requires R with: `tidyverse`, `survey`, `broom`, `patchwork`, `car`, `flextable`
 
 The `data/` folder is **not tracked in git**. Restore it before rendering:
 
-- `data/cueEnergyData.csv` — raw survey responses
+- `data/raw-data.csv` — raw survey export (contains IP/location fields; never commit)
+- `data/cueEnergyData.csv` — processed survey responses
 - `data/cueEnergyDataWeighted.csv` — survey-weighted data
 - `data/cue-energy-survey.docx` — survey instrument
 
