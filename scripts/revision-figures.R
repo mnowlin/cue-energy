@@ -41,7 +41,7 @@ fig_effects <- ggplot(effects_plot_df,
     y = NULL,
     caption = paste(
       "Points are within-party differences in the predicted preferred share from survey-weighted",
-      "linear models (outcome ~ party × condition; weights for age, sex, race, and education);",
+      "linear models (outcome ~ party × condition; weights for age, sex, race, education, and party ID);",
       "bars are 95% confidence intervals with design-based standard errors.",
       "Filled points: p < .05; hollow points: not significant.",
       "Renewables = wind + solar + hydropower. Democrats and Republicans include leaners.",

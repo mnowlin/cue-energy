@@ -144,9 +144,17 @@ A survey experiment (3×2 design) examining how partisan cues (Trump administrat
   - Main groups are now all Democrats / all Republicans, including leaners (ideology × party moves to the supplement as the preregistered spec).
   - Renewables = wind + solar + hydro.
   - The main analysis uses demographic-only weights (`weight.demo`), since party ID is post-treatment. The party-raked weights and the unweighted results become robustness checks.
+  - **Reversed (2026-10-20):** the main analysis is back on the original party-raked weights (`weight`). The demographic-only weights (`weight.demo`) and the unweighted results are robustness checks.
 - Added `scripts/revision-analysis.R`: party × treatment models, within-party contrasts, partisan-gap changes, heterogeneity by partisan strength and by pre-treatment Trump trust, post-treatment balance checks, and robustness checks (party-raked weights, unweighted, excluding speeders). Republicans' Trump vs. control effect is +8.8 pp fossil (p < .001) and −7.6 pp renewables (p = .002). The climate cue has no significant effect. Unweighted, the Republican renewables effect is weaker (−3.3, p = .10).
 - Added `scripts/revision-figures.R`, which builds the consolidated results figure (`fig_effects`). It shows within-party effects by outcome on a shared axis, with significance marked. It is not yet in `cue-energy.qmd`; it moves into a chunk once the results text is revised.
 - Initialized `renv` (`renv.lock`, R 4.6.0). Set local `core.fileMode false` to ignore OneDrive permission-only changes.
+
+
+### Session 12 — 2026-10-20 (Party-raked weights restored as main)
+
+- Switched the main design in `scripts/revision-analysis.R` back to the original weights raked on demographics + party ID (`weight`). The demographic-only weights (`weight.demo`) are now a robustness check (`design_demo`, `models_demo`, `effects_demo`), along with the unweighted and no-speeder results.
+- Updated the `fig_effects` caption in `scripts/revision-figures.R` so the weighting variables include party ID.
+- The results are essentially unchanged. For Republicans, the Trump cue vs. control effect is +8.5 pp fossil (p < .001) and −7.2 pp renewables (p = .003). Under demographic-only weights it is +8.8 pp and −7.6 pp.
 
 ---
 

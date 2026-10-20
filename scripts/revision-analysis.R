@@ -38,11 +38,11 @@ outcomes <- c("Fossil Fuels" = "alloc.fossil", "Renewables" = "alloc.renew",
               "Nuclear" = "alloc.nuclear", "Wind" = "alloc.wind",
               "Solar" = "alloc.solar", "Hydro" = "alloc.hydro")
 
-# Main design uses demographic-only weights (age, sex, race, college) because
-# party ID was measured post-treatment; the original weights that also rake on
-# party ID and the unweighted design are robustness checks
-design_main  <- svydesign(ids = ~1, weights = ~weight.demo, data = survey_df)
-design_party <- svydesign(ids = ~1, weights = ~weight,      data = survey_df)
+# Main design uses the original weights raked on demographics and party ID;
+# demographic-only weights (age, sex, race, college; party ID was measured
+# post-treatment) and the unweighted design are robustness checks
+design_main <- svydesign(ids = ~1, weights = ~weight,      data = survey_df)
+design_demo <- svydesign(ids = ~1, weights = ~weight.demo, data = survey_df)
 design_unwt <- svydesign(ids = ~1, weights = ~wt.equal,    data = survey_df)
 
 partisans <- function(des) subset(des, party %in% c("Democrat", "Republican"))
@@ -125,11 +125,11 @@ party_effects <- function(models) {
 }
 
 models_main <- fit_party_models(design_main)
-models_party <- fit_party_models(design_party)
+models_demo <- fit_party_models(design_demo)
 models_unwt <- fit_party_models(design_unwt)
 
 effects_main <- party_effects(models_main)
-effects_party <- party_effects(models_party)
+effects_demo <- party_effects(models_demo)
 effects_unwt <- party_effects(models_unwt)
 
 # Predicted mix by party x condition (for the consolidated results figure)
@@ -217,10 +217,10 @@ trust_balance <- svyglm(trust.president ~ treatment, design = design_unwt)
 # --- Console summary when run directly ---------------------------------------
 if (sys.nframe() == 0) {
   fmt <- function(df) df |> mutate(across(where(is.numeric), \(x) round(x, 3)))
-  cat("\n== Main effects (demographic weights, all partisans) ==\n")
+  cat("\n== Main effects (demographic + party ID weights, all partisans) ==\n")
   print(fmt(filter(effects_main, source %in% c("Fossil Fuels", "Renewables", "Nuclear"))) |> select(-se), n = Inf)
-  cat("\n== Within-party effects: weights raked on demographics + party ID ==\n")
-  print(fmt(filter(effects_party, type == "Within-party effect", source %in% c("Fossil Fuels", "Renewables", "Nuclear"))) |> select(-se), n = Inf)
+  cat("\n== Within-party effects: demographic-only weights ==\n")
+  print(fmt(filter(effects_demo, type == "Within-party effect", source %in% c("Fossil Fuels", "Renewables", "Nuclear"))) |> select(-se), n = Inf)
   cat("\n== Within-party effects: unweighted ==\n")
   print(fmt(filter(effects_unwt, type == "Within-party effect", source %in% c("Fossil Fuels", "Renewables", "Nuclear"))) |> select(-se), n = Inf)
   cat("\n== Within-party effects: excluding speeders ==\n")
